@@ -9,6 +9,7 @@ interface ImportMetaEnv {
   // add .env variables.
   readonly VITE_APP_TITLE: string;
   readonly VITE_APP_WEBSTORAGE_NAMESPACE: string;
+  readonly VITE_API_URL: string;
 }
 
 // eslint-disable-next-line no-unused-vars

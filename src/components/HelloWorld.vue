@@ -1,9 +1,15 @@
-<script setup lang="ts">
+<script async setup lang="ts">
 import { version } from 'vuetify';
 
 import Meta from '@/Meta';
+import { checkAuth, csrf } from '@/utils/auth';
 
 const title = import.meta.env.VITE_APP_TITLE;
+
+const csrfToken = await csrf();
+const res = await checkAuth('accessToken', csrfToken.token);
+
+console.log(res);
 
 /** Props */
 defineProps({
