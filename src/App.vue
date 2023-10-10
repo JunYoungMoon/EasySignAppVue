@@ -17,6 +17,9 @@ import { useTheme } from 'vuetify';
 import logo from '@/assets/logo.svg';
 import AppBarMenuComponent from '@/components/AppBarMenuComponent.vue';
 import DrawerComponent from '@/components/DrawerComponent.vue';
+import { csrf } from '@/utils/csrf';
+
+console.log(await csrf());
 
 /** Vuetify Theme */
 const theme = useTheme();
