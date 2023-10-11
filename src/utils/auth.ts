@@ -1,5 +1,3 @@
-import type AuthResponse from '@/interfaces/AuthInterface';
-
 export const csrf = async () => {
   try {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/getcsrf`, {
@@ -17,7 +15,7 @@ export const csrf = async () => {
 export const checkAuth = async (
   tokenType: 'accessToken' | 'refreshToken',
   csrfToken: string
-): Promise<AuthResponse | boolean> => {
+): Promise<boolean> => {
   const token: string | null = localStorage.getItem(tokenType);
 
   if (!token) {
@@ -42,7 +40,7 @@ export const checkAuth = async (
       }
     );
 
-    const auth: AuthResponse = await res.json();
+    const auth = await res.json();
 
     if (tokenType === 'accessToken' && auth.refreshTokenRequired) {
       await checkAuth('refreshToken', csrfToken);

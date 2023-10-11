@@ -1,15 +1,19 @@
-<script async setup lang="ts">
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+
 import { version } from 'vuetify';
 
 import Meta from '@/Meta';
 import { checkAuth, csrf } from '@/utils/auth';
 
 const title = import.meta.env.VITE_APP_TITLE;
+const authResult = ref<boolean>(false);
 
-const csrfToken = await csrf();
-const res = await checkAuth('accessToken', csrfToken.token);
-
-console.log(res);
+onMounted(async () => {
+  const csrfToken = await csrf();
+  authResult.value = await checkAuth('accessToken', csrfToken.token);
+  console.log('Component is mounted and authentication result:', authResult);
+});
 
 /** Props */
 defineProps({
@@ -23,6 +27,7 @@ defineProps({
 <template>
   <v-container class="fill-height">
     <v-responsive class="align-center text-center fill-height">
+      <p>Auth Result: {{ authResult }}</p>
       <v-img
         src="@/assets/logo.svg"
         alt="vuetify"

@@ -23,7 +23,7 @@ export default defineStore(
      */
     const setLocale = (l: string) => (locale.value = l);
 
-    return { theme, toggleTheme, setLocale };
+    return { theme, toggleTheme, setLocale};
   },
   {
     // Data persistence destination
