@@ -5,6 +5,7 @@ import { computed } from 'vue';
 /** Config Store */
 const configStore = useConfig();
 
+/** Theme Icon Change */
 const themeIcon = computed(() =>
   configStore.theme ? 'mdi mdi-weather-night' : 'mdi mdi-weather-sunny'
 );

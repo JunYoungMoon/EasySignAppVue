@@ -1,4 +1,4 @@
-import { useGlobal } from '@/store';
+import { useGlobal, useAuth } from '@/store';
 import {
   createRouter,
   createWebHistory,
@@ -31,6 +31,14 @@ const routes: RouteRecordRaw[] = [
     // which is lazy-loaded when the route is visited.
     component: async () => await import('@/views/AboutView.vue'),
   },
+  {
+    path: '/login',
+    name: 'Login',
+    // route level code-splitting
+    // this generates a separate chunk (About.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: async () => await import('@/views/LoginView.vue'),
+  },
 ];
 
 /** Vue Router */
@@ -42,17 +50,17 @@ const router: Router = createRouter({
    */
   history: createWebHistory(import.meta.env.BASE_URL), // createWebHashHistory(import.meta.env.BASE_URL)
   /*
-  scrollBehavior: (to, _from, savedPosition) => {
-    let scrollTo: number | string = 0;
+          scrollBehavior: (to, _from, savedPosition) => {
+            let scrollTo: number | string = 0;
 
-    if (to.hash) {
-      scrollTo = to.hash;
-    } else if (savedPosition) {
-      scrollTo = savedPosition.top;
-    }
-    return goTo(scrollTo);
-  },
-  */
+            if (to.hash) {
+              scrollTo = to.hash;
+            } else if (savedPosition) {
+              scrollTo = savedPosition.top;
+            }
+            return goTo(scrollTo);
+          },
+          */
   routes,
 });
 
@@ -65,6 +73,11 @@ router.beforeEach(
     next: NavigationGuardNext
   ) => {
     const globalStore = useGlobal();
+    // Set CsrfToken
+    const authStore = useAuth();
+    await authStore.setCsrfToken();
+    // Check Auth
+    await authStore.checkAuth('accessToken', authStore.csrfToken);
     // Show Loading
     // comment out for https://github.com/logue/vite-vuetify-ts-starter/issues/16
     // globalStore.setLoading(true);
