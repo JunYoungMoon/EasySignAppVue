@@ -10,6 +10,7 @@ import * as labsComponents from 'vuetify/labs/components';
 import { en } from 'vuetify/locale';
 
 // Misc
+import { customSVGs } from '@/plugins/customSvgs';
 import { loadFonts } from '@/plugins/webfontloader';
 
 // Styles
@@ -43,6 +44,7 @@ let vuetifyConfig: VuetifyOptions = {
     aliases,
     sets: {
       mdi,
+      custom: customSVGs,
     },
   },
   // Internationalization (i18n)

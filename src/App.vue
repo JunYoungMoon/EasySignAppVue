@@ -11,6 +11,8 @@ import {
   type WritableComputedRef,
 } from 'vue';
 
+import { useRoute } from 'vue-router';
+
 import { useTheme } from 'vuetify';
 
 // Components
@@ -18,6 +20,9 @@ import logo from '@/assets/logo.svg';
 import AppBarMenuComponent from '@/components/AppBarMenuComponent.vue';
 import DrawerComponent from '@/components/DrawerComponent.vue';
 
+const route = useRoute();
+
+const isLoginPage = route.path === '/login';
 
 /** Vuetify Theme */
 const theme = useTheme();
@@ -83,7 +88,7 @@ onMounted(() => {
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <v-app-bar-title tag="h1">{{ title }}</v-app-bar-title>
       <v-spacer />
-      <app-bar-menu-component />
+      <app-bar-menu-component v-if="!isLoginPage" />
       <v-progress-linear
         v-show="loading"
         :active="loading"

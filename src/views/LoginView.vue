@@ -46,6 +46,11 @@ const loginData = {
     </div>
 
     <v-row>
+      <v-btn>
+        <v-icon icon="custom:GoogleIcon" />
+        Button
+      </v-btn>
+
       <v-col class="pa-0">
         <v-img
           src="@/assets/social/google.png"
