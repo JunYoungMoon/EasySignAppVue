@@ -27,65 +27,68 @@ const loginData = {
 </script>
 
 <template>
-  <v-card width="400" class="pa-3 mx-auto">
-    <v-form fast-fail @submit.prevent="login">
-      <v-text-field v-model="loginData.id" variant="outlined" label="ID" />
-      <v-text-field
-        v-model="loginData.password"
-        variant="outlined"
-        label="Password"
-      />
-      <a href="#" class="text-body-2 font-weight-regular">Forgot Password?</a>
-      <v-btn type="submit" color="primary" block class="mt-2">Sign in</v-btn>
-    </v-form>
-    <v-row>
-      <v-col>
-        <div class="text-body-2">
-          Don't have an account?
-          <a href="#">Sign Up</a>
-        </div>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col class="pa-1">
-        <v-btn
-          style="text-transform: none"
-          block
-          prepend-icon="custom:GoogleIcon"
-          text="Continue with Google"
-          class="icon-button"
-          border
-          flat
-          size="large"
-          @click="googleLogin"
+  <v-container>
+    <h1 class="text-center pb-3">Login</h1>
+    <v-card width="400" class="pa-3 mx-auto">
+      <v-form fast-fail @submit.prevent="login">
+        <v-text-field v-model="loginData.id" variant="outlined" label="ID" />
+        <v-text-field
+          v-model="loginData.password"
+          variant="outlined"
+          label="Password"
         />
-      </v-col>
-      <v-col class="pa-1">
-        <v-btn
-          style="text-transform: none"
-          block
-          prepend-icon="custom:KakaoIcon"
-          text="Continue with Kakao"
-          class="icon-button"
-          border
-          flat
-          size="large"
-          @click="kakaoLogin"
-        />
-      </v-col>
-      <v-col class="pa-1">
-        <v-btn
-          style="text-transform: none"
-          block
-          prepend-icon="custom:NaverIcon"
-          text="Continue with Naver"
-          class="icon-button"
-          border
-          flat
-          size="large"
-          @click="naverLogin"
-        />
-      </v-col>
-    </v-row>
-  </v-card>
+        <a href="#" class="text-body-2 font-weight-regular">Forgot Password?</a>
+        <v-btn type="submit" color="primary" block class="mt-2">Sign in</v-btn>
+      </v-form>
+      <v-row class="pt-2">
+        <v-col>
+          <div class="text-body-2">
+            Don't have an account?
+            <a href="#">Sign Up</a>
+          </div>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col class="pa-1">
+          <v-btn
+            style="text-transform: none"
+            block
+            prepend-icon="custom:GoogleIcon"
+            text="Continue with Google"
+            class="icon-button"
+            border
+            flat
+            size="large"
+            @click="googleLogin"
+          />
+        </v-col>
+        <v-col class="pa-1">
+          <v-btn
+            style="text-transform: none"
+            block
+            prepend-icon="custom:KakaoIcon"
+            text="Continue with Kakao"
+            class="icon-button"
+            border
+            flat
+            size="large"
+            @click="kakaoLogin"
+          />
+        </v-col>
+        <v-col class="pa-1">
+          <v-btn
+            style="text-transform: none"
+            block
+            prepend-icon="custom:NaverIcon"
+            text="Continue with Naver"
+            class="icon-button"
+            border
+            flat
+            size="large"
+            @click="naverLogin"
+          />
+        </v-col>
+      </v-row>
+    </v-card>
+  </v-container>
 </template>

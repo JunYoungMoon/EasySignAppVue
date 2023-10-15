@@ -15,7 +15,7 @@ import { useTheme } from 'vuetify';
 import logo from '@/assets/logo.svg';
 import Footer from '@/fragments/Footer.vue';
 import Header from '@/fragments/Header.vue';
-import Default from "@/layouts/Default.vue";
+import Default from '@/layouts/Default.vue';
 
 /** Vuetify Theme */
 const theme = useTheme();
@@ -50,14 +50,17 @@ onMounted(() => {
 
 <template>
   <v-app :theme="isDark">
-
-    <Header />
     <v-main>
-      <router-view v-slot="{ Component, route }">
-        <component :is="Component" :key="route.name" />
-      </router-view>
+      <component :is="$route.meta.layout || 'div'">
+        <router-view />
+      </component>
+      <!--      <router-view v-slot="{ Component, route }">-->
+      <!--        <component-->
+      <!--          :is="Component"-->
+      <!--          :key="route.name"-->
+      <!--        />-->
+      <!--      </router-view>-->
     </v-main>
-    <Footer />
   </v-app>
   <teleport to="head">
     <meta

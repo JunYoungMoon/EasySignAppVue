@@ -9,6 +9,7 @@ import {
 } from 'vue-router';
 
 // Components
+import Default from '@/layouts/Default.vue';
 import HomeView from '@/views/HomeView.vue';
 
 // Pinia Store
@@ -22,7 +23,9 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     name: 'Home',
     component: HomeView,
+    meta: { layout: Default },
   },
+
   {
     path: '/about',
     name: 'About',
@@ -30,6 +33,7 @@ const routes: RouteRecordRaw[] = [
     // this generates a separate chunk (About.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: async () => await import('@/views/AboutView.vue'),
+    meta: { layout: Default },
   },
   {
     path: '/login',
@@ -50,17 +54,17 @@ const router: Router = createRouter({
    */
   history: createWebHistory(import.meta.env.BASE_URL), // createWebHashHistory(import.meta.env.BASE_URL)
   /*
-          scrollBehavior: (to, _from, savedPosition) => {
-            let scrollTo: number | string = 0;
+                scrollBehavior: (to, _from, savedPosition) => {
+                  let scrollTo: number | string = 0;
 
-            if (to.hash) {
-              scrollTo = to.hash;
-            } else if (savedPosition) {
-              scrollTo = savedPosition.top;
-            }
-            return goTo(scrollTo);
-          },
-          */
+                  if (to.hash) {
+                    scrollTo = to.hash;
+                  } else if (savedPosition) {
+                    scrollTo = savedPosition.top;
+                  }
+                  return goTo(scrollTo);
+                },
+                */
   routes,
 });
 

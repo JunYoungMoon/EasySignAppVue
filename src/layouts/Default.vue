@@ -5,5 +5,6 @@ import Header from '@/fragments/Header.vue';
 
 <template>
   <Header />
+  <slot />
   <Footer />
 </template>
