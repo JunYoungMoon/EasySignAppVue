@@ -3,9 +3,13 @@ import { h } from 'vue';
 import type { IconSet, IconProps } from 'vuetify';
 
 import GoogleIcon from '@/components/icons/GoogleIcon.vue';
+import KakaoIcon from '@/components/icons/KakaoIcon.vue';
+import NaverIcon from "@/components/icons/NaverIcon.vue";
 
 const customSvgNameToComponent: any = {
   GoogleIcon,
+  KakaoIcon,
+  NaverIcon,
 };
 
 // Vuetify Custom icon set
