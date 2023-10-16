@@ -13,9 +13,6 @@ import { useTheme } from 'vuetify';
 
 // Components
 import logo from '@/assets/logo.svg';
-import Footer from '@/fragments/Footer.vue';
-import Header from '@/fragments/Header.vue';
-import Default from '@/layouts/Default.vue';
 
 /** Vuetify Theme */
 const theme = useTheme();
@@ -46,20 +43,36 @@ watch(
 onMounted(() => {
   document.title = title;
 });
+
+const jsonLd = JSON.stringify(
+  {
+    '@schema': 'https://json.schemastore.org/jsonld.json',
+    '@context': 'http://schema.org',
+    '@type': 'WebSite',
+    name: 'Vite Vue3 Vuetify3 Beta TypeScript Startar',
+    url: 'https://github.com/logue/vite-vuetify-ts-starter',
+    description: 'Vite Vue3 Vuetify3 Beta TypeScript Demo',
+  },
+  null,
+  2
+);
 </script>
 
 <template>
   <v-app :theme="isDark">
     <v-main>
+      <!-- Multiple layouts https://analogcode.tistory.com/40 -->
       <component :is="$route.meta.layout || 'div'">
         <router-view />
       </component>
-      <!--      <router-view v-slot="{ Component, route }">-->
-      <!--        <component-->
-      <!--          :is="Component"-->
-      <!--          :key="route.name"-->
-      <!--        />-->
-      <!--      </router-view>-->
+
+      <!-- Single layout-->
+      <!--   <router-view v-slot="{ Component, route }">-->
+      <!--     <component-->
+      <!--       :is="Component"-->
+      <!--       :key="route.name"-->
+      <!--     />-->
+      <!--   </router-view>-->
     </v-main>
   </v-app>
   <teleport to="head">
@@ -67,6 +80,14 @@ onMounted(() => {
       name="theme-color"
       :content="theme.computedThemes.value[isDark].colors.primary"
     />
+    <meta
+      name="keyword"
+      content="template,typescript,vue3,vuetify,vite,vite-template,volar"
+    />
+    <meta name="description" content="Vite Vue3 Vuetify TypeScript Demo" />
+    <component :is="'script'" type="application/ld+json">
+      {{ jsonLd }}
+    </component>
     <link rel="icon" :href="logo" type="image/svg+xml" />
   </teleport>
 </template>

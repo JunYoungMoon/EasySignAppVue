@@ -39,9 +39,13 @@ const routes: RouteRecordRaw[] = [
     path: '/login',
     name: 'Login',
     // route level code-splitting
-    // this generates a separate chunk (About.[hash].js) for this route
+    // this generates a separate chunk (Login.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: async () => await import('@/views/LoginView.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: async () => await import('@/views/ErrorView.vue'),
   },
 ];
 
@@ -54,17 +58,17 @@ const router: Router = createRouter({
    */
   history: createWebHistory(import.meta.env.BASE_URL), // createWebHashHistory(import.meta.env.BASE_URL)
   /*
-                scrollBehavior: (to, _from, savedPosition) => {
-                  let scrollTo: number | string = 0;
+                  scrollBehavior: (to, _from, savedPosition) => {
+                    let scrollTo: number | string = 0;
 
-                  if (to.hash) {
-                    scrollTo = to.hash;
-                  } else if (savedPosition) {
-                    scrollTo = savedPosition.top;
-                  }
-                  return goTo(scrollTo);
-                },
-                */
+                    if (to.hash) {
+                      scrollTo = to.hash;
+                    } else if (savedPosition) {
+                      scrollTo = savedPosition.top;
+                    }
+                    return goTo(scrollTo);
+                  },
+                  */
   routes,
 });
 
