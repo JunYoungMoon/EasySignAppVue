@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import { ref, type Ref } from 'vue';
 
+import type AuthResponse from '@/interfaces/AuthInterface';
+
 /** Config Store */
 export default defineStore(
   'auth',
@@ -16,6 +18,8 @@ export default defineStore(
 
     /** Auth Check */
     const isAuth: Ref<boolean> = ref(false);
+
+    const userInfo: Ref<object> = ref({});
 
     /**
      * Set Csrf
@@ -35,10 +39,6 @@ export default defineStore(
         throw error;
       }
     };
-
-    const setAccessToken = () => {
-
-    }
 
     /**
      * Check authentication permissions.
@@ -76,7 +76,7 @@ export default defineStore(
           }
         );
 
-        const auth = await res.json();
+        const auth: AuthResponse = await res.json();
 
         if (type === 'accessToken' && auth.refreshTokenRequired) {
           await checkAuth('refreshToken', csrfToken);
@@ -100,6 +100,16 @@ export default defineStore(
         return false;
       }
     };
+    //
+    // /**
+    //  * Check authentication permissions.
+    //  *
+    //  * @param type - token type
+    //  * @param csrfToken - csrf token value
+    //  */
+    // const getUserInfo = async (){
+    //
+    // }
 
     return {
       csrfToken,
