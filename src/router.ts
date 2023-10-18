@@ -83,7 +83,7 @@ router.beforeEach(
     const globalStore = useGlobal();
     // Set CsrfToken
     const authStore = useAuth();
-    await authStore.setCsrfToken();
+    await authStore.getCsrfToken();
     // Check Auth
     await authStore.checkAuth('accessToken', authStore.csrfToken);
     // Show Loading

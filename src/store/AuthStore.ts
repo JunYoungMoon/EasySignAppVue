@@ -22,9 +22,9 @@ export default defineStore(
     const userInfo: Ref<object> = ref({});
 
     /**
-     * Set Csrf
+     * Get Csrf
      */
-    const setCsrfToken = async () => {
+    const getCsrfToken = async () => {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/getcsrf`, {
           method: 'GET',
@@ -38,6 +38,13 @@ export default defineStore(
         console.error('Error fetching CSRF token:', error);
         throw error;
       }
+    };
+
+    /**
+     * Set Csrf
+     */
+    const setCsrfToken = (token: string) => {
+      csrfToken.value = token;
     };
 
     /**
@@ -117,6 +124,7 @@ export default defineStore(
       refreshToken,
       isAuth,
       checkAuth,
+      getCsrfToken,
       setCsrfToken,
     };
   },

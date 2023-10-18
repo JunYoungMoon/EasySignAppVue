@@ -1,10 +1,18 @@
 <script setup lang="ts">
-
 import { version } from 'vuetify';
 
 import Meta from '@/Meta';
+import fetchRequest from '@/services/apiService';
+
 const title = import.meta.env.VITE_APP_TITLE;
 
+const res = await fetchRequest(
+  `${import.meta.env.VITE_API_URL}/test`,
+  'POST',
+  {}
+);
+
+console.log('test : ' + res);
 
 /** Props */
 defineProps({
