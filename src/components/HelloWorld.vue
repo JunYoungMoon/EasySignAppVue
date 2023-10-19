@@ -6,11 +6,9 @@ import fetchRequest from '@/services/apiService';
 
 const title = import.meta.env.VITE_APP_TITLE;
 
-const res = await fetchRequest(
-  `${import.meta.env.VITE_API_URL}/test`,
-  'POST',
-  {}
-);
+const res = await fetchRequest(`${import.meta.env.VITE_API_URL}/test`, 'POST', {
+  aaa: 'asdasd',
+});
 
 console.log('test : ' + res);
 

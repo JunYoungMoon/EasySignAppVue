@@ -23,27 +23,15 @@ export default async function fetchRequest(
       'Content-Type': 'application/json',
     };
 
-    let storage: any = sessionStorage.getItem('auth'); // storage에는 문자열 또는 null이 할당됨
+    const storage: any = sessionStorage.getItem('auth');
 
     if (storage) {
-      storage = JSON.parse(storage);
-    }
-
-    // Get CSRF token
-    const csrfToken = storage.csrfToken;
-
-    if (csrfToken) {
+      const { csrfToken, accessToken, isAuth } = JSON.parse(storage);
       headers['X-XSRF-TOKEN'] = csrfToken;
-    }
 
-    // Authentication check
-    const isAuth = storage.isAuth;
-
-    if (isAuth === 'true') {
-      const token = storage.accessToken;
-      if (token) {
+      if (isAuth === 'true') {
         // eslint-disable-next-line @typescript-eslint/dot-notation
-        headers['Authorization'] = `Bearer ${token}`;
+        headers['Authorization'] = `Bearer ${accessToken}`;
       }
     }
 
@@ -55,8 +43,8 @@ export default async function fetchRequest(
     });
 
     // Change the csrf token value to the value of the header
-    const authStore = useAuthStore();
     const XSRF_TOKEN: string = response.headers.get('XSRF-TOKEN') ?? '';
+    const authStore = useAuthStore();
     authStore.setCsrfToken(XSRF_TOKEN);
 
     return await response.json();
