@@ -1,9 +1,5 @@
 import useAuthStore from '@/store/AuthStore';
 
-interface AjaxRequestData {
-  data?: object;
-}
-
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 /**
@@ -13,10 +9,10 @@ type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
  * @param data - request data
  * @returns - Promise representing the result of an HTTP request
  */
-export default async function fetchRequest(
+export default async function fetchRequest<T>(
   url: string,
   method: HttpMethod,
-  data: AjaxRequestData
+  data?: T
 ) {
   try {
     const headers: Record<string, string> = {
@@ -42,12 +38,12 @@ export default async function fetchRequest(
       body: JSON.stringify(data),
     });
 
-    // Change the csrf token value to the value of the header
-    const XSRF_TOKEN: string = response.headers.get('XSRF-TOKEN') ?? '';
+    // Save csrfToken in Storage
+    const result = await response.json();
     const authStore = useAuthStore();
-    authStore.setCsrfToken(XSRF_TOKEN);
+    authStore.setCsrfToken(result.csrfToken);
 
-    return await response.json();
+    return result.data;
   } catch (error: any) {
     console.log('Request error: ' + error.message);
     throw error;

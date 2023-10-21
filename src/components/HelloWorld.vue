@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
+
 import { version } from 'vuetify';
 
 import Meta from '@/Meta';
@@ -6,11 +8,16 @@ import fetchRequest from '@/services/apiService';
 
 const title = import.meta.env.VITE_APP_TITLE;
 
-const res = await fetchRequest(`${import.meta.env.VITE_API_URL}/test`, 'POST', {
-  aaa: 'asdasd',
-});
+onMounted(async () => {
+  document.title = title;
 
-console.log('test : ' + res);
+  const res = await fetchRequest(
+    `${import.meta.env.VITE_API_URL}/test`,
+    'POST'
+  );
+
+  console.log(await res);
+});
 
 /** Props */
 defineProps({
