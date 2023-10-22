@@ -3,7 +3,7 @@ import { ref, type Ref } from 'vue';
 
 import type AuthResponse from '@/interfaces/AuthInterface';
 
-/** Config Store */
+/** Auth Store */
 export default defineStore(
   'auth',
   () => {
@@ -19,14 +19,24 @@ export default defineStore(
     /** Auth Check */
     const isAuth: Ref<boolean> = ref(false);
 
-    const userInfo: Ref<object> = ref({});
+    const setAccessToken = (token: string | null) => {
+      if (token != null) {
+        accessToken.value = token;
+      }
+    };
+
+    const setRefreshToken = (token: string | null) => {
+      if (token != null) {
+        refreshToken.value = token;
+      }
+    };
 
     /**
      * Get Csrf
      */
     const getCsrfToken = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/getcsrf`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/getcsrf`, {
           method: 'GET',
           credentials: 'include',
         });
@@ -67,7 +77,7 @@ export default defineStore(
 
       try {
         const res: Response = await fetch(
-          `${import.meta.env.VITE_API_URL}/check-auth`,
+          `${import.meta.env.VITE_API_URL}/api/check-auth`,
           {
             headers: {
               'Content-Type': 'application/json',
@@ -107,22 +117,14 @@ export default defineStore(
         return false;
       }
     };
-    //
-    // /**
-    //  * Check authentication permissions.
-    //  *
-    //  * @param type - token type
-    //  * @param csrfToken - csrf token value
-    //  */
-    // const getUserInfo = async (){
-    //
-    // }
 
     return {
       csrfToken,
       accessToken,
       refreshToken,
       isAuth,
+      setAccessToken,
+      setRefreshToken,
       checkAuth,
       getCsrfToken,
       setCsrfToken,

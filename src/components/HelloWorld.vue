@@ -12,7 +12,7 @@ onMounted(async () => {
   document.title = title;
 
   const res = await fetchRequest(
-    `${import.meta.env.VITE_API_URL}/test`,
+    `${import.meta.env.VITE_API_URL}/api/test`,
     'POST'
   );
 

@@ -44,6 +44,14 @@ const routes: RouteRecordRaw[] = [
     component: async () => await import('@/views/LoginView.vue'),
   },
   {
+    path: '/loginCallback',
+    name: 'LoginCallback',
+    // route level code-splitting
+    // this generates a separate chunk (Login.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: async () => await import('@/views/LoginCallback.vue'),
+  },
+  {
     path: '/:pathMatch(.*)*',
     component: async () => await import('@/views/ErrorView.vue'),
   },
