@@ -10,7 +10,7 @@ export default defineStore('user', () => {
   /**
    * Get User
    */
-  const getUserInfo = async () => {
+  const setUserInfo = async () => {
     try {
       const res = await fetchRequest(
         `${import.meta.env.VITE_API_URL}/api/user-info`,
@@ -26,5 +26,6 @@ export default defineStore('user', () => {
 
   return {
     userInfo,
+    setUserInfo,
   };
 });
