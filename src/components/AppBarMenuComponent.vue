@@ -21,28 +21,29 @@ onMounted(() => {
   isAuth.value = useAuth().isAuth;
   void useUser().setUserInfo();
   userInfo.value = useUser().userInfo;
+  console.log(userInfo);
 });
 </script>
 
 <template>
-  <v-btn v-if="isAuth" id="menu-activator" icon @click="login">
-    <i class="mdi mdi-login" style="font-size: 30px" />
-    <i class="rounded-image" style="font-size: 30px">
-      <img
-        v-if="userInfo && userInfo.profileImage"
-        :src="userInfo.profileImage"
-        alt="Profile Image"
-        style="width: 40px; height: 40px"
-      />
-      <!--          <i v-else class="mdi mdi-account" style="font-size: 30px;"/>-->
-      <img
-        v-else
-        :src="require('~/assets/images/empty_avatar.png')"
-        alt="Profile Image"
-        style="width: 40px; height: 40px"
-      />
-      <!--          :image="userInfo && userInfo.profileImage ? userInfo.profileImage : require('~/assets/images/empty_avatar.png')"-->
-    </i>
+  <v-btn v-if="false" id="menu-activator" icon @click="login">
+<!--    <i class="mdi mdi-login" style="font-size: 30px" />-->
+<!--    <i class="rounded-image" style="font-size: 30px">-->
+<!--      <img-->
+<!--        v-if="userInfo && userInfo.profileImage"-->
+<!--        :src="userInfo.profileImage"-->
+<!--        alt="Profile Image"-->
+<!--        style="width: 40px; height: 40px"-->
+<!--      />-->
+<!--      &lt;!&ndash;          <i v-else class="mdi mdi-account" style="font-size: 30px;"/>&ndash;&gt;-->
+<!--      <img-->
+<!--        v-else-->
+<!--        :src="require('~/assets/images/empty_avatar.png')"-->
+<!--        alt="Profile Image"-->
+<!--        style="width: 40px; height: 40px"-->
+<!--      />-->
+<!--      &lt;!&ndash;          :image="userInfo && userInfo.profileImage ? userInfo.profileImage : require('~/assets/images/empty_avatar.png')"&ndash;&gt;-->
+<!--    </i>-->
   </v-btn>
   <v-btn v-else icon @click="login">
     <i class="mdi mdi-login" style="font-size: 30px" />

@@ -17,7 +17,11 @@ export default defineStore('user', () => {
         'POST'
       );
 
-      userInfo.value = await res.json();
+      if (res) {
+        const data = await res.json();
+
+        userInfo.value = data.token;
+      }
     } catch (error) {
       console.error('Error fetching User info :', error);
       throw error;
