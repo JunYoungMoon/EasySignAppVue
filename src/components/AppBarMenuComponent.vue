@@ -2,6 +2,8 @@
 import { useConfig, useAuth, useUser } from '@/store';
 import { computed, onMounted, ref } from 'vue';
 
+import type UserInterface from '@/interfaces/UserInterface.ts';
+
 /** Config Store */
 const configStore = useConfig();
 
@@ -11,39 +13,46 @@ const themeIcon = computed(() =>
 );
 
 const isAuth = ref(false);
-const userInfo = ref({});
+const user = ref<UserInterface>({});
 
 const login = () => {
   window.location.href = '/login';
 };
 
-onMounted(() => {
-  isAuth.value = useAuth().isAuth;
-  void useUser().setUserInfo();
-  userInfo.value = useUser().userInfo;
-  console.log(userInfo);
+onMounted(async () => {
+  const authStore = useAuth();
+  const userStore = useUser();
+
+  isAuth.value = authStore.isAuth;
+
+  await userStore.setUserInfo();
+
+  user.value = userStore.user;
+  if (user.value) {
+    console.log(user.value.email);
+  }
 });
 </script>
 
 <template>
   <v-btn v-if="false" id="menu-activator" icon @click="login">
-<!--    <i class="mdi mdi-login" style="font-size: 30px" />-->
-<!--    <i class="rounded-image" style="font-size: 30px">-->
-<!--      <img-->
-<!--        v-if="userInfo && userInfo.profileImage"-->
-<!--        :src="userInfo.profileImage"-->
-<!--        alt="Profile Image"-->
-<!--        style="width: 40px; height: 40px"-->
-<!--      />-->
-<!--      &lt;!&ndash;          <i v-else class="mdi mdi-account" style="font-size: 30px;"/>&ndash;&gt;-->
-<!--      <img-->
-<!--        v-else-->
-<!--        :src="require('~/assets/images/empty_avatar.png')"-->
-<!--        alt="Profile Image"-->
-<!--        style="width: 40px; height: 40px"-->
-<!--      />-->
-<!--      &lt;!&ndash;          :image="userInfo && userInfo.profileImage ? userInfo.profileImage : require('~/assets/images/empty_avatar.png')"&ndash;&gt;-->
-<!--    </i>-->
+    <!--    <i class="mdi mdi-login" style="font-size: 30px" />-->
+    <!--    <i class="rounded-image" style="font-size: 30px">-->
+    <!--      <img-->
+    <!--        v-if="userInfo && userInfo.profileImage"-->
+    <!--        :src="userInfo.profileImage"-->
+    <!--        alt="Profile Image"-->
+    <!--        style="width: 40px; height: 40px"-->
+    <!--      />-->
+    <!--      &lt;!&ndash;          <i v-else class="mdi mdi-account" style="font-size: 30px;"/>&ndash;&gt;-->
+    <!--      <img-->
+    <!--        v-else-->
+    <!--        :src="require('~/assets/images/empty_avatar.png')"-->
+    <!--        alt="Profile Image"-->
+    <!--        style="width: 40px; height: 40px"-->
+    <!--      />-->
+    <!--      &lt;!&ndash;          :image="userInfo && userInfo.profileImage ? userInfo.profileImage : require('~/assets/images/empty_avatar.png')"&ndash;&gt;-->
+    <!--    </i>-->
   </v-btn>
   <v-btn v-else icon @click="login">
     <i class="mdi mdi-login" style="font-size: 30px" />

@@ -1,26 +1,26 @@
 import { defineStore } from 'pinia';
 import { ref, type Ref } from 'vue';
 
+import type UserInterface from '@/interfaces/UserInterface.ts';
+
 import fetchRequest from '@/services/apiService';
 
 /** Config Store */
 export default defineStore('user', () => {
-  const userInfo: Ref<object> = ref({});
+  const user: Ref<UserInterface> = ref({});
 
   /**
    * Get User
    */
   const setUserInfo = async () => {
     try {
-      const res = await fetchRequest(
+      const res: UserInterface = await fetchRequest(
         `${import.meta.env.VITE_API_URL}/api/user-info`,
         'POST'
       );
 
       if (res) {
-        const data = await res.json();
-
-        userInfo.value = data.token;
+        user.value = res;
       }
     } catch (error) {
       console.error('Error fetching User info :', error);
@@ -29,7 +29,7 @@ export default defineStore('user', () => {
   };
 
   return {
-    userInfo,
+    user,
     setUserInfo,
   };
 });

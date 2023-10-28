@@ -25,7 +25,7 @@ export default async function fetchRequest<T>(
       const { csrfToken, accessToken, isAuth } = JSON.parse(storage);
       headers['X-XSRF-TOKEN'] = csrfToken;
 
-      if (isAuth === 'true') {
+      if (isAuth) {
         // eslint-disable-next-line @typescript-eslint/dot-notation
         headers['Authorization'] = `Bearer ${accessToken}`;
       }

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref, type Ref } from 'vue';
 
-import type AuthResponse from '@/interfaces/AuthInterface';
+import type AuthInterface from '@/interfaces/AuthInterface';
 
 /** Auth Store */
 export default defineStore(
@@ -93,7 +93,7 @@ export default defineStore(
           }
         );
 
-        const auth: AuthResponse = await res.json();
+        const auth: AuthInterface = await res.json();
 
         if (type === 'accessToken' && auth.refreshTokenRequired) {
           await checkAuth('refreshToken', csrfToken);
@@ -109,6 +109,7 @@ export default defineStore(
           return;
         }
 
+        isAuth.value = true;
         console.log('check-auth :', auth);
 
         return auth;

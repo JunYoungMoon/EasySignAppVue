@@ -13,6 +13,7 @@ onMounted(() => {
   const accessToken: string | null = urlParams.get('accessToken');
   const refreshToken: string | null = urlParams.get('refreshToken');
 
+  console.log(accessToken);
   useAuth().setAccessToken(accessToken);
   useAuth().setRefreshToken(refreshToken);
 
