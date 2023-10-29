@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useConfig, useAuth, useUser } from '@/store';
-import { computed, onMounted, ref } from 'vue';
+import {useConfig, useAuth, useUser} from '@/store';
+import {computed, onMounted, ref} from 'vue';
 
 import type UserInterface from '@/interfaces/UserInterface.ts';
 
@@ -35,28 +35,40 @@ onMounted(async () => {
 </script>
 
 <template>
-  <v-btn v-if="false" id="menu-activator" icon @click="login">
-    <!--    <i class="mdi mdi-login" style="font-size: 30px" />-->
-    <!--    <i class="rounded-image" style="font-size: 30px">-->
-    <!--      <img-->
-    <!--        v-if="userInfo && userInfo.profileImage"-->
-    <!--        :src="userInfo.profileImage"-->
-    <!--        alt="Profile Image"-->
-    <!--        style="width: 40px; height: 40px"-->
-    <!--      />-->
-    <!--      &lt;!&ndash;          <i v-else class="mdi mdi-account" style="font-size: 30px;"/>&ndash;&gt;-->
-    <!--      <img-->
-    <!--        v-else-->
-    <!--        :src="require('~/assets/images/empty_avatar.png')"-->
-    <!--        alt="Profile Image"-->
-    <!--        style="width: 40px; height: 40px"-->
-    <!--      />-->
-    <!--      &lt;!&ndash;          :image="userInfo && userInfo.profileImage ? userInfo.profileImage : require('~/assets/images/empty_avatar.png')"&ndash;&gt;-->
-    <!--    </i>-->
+  <v-btn v-if="isAuth" id="menu-activator" icon @click="login">
+    <div class="rounded-image">
+      <img
+        v-if="user && user.profileImage"
+        :src="user.profileImage"
+        alt="Profile Image"
+        class="image"
+      />
+      <img
+        v-else
+        src="@/assets/images/empty_avatar.png"
+        alt="Profile Image"
+        class="image"
+      />
+    </div>
   </v-btn>
   <v-btn v-else icon @click="login">
-    <i class="mdi mdi-login" style="font-size: 30px" />
+    <i class="mdi mdi-login" style="font-size: 30px"/>
   </v-btn>
   <!-- Toggle Dark mode -->
-  <v-btn :icon="themeIcon" variant="flat" @click="configStore.toggleTheme" />
+  <v-btn :icon="themeIcon" variant="flat" @click="configStore.toggleTheme"/>
 </template>
+
+<style scoped>
+.rounded-image {
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.image {
+  display: block; /* 이미지를 블록 요소로 만들어 가로 중앙 정렬 */
+  margin: 0 auto; /* 이미지를 수평으로 가운데 정렬 */
+  max-width: 100%; /* 이미지 크기 조절 */
+  max-height: 100%;
+}
+</style>
