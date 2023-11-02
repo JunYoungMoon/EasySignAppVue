@@ -38,7 +38,9 @@ const loginData = {
           label="Password"
         />
         <a href="#" class="text-body-2 font-weight-regular">Forgot Password?</a>
-        <v-btn type="submit" color="primary" block class="mt-2">Sign in</v-btn>
+        <v-btn type="submit" color="primary" :block="true" class="mt-2">
+          Sign in
+        </v-btn>
       </v-form>
       <v-row class="pt-2">
         <v-col>
@@ -52,41 +54,44 @@ const loginData = {
         <v-col class="pa-1">
           <v-btn
             style="text-transform: none"
-            block
+            :block="true"
             prepend-icon="custom:GoogleIcon"
-            text="Continue with Google"
             class="icon-button"
             border
-            flat
+            variant="flat"
             size="large"
             @click="googleLogin"
-          />
+          >
+            Continue with Google
+          </v-btn>
         </v-col>
         <v-col class="pa-1">
           <v-btn
             style="text-transform: none"
-            block
+            :block="true"
             prepend-icon="custom:KakaoIcon"
-            text="Continue with Kakao"
             class="icon-button"
             border
-            flat
+            variant="flat"
             size="large"
             @click="kakaoLogin"
-          />
+          >
+            Continue with Kakao
+          </v-btn>
         </v-col>
         <v-col class="pa-1">
           <v-btn
             style="text-transform: none"
-            block
+            :block="true"
             prepend-icon="custom:NaverIcon"
-            text="Continue with Naver"
             class="icon-button"
             border
-            flat
+            variant="flat"
             size="large"
             @click="naverLogin"
-          />
+          >
+            Continue with Naver
+          </v-btn>
         </v-col>
       </v-row>
     </v-card>

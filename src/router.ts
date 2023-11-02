@@ -25,7 +25,6 @@ const routes: RouteRecordRaw[] = [
     component: HomeView,
     meta: { layout: Default },
   },
-
   {
     path: '/about',
     name: 'About',
@@ -47,9 +46,18 @@ const routes: RouteRecordRaw[] = [
     path: '/loginCallback',
     name: 'LoginCallback',
     // route level code-splitting
-    // this generates a separate chunk (Login.[hash].js) for this route
+    // this generates a separate chunk (LoginCallback.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: async () => await import('@/views/LoginCallback.vue'),
+  },
+  {
+    path: '/myinfo',
+    name: 'MyInfo',
+    // route level code-splitting
+    // this generates a separate chunk (MyInfo.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: async () => await import('@/views/MyInfo.vue'),
+    meta: { layout: Default },
   },
   {
     path: '/:pathMatch(.*)*',

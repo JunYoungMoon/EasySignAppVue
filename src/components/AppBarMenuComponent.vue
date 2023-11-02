@@ -5,6 +5,7 @@ import { computed, onMounted, ref } from 'vue';
 import type UserInterface from '@/interfaces/UserInterface.ts';
 
 import defaultImage from '@/assets/images/empty_avatar.png';
+import router from '@/router';
 
 /** Store */
 const configStore = useConfig();
@@ -25,12 +26,13 @@ const toggleDropdown = () => {
   dropdown.value = !dropdown.value;
 };
 
-const login = () => {
-  window.location.href = '/login';
-};
+const logout = () => {
+  isAuth.value = false;
+  authStore.accessToken = '';
+  authStore.refreshToken = '';
 
-const goToMyInfo = () => {};
-const logout = () => {};
+  void router.push({ name: 'Home' });
+};
 
 onMounted(async () => {
   isAuth.value = authStore.isAuth;
@@ -51,7 +53,7 @@ onMounted(async () => {
       />
     </div>
   </v-btn>
-  <v-btn v-else icon @click="login">
+  <v-btn v-else icon :to="{ name: 'Login' }">
     <i class="mdi mdi-login" style="font-size: 30px" />
   </v-btn>
   <!-- Toggle Dark mode -->
@@ -63,7 +65,7 @@ onMounted(async () => {
       <v-card-text>
         <div class="mx-auto text-center">
           <div class="rounded-image">
-            <img
+            <v-img
               :src="user?.profileImage || defaultImage"
               alt="Profile Image"
               class="image"
@@ -74,7 +76,7 @@ onMounted(async () => {
             {{ user.email }}
           </p>
           <v-divider class="my-3" />
-          <v-btn rounded variant="text" @click="goToMyInfo">My Info</v-btn>
+          <v-btn rounded variant="text" :to="{ name: 'MyInfo' }">My Info</v-btn>
           <v-divider class="my-3" />
           <v-btn rounded variant="text" @click="logout">Logout</v-btn>
         </div>

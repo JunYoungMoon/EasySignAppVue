@@ -2,6 +2,8 @@
 import { useAuth } from '@/store';
 import { onMounted } from 'vue';
 
+import router from '@/router';
+
 onMounted(() => {
   // URL 파라미터 문자열 가져오기
   const queryString = window.location.search;
@@ -13,11 +15,10 @@ onMounted(() => {
   const accessToken: string | null = urlParams.get('accessToken');
   const refreshToken: string | null = urlParams.get('refreshToken');
 
-  console.log(accessToken);
   useAuth().setAccessToken(accessToken);
   useAuth().setRefreshToken(refreshToken);
 
-  window.location.href = '/';
+  void router.push({ name: 'Home' });
 });
 </script>
 
