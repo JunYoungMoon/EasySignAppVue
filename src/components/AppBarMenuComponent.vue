@@ -25,6 +25,9 @@ const dropdown = ref(false);
 const toggleDropdown = () => {
   dropdown.value = !dropdown.value;
 };
+const login = () => {
+  void router.push({ name: 'Login' });
+};
 
 const logout = () => {
   isAuth.value = false;
@@ -32,6 +35,10 @@ const logout = () => {
   authStore.refreshToken = '';
 
   void router.push({ name: 'Home' });
+};
+
+const myInfo = () => {
+  void router.push({ name: 'MyInfo' });
 };
 
 onMounted(async () => {
@@ -53,7 +60,7 @@ onMounted(async () => {
       />
     </div>
   </v-btn>
-  <v-btn v-else icon :to="{ name: 'Login' }">
+  <v-btn v-else icon @click="login">
     <i class="mdi mdi-login" style="font-size: 30px" />
   </v-btn>
   <!-- Toggle Dark mode -->
@@ -76,7 +83,7 @@ onMounted(async () => {
             {{ user.email }}
           </p>
           <v-divider class="my-3" />
-          <v-btn rounded variant="text" :to="{ name: 'MyInfo' }">My Info</v-btn>
+          <v-btn rounded variant="text" @click="myInfo">My Info</v-btn>
           <v-divider class="my-3" />
           <v-btn rounded variant="text" @click="logout">Logout</v-btn>
         </div>
