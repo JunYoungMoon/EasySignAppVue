@@ -110,7 +110,6 @@ export default defineStore(
         }
 
         isAuth.value = true;
-        console.log('check-auth :', auth);
 
         return auth;
       } catch (error) {

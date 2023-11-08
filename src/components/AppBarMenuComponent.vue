@@ -43,9 +43,6 @@ const myInfo = () => {
 
 onMounted(async () => {
   isAuth.value = authStore.isAuth;
-
-  await userStore.setUserInfo();
-
   user.value = userStore.user;
 });
 </script>

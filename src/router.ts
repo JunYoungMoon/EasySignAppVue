@@ -1,4 +1,4 @@
-import { useGlobal, useAuth } from '@/store';
+import { useGlobal, useAuth, useUser } from '@/store';
 import {
   createRouter,
   createWebHistory,
@@ -99,9 +99,15 @@ router.beforeEach(
     const globalStore = useGlobal();
     // Set CsrfToken
     const authStore = useAuth();
+    const userStore = useUser();
     await authStore.getCsrfToken();
     // Check Auth
     await authStore.checkAuth('accessToken', authStore.csrfToken);
+    // Set User Info
+    if (authStore.isAuth) {
+      await userStore.setUserInfo();
+    }
+
     // Show Loading
     // comment out for https://github.com/logue/vite-vuetify-ts-starter/issues/16
     // globalStore.setLoading(true);

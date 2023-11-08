@@ -11,7 +11,6 @@ const userStore = useUser();
 
 const user = ref<UserInterface>({});
 const fileInput = ref<HTMLInputElement | null>(null); // ref로 선언하고 초기값을 null로 설정
-const showCameraIcon = ref(false);
 
 const openFileUploadDialog = () => {
   // 파일 업로드 다이얼로그 열기
@@ -26,28 +25,27 @@ const handleFileUpload = (event: Event) => {
   // 여기에서 파일 업로드 및 처리 로직을 추가
 };
 
-onMounted(async () => {
+onMounted(() => {
   user.value = userStore.user;
 });
 </script>
 
 <template>
   <v-container>
-    <!-- 상단에 프로필 이미지 표시 -->
     <v-row justify="center">
-      <v-avatar
-        size="150"
-        class="ma-3"
-        @mouseover="showCameraIcon = true"
-        @mouseleave="showCameraIcon = false"
-      >
-        <v-img :src="user?.profileImage || defaultImage" alt="Default Profile">
-          <!-- 카메라 아이콘 -->
-          <v-avatar size="40" class="camera-icon" @click="openFileUploadDialog" v-if="showCameraIcon">
-            <v-icon color="white">mdi-camera</v-icon>
-          </v-avatar>
-        </v-img>
-      </v-avatar>
+      <!-- 상단에 프로필 이미지 표시 -->
+      <div class="avatar-wrapper">
+        <v-avatar size="150" class="ma-3">
+          <v-img
+            :src="user?.profileImage || defaultImage"
+            alt="Default Profile"
+          />
+        </v-avatar>
+        <!-- 카메라 아이콘 -->
+        <v-avatar size="40" class="camera-icon" @click="openFileUploadDialog">
+          <v-icon color="white">mdi-camera</v-icon>
+        </v-avatar>
+      </div>
       <!-- 파일 업로드 input -->
       <input
         ref="fileInput"
@@ -60,50 +58,17 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.avatar-wrapper {
+  position: relative;
+  overflow: visible;
+}
 .camera-icon {
   position: absolute;
-  bottom: 50%; /* 수직 중앙 정렬을 위해 하단을 50%로 지정 */
-  right: 50%; /* 수평 중앙 정렬을 위해 우측을 50%로 지정 */
-  transform: translate(50%, 50%); /* 50%만큼 이동하여 정중앙으로 이동 */
+  bottom: 20px;
+  right: 20px;
   background-color: rgba(0, 0, 0, 0.6);
   cursor: pointer;
   padding: 5px;
   border-radius: 50%;
-}
-
-@-moz-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@-webkit-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@-o-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 </style>
