@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useGlobal, useConfig } from '@/store';
+import { useGlobal } from '@/store';
 import {
   computed,
   nextTick,

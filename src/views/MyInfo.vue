@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useUser } from '@/store';
+import { useUser, useGlobal } from '@/store';
 import { onMounted, ref } from 'vue';
 
 import type UserInterface from '@/interfaces/UserInterface.ts';
@@ -8,6 +8,17 @@ import defaultImage from '@/assets/images/empty_avatar.png';
 
 /** Store */
 const userStore = useUser();
+/** Global Store */
+const globalStore = useGlobal();
+
+// 로딩을 키고 끄는 함수
+// const showLoading = () => {
+//   globalStore.setLoading(true); // 로딩을 활성화
+// };
+//
+// const hideLoading = () => {
+//   globalStore.setLoading(false); // 로딩을 비활성화
+// };
 
 const user = ref<UserInterface>({});
 const fileInput = ref<HTMLInputElement | null>(null); // ref로 선언하고 초기값을 null로 설정
@@ -20,9 +31,21 @@ const openFileUploadDialog = () => {
 };
 
 const handleFileUpload = (event: Event) => {
-  // 파일 업로드 처리
-  const file = (event.target as HTMLInputElement)?.files?.[0];
-  // 여기에서 파일 업로드 및 처리 로직을 추가
+  const inputElement = event.target as HTMLInputElement;
+  const file = inputElement?.files?.[0];
+
+  if (file) {
+    if (file.size <= 5 * 1024 * 1024) {
+      // 5MB 제한
+      const reader = new FileReader();
+      reader.onload = e => {
+        user.value.profileImage = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      globalStore.setMessage('파일 크기는 5MB 이하여야 합니다.');
+    }
+  }
 };
 
 onMounted(() => {
@@ -50,6 +73,7 @@ onMounted(() => {
       <input
         ref="fileInput"
         type="file"
+        accept=".jpg, .jpeg, .png, .gif"
         style="display: none"
         @change="handleFileUpload"
       />
@@ -62,6 +86,7 @@ onMounted(() => {
   position: relative;
   overflow: visible;
 }
+
 .camera-icon {
   position: absolute;
   bottom: 20px;
