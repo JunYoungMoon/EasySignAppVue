@@ -82,7 +82,7 @@ onMounted(() => {
     />
   </v-app-bar>
 
-  <v-overlay v-model="loading" app class="justify-center align-center">
+  <v-overlay v-model="loading" app class="justify-center align-center" :persistent="true">
     <v-progress-circular indeterminate size="64" />
   </v-overlay>
 

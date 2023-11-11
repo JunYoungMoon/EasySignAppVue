@@ -89,8 +89,8 @@ onMounted(() => {
 
 .camera-icon {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  bottom: 18px;
+  right: 18px;
   background-color: rgba(0, 0, 0, 0.6);
   cursor: pointer;
   padding: 5px;
