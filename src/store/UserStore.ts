@@ -5,7 +5,7 @@ import type UserInterface from '@/interfaces/UserInterface.ts';
 
 import fetchRequest from '@/services/apiService';
 
-/** Config Store */
+/** User Store */
 export default defineStore('user', () => {
   const user: Ref<UserInterface> = ref({});
 

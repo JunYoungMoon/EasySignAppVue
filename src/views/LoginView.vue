@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { useUser, useGlobal, useRule } from '@/store';
+
+const { ruleEmail, rulePassLen, ruleRequired } = useRule();
+
 const googleLogin = () => {
   // 구글 로그인 로직 작성
   window.location.href = `${
@@ -31,11 +35,17 @@ const loginData = {
     <h1 class="text-center pb-3">Login</h1>
     <v-card width="400" class="pa-3 mx-auto">
       <v-form fast-fail @submit.prevent="login">
-        <v-text-field v-model="loginData.id" variant="outlined" label="ID" />
+        <v-text-field
+          v-model="loginData.id"
+          variant="outlined"
+          label="ID"
+          :rules="[ruleRequired, ruleEmail]"
+        />
         <v-text-field
           v-model="loginData.password"
           variant="outlined"
           label="Password"
+          :rules="[ruleRequired, rulePassLen]"
         />
         <a href="#" class="text-body-2 font-weight-regular">Forgot Password?</a>
         <v-btn type="submit" color="primary" :block="true" class="mt-2">

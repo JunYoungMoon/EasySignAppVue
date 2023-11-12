@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useUser, useGlobal } from '@/store';
+import { useUser, useGlobal, useRule, useErrMsg } from '@/store';
 import { onMounted, ref } from 'vue';
 
 import type UserInterface from '@/interfaces/UserInterface.ts';
@@ -8,8 +8,9 @@ import defaultImage from '@/assets/images/empty_avatar.png';
 
 /** Store */
 const userStore = useUser();
-/** Global Store */
 const globalStore = useGlobal();
+const { ruleRequired, ruleNickname } = useRule();
+const errMsgStore = useErrMsg();
 
 // 로딩을 키고 끄는 함수
 // const showLoading = () => {
@@ -22,6 +23,20 @@ const globalStore = useGlobal();
 
 const user = ref<UserInterface>({});
 const fileInput = ref<HTMLInputElement | null>(null); // ref로 선언하고 초기값을 null로 설정
+const nickName = ref<string>('');
+const id = ref<string>('');
+
+const submit = () => {
+  //apiResponse를 전달 받았다고 가정
+  // Object.keys(apiResponse.errors).forEach(fieldName => {
+  //   errMsgStore.setErrorMessage(fieldName, );
+  // });
+
+  errMsgStore.setErrorMessage('nickName', 'test');
+
+  // API가 성공적으로 처리되면 사용자 업데이트
+  // await updateUser({ nickname: nickName.value });
+};
 
 const openFileUploadDialog = () => {
   // 파일 업로드 다이얼로그 열기
@@ -55,29 +70,62 @@ onMounted(() => {
 
 <template>
   <v-container>
-    <v-row justify="center">
-      <!-- 상단에 프로필 이미지 표시 -->
-      <div class="avatar-wrapper">
-        <v-avatar size="150" class="ma-3">
-          <v-img
-            :src="user?.profileImage || defaultImage"
-            alt="Default Profile"
+    <h1 class="text-center pb-3">My info</h1>
+    <v-card class="mx-auto" max-width="400">
+      <v-container>
+        <v-form @submit.prevent="submit">
+          <v-row justify="center">
+            <!-- 상단에 프로필 이미지 표시 -->
+            <div class="avatar-wrapper">
+              <v-avatar size="150" class="ma-3">
+                <v-img
+                  :src="user?.profileImage || defaultImage"
+                  alt="Default Profile"
+                />
+              </v-avatar>
+              <!-- 카메라 아이콘 -->
+              <v-avatar
+                size="40"
+                class="camera-icon"
+                @click="openFileUploadDialog"
+              >
+                <v-icon color="white">mdi-camera</v-icon>
+              </v-avatar>
+            </div>
+          </v-row>
+          <br />
+          <v-text-field
+            v-model="nickName"
+            variant="outlined"
+            label="nickName"
+            :rules="[ruleRequired, ruleNickname]"
+            :error-messages="errMsgStore.getErrorMessages('nickName')"
+            @update:model-value="errMsgStore.clearErrorMessage('nickName')"
           />
-        </v-avatar>
-        <!-- 카메라 아이콘 -->
-        <v-avatar size="40" class="camera-icon" @click="openFileUploadDialog">
-          <v-icon color="white">mdi-camera</v-icon>
-        </v-avatar>
-      </div>
-      <!-- 파일 업로드 input -->
+          <v-text-field
+            v-model="id"
+            variant="outlined"
+            label="id"
+            :rules="[ruleRequired]"
+            :error-messages="errMsgStore.getErrorMessages('id')"
+            @update:model-value="errMsgStore.clearErrorMessage('id')"
+          />
+          <v-btn type="submit" color="primary" :block="true" class="mt-2">
+            Edit
+          </v-btn>
+        </v-form>
+      </v-container>
+    </v-card>
+    <label for="fileInput">
       <input
+        id="fileInput"
         ref="fileInput"
         type="file"
         accept=".jpg, .jpeg, .png, .gif"
         style="display: none"
         @change="handleFileUpload"
       />
-    </v-row>
+    </label>
   </v-container>
 </template>
 
