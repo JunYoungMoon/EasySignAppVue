@@ -1,4 +1,4 @@
-import useAuthStore from '@/store/AuthStore';
+import { useGlobal, useAuth } from '@/store';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
@@ -14,7 +14,11 @@ export default async function fetchRequest<T>(
   method: HttpMethod,
   data?: T
 ) {
+  const globalStore = useGlobal();
+
   try {
+    globalStore.setLoading(true);
+
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
     };
@@ -40,11 +44,14 @@ export default async function fetchRequest<T>(
 
     // Save csrfToken in Storage
     const result = await response.json();
-    const authStore = useAuthStore();
+    const authStore = useAuth();
     authStore.setCsrfToken(result.csrfToken);
+
+    globalStore.setLoading(false);
 
     return result.data;
   } catch (error: any) {
+    globalStore.setLoading(false);
     console.log('Request error: ' + error.message);
     throw error;
   }

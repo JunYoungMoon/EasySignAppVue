@@ -12,30 +12,57 @@ const globalStore = useGlobal();
 const { ruleRequired, ruleNickname } = useRule();
 const errMsgStore = useErrMsg();
 
-// 로딩을 키고 끄는 함수
-// const showLoading = () => {
-//   globalStore.setLoading(true); // 로딩을 활성화
-// };
-//
-// const hideLoading = () => {
-//   globalStore.setLoading(false); // 로딩을 비활성화
-// };
-
 const user = ref<UserInterface>({});
-const fileInput = ref<HTMLInputElement | null>(null); // ref로 선언하고 초기값을 null로 설정
+const fileInput = ref<HTMLInputElement | null>(null);
 const nickName = ref<string>('');
-const id = ref<string>('');
 
-const submit = () => {
-  //apiResponse를 전달 받았다고 가정
-  // Object.keys(apiResponse.errors).forEach(fieldName => {
-  //   errMsgStore.setErrorMessage(fieldName, );
-  // });
+// const submit = () => {
+//   //apiResponse를 전달 받았다고 가정
+//   // Object.keys(apiResponse.errors).forEach(fieldName => {
+//   //   errMsgStore.setErrorMessage(fieldName, );
+//   // });
+//
+//   errMsgStore.setErrorMessage('nickName', 'test');
+//
+//   // API가 성공적으로 처리되면 사용자 업데이트
+//   // await updateUser({ nickname: nickName.value });
+// };
 
-  errMsgStore.setErrorMessage('nickName', 'test');
+const submit = async () => {
+  // Check if the profile image or nickname has changed
+  const hasProfileImageChanged =
+    userStore.user.profileImage !== user.value.profileImage;
+  const hasNicknameChanged = userStore.user.nickname !== nickName.value;
 
-  // API가 성공적으로 처리되면 사용자 업데이트
-  // await updateUser({ nickname: nickName.value });
+  if (hasProfileImageChanged || hasNicknameChanged) {
+    try {
+      // Send API request to update user information
+      await updateUser({
+        profileImage: hasProfileImageChanged
+          ? user.value.profileImage
+          : undefined,
+        nickname: hasNicknameChanged ? nickName.value : undefined,
+      });
+
+      // If the API request is successful, update the local user information
+      if (hasProfileImageChanged) {
+        userStore.user.profileImage = user.value.profileImage;
+      }
+
+      if (hasNicknameChanged) {
+        userStore.user.nickname = nickName.value;
+      }
+
+      // Optionally show a success message to the user
+      globalStore.setMessage('User information updated successfully');
+    } catch (error) {
+      // Handle API request error, show an error message, etc.
+      globalStore.setMessage('Failed to update user information');
+    }
+  } else {
+    // No changes, you can optionally show a message to the user
+    globalStore.setMessage('No changes to save');
+  }
 };
 
 const openFileUploadDialog = () => {
@@ -101,14 +128,6 @@ onMounted(() => {
             :rules="[ruleRequired, ruleNickname]"
             :error-messages="errMsgStore.getErrorMessages('nickName')"
             @update:model-value="errMsgStore.clearErrorMessage('nickName')"
-          />
-          <v-text-field
-            v-model="id"
-            variant="outlined"
-            label="id"
-            :rules="[ruleRequired]"
-            :error-messages="errMsgStore.getErrorMessages('id')"
-            @update:model-value="errMsgStore.clearErrorMessage('id')"
           />
           <v-btn type="submit" color="primary" :block="true" class="mt-2">
             Edit
