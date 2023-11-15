@@ -6,6 +6,8 @@ import type UserInterface from '@/interfaces/UserInterface.ts';
 
 import defaultImage from '@/assets/images/empty_avatar.png';
 
+import fetchRequest from '@/services/apiService';
+
 /** Store */
 const userStore = useUser();
 const globalStore = useGlobal();
@@ -32,25 +34,38 @@ const submit = async () => {
   // Check if the profile image or nickname has changed
   const hasProfileImageChanged =
     userStore.user.profileImage !== user.value.profileImage;
-  const hasNicknameChanged = userStore.user.nickname !== nickName.value;
+  const hasNicknameChanged = userStore.user.nickName !== nickName.value;
+
+  debugger;
 
   if (hasProfileImageChanged || hasNicknameChanged) {
     try {
+      const formData = new FormData();
+
+      // if (hasProfileImageChanged) {
+      //   formData.append('profileImage', profileImageFile);
+      // }
+      //
+      // if (hasNicknameChanged) {
+      //   formData.append('nickname', nickName.value);
+      // }
+
       // Send API request to update user information
-      await updateUser({
-        profileImage: hasProfileImageChanged
-          ? user.value.profileImage
-          : undefined,
-        nickname: hasNicknameChanged ? nickName.value : undefined,
-      });
+      const res = await fetchRequest(
+        `${import.meta.env.VITE_API_URL}/api/set-user-info`,
+        'POST',
+        {
+          profileImage: hasProfileImageChanged
+            ? user.value.profileImage
+            : undefined,
+          nickname: hasNicknameChanged ? nickName.value : undefined,
+        }
+      );
 
       // If the API request is successful, update the local user information
-      if (hasProfileImageChanged) {
+      if (res) {
         userStore.user.profileImage = user.value.profileImage;
-      }
-
-      if (hasNicknameChanged) {
-        userStore.user.nickname = nickName.value;
+        userStore.user.nickName = nickName.value;
       }
 
       // Optionally show a success message to the user
@@ -77,8 +92,8 @@ const handleFileUpload = (event: Event) => {
   const file = inputElement?.files?.[0];
 
   if (file) {
+    // 5MB 제한
     if (file.size <= 5 * 1024 * 1024) {
-      // 5MB 제한
       const reader = new FileReader();
       reader.onload = e => {
         user.value.profileImage = e.target?.result as string;
@@ -91,7 +106,13 @@ const handleFileUpload = (event: Event) => {
 };
 
 onMounted(() => {
-  user.value = userStore.user;
+  // 얕은 복사
+  // 얕은 복사는 객체의 속성을 새로운 객체로 복사하지만, 내부에 있는 객체나 배열 등의 참조 타입에 대해서는 참조가 복사되므로 같은 객체나 배열을 가리키게 된다.
+  // 여기서 user.value.profileImage를 변경해버리면 userStore.user.profileImage도 변경된다.
+  // user.value = userStore.user;
+
+  // 새로운 객체를 생성하는 얕은 복사
+  user.value = { ...userStore.user };
 });
 </script>
 

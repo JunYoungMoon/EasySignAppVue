@@ -7,12 +7,14 @@ type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
  * @param url - URL to request
  * @param method - HTTP methods (GET, POST, etc.)
  * @param data - request data
+ * @param contentType - content type of the request (default: 'application/json')
  * @returns - Promise representing the result of an HTTP request
  */
 export default async function fetchRequest<T>(
   url: string,
   method: HttpMethod,
-  data?: T
+  data?: T,
+  contentType: string = 'application/json'
 ) {
   const globalStore = useGlobal();
 
@@ -20,7 +22,7 @@ export default async function fetchRequest<T>(
     globalStore.setLoading(true);
 
     const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
+      'Content-Type': contentType,
     };
 
     const storage: any = sessionStorage.getItem('auth');
