@@ -12,10 +12,10 @@ export default defineStore('rule', () => {
     rulePassLen: (v: string) =>
       (!!v && v.length >= 6) || 'Password must be 6 chars or more',
     ruleNickname: (v: string) => {
-      const isValid = /^[a-zA-Z]{2,10}$/.test(v);
+      const isValid = /^[a-zA-Z가-힣]{2,10}$/.test(v);
       return (
         isValid ||
-        'Nickname must be 2 to 10 characters long and consist of English letters'
+        'Nickname should be 2 to 10 characters long and consist of English letters or Korean characters.'
       );
     },
   };

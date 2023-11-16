@@ -37,11 +37,29 @@ export default async function fetchRequest<T>(
       }
     }
 
+    let body: any;
+
+    debugger;
+
+    if (contentType === 'multipart/form-data') {
+      // If content type is multipart/form-data, use FormData
+      body = new FormData();
+      for (const key in data) {
+        if (Object.prototype.hasOwnProperty.call(data, key)) {
+          body.append(key, data[key]);
+        }
+      }
+    } else {
+      // For other content types, stringify the data
+      body = JSON.stringify(data);
+      headers['Content-Type'] = contentType;
+    }
+
     const response: Response = await fetch(url, {
       method,
       headers,
       credentials: 'include',
-      body: JSON.stringify(data),
+      body,
     });
 
     // Save csrfToken in Storage

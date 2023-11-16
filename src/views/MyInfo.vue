@@ -5,7 +5,6 @@ import { onMounted, ref } from 'vue';
 import type UserInterface from '@/interfaces/UserInterface.ts';
 
 import defaultImage from '@/assets/images/empty_avatar.png';
-
 import fetchRequest from '@/services/apiService';
 
 /** Store */
@@ -16,7 +15,9 @@ const errMsgStore = useErrMsg();
 
 const user = ref<UserInterface>({});
 const fileInput = ref<HTMLInputElement | null>(null);
-const nickName = ref<string>('');
+const nickName = ref<string | undefined>(
+  userStore.user.nickName ?? userStore.user.name
+);
 
 // const submit = () => {
 //   //apiResponse를 전달 받았다고 가정
@@ -36,8 +37,6 @@ const submit = async () => {
     userStore.user.profileImage !== user.value.profileImage;
   const hasNicknameChanged = userStore.user.nickName !== nickName.value;
 
-  debugger;
-
   if (hasProfileImageChanged || hasNicknameChanged) {
     try {
       const formData = new FormData();
@@ -54,12 +53,8 @@ const submit = async () => {
       const res = await fetchRequest(
         `${import.meta.env.VITE_API_URL}/api/set-user-info`,
         'POST',
-        {
-          profileImage: hasProfileImageChanged
-            ? user.value.profileImage
-            : undefined,
-          nickname: hasNicknameChanged ? nickName.value : undefined,
-        }
+        formData,
+        'multipart/form-data'
       );
 
       // If the API request is successful, update the local user information
