@@ -41,13 +41,13 @@ const submit = async () => {
     try {
       const formData = new FormData();
 
-      // if (hasProfileImageChanged) {
-      //   formData.append('profileImage', profileImageFile);
-      // }
-      //
-      // if (hasNicknameChanged) {
-      //   formData.append('nickname', nickName.value);
-      // }
+      if (hasProfileImageChanged && fileInput.value?.files?.[0]) {
+        formData.append('profileImage', fileInput.value.files[0]);
+      }
+
+      if (hasNicknameChanged) {
+        formData.append('nickname', nickName.value as string);
+      }
 
       // Send API request to update user information
       const res = await fetchRequest(

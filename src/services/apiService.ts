@@ -39,16 +39,14 @@ export default async function fetchRequest<T>(
 
     let body: any;
 
-    debugger;
-
     if (contentType === 'multipart/form-data') {
       // If content type is multipart/form-data, use FormData
-      body = new FormData();
-      for (const key in data) {
-        if (Object.prototype.hasOwnProperty.call(data, key)) {
-          body.append(key, data[key]);
-        }
-      }
+      body = data;
+      // Logging FormData values
+      console.log('FormData values:');
+      body.forEach((value: any, key: any) => {
+        console.log(`${key}: ${value}`);
+      });
     } else {
       // For other content types, stringify the data
       body = JSON.stringify(data);
