@@ -57,7 +57,10 @@ const routes: RouteRecordRaw[] = [
     // this generates a separate chunk (MyInfo.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: async () => await import('@/views/MyInfo.vue'),
-    meta: { layout: Default },
+    meta: {
+      layout: Default,
+      requiresAuth: true,
+    },
   },
   {
     path: '/:pathMatch(.*)*',
@@ -104,8 +107,24 @@ router.beforeEach(
     // Check Auth
     await authStore.checkAuth('accessToken', authStore.csrfToken);
     // Set User Info
+    // Check if current route requires authentication
+    const requiresAuth = _to.matched.some(record => record.meta.requiresAuth);
+
+    // If the user is not authenticated and the current route requires authentication, redirect to login
+    if (requiresAuth && !authStore.isAuth) {
+      next('/login');
+      return;
+    }
+
+    // User information settings
     if (authStore.isAuth) {
-      await userStore.setUserInfo();
+      try {
+        await userStore.setUserInfo();
+      } catch (error) {
+        // If user information cannot be retrieved, redirect to login
+        next('/login');
+        return;
+      }
     }
 
     // Show Loading

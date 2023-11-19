@@ -4,19 +4,11 @@ import { onMounted } from 'vue';
 import { version } from 'vuetify';
 
 import Meta from '@/Meta';
-import fetchRequest from '@/services/apiService';
 
 const title = import.meta.env.VITE_APP_TITLE;
 
 onMounted(async () => {
   document.title = title;
-
-  const res = await fetchRequest(
-    `${import.meta.env.VITE_API_URL}/api/test`,
-    'POST'
-  );
-
-  console.log(await res);
 });
 
 /** Props */
