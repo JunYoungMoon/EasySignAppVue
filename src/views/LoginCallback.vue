@@ -14,9 +14,11 @@ onMounted(() => {
   // 파라미터 값 가져오기
   const accessToken: string | null = urlParams.get('accessToken');
   const refreshToken: string | null = urlParams.get('refreshToken');
+  const csrfToken: string | null = urlParams.get('csrfToken');
 
   useAuth().setAccessToken(accessToken);
   useAuth().setRefreshToken(refreshToken);
+  useAuth().setCsrfToken(csrfToken);
 
   void router.push({ name: 'Home' });
 });

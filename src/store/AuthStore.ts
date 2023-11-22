@@ -32,6 +32,15 @@ export default defineStore(
     };
 
     /**
+     * Set Csrf
+     */
+    const setCsrfToken = (token: string | null) => {
+      if (token != null) {
+        csrfToken.value = token;
+      }
+    };
+
+    /**
      * Get Csrf
      */
     const getCsrfToken = async () => {
@@ -43,18 +52,11 @@ export default defineStore(
 
         const data = await res.json();
 
-        csrfToken.value = data.token;
+        csrfToken.value = data.csrfToken;
       } catch (error) {
         console.error('Error fetching CSRF token:', error);
         throw error;
       }
-    };
-
-    /**
-     * Set Csrf
-     */
-    const setCsrfToken = (token: string) => {
-      csrfToken.value = token;
     };
 
     /**
@@ -75,6 +77,7 @@ export default defineStore(
         return;
       }
 
+      /*TODO 서버에서 csrfToken을 내려줘야함.*/
       try {
         const res: Response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/check-auth`,
@@ -94,6 +97,8 @@ export default defineStore(
         );
 
         const auth: AuthInterface = await res.json();
+
+        setCsrfToken(auth.csrfToken);
 
         if (type === 'accessToken' && auth.refreshTokenRequired) {
           await checkAuth('refreshToken', csrfToken);

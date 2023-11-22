@@ -25,6 +25,8 @@ export default async function fetchRequest<T>(
       'Content-Type': contentType,
     };
 
+    debugger;
+
     const storage: any = sessionStorage.getItem('auth');
 
     if (storage) {
