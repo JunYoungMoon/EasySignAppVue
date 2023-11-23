@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref, type Ref } from 'vue';
 
-import type AuthInterface from '@/interfaces/AuthInterface';
+import type { AuthInterface , AuthDataInterface }from '@/interfaces/AuthInterface';
 
 /** Auth Store */
 export default defineStore(
@@ -77,7 +77,6 @@ export default defineStore(
         return;
       }
 
-      /*TODO 서버에서 csrfToken을 내려줘야함.*/
       try {
         const res: Response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/check-auth`,
@@ -98,28 +97,27 @@ export default defineStore(
 
         const auth: AuthInterface = await res.json();
 
+        const data: AuthDataInterface = JSON.parse(auth.data);
+
         setCsrfToken(auth.csrfToken);
 
-        if (type === 'accessToken' && auth.refreshTokenRequired) {
-          await checkAuth('refreshToken', csrfToken);
+        if (type === 'accessToken' && data.refreshTokenRequired) {
+          await checkAuth('refreshToken', auth.csrfToken);
           isAuth.value = false;
           return;
         }
 
-        if (type === 'refreshToken' && auth.accessToken && auth.refreshToken) {
-          accessToken.value = auth.accessToken;
-          refreshToken.value = auth.refreshToken;
-          await checkAuth('accessToken', csrfToken);
+        if (type === 'refreshToken' && data.accessToken && data.refreshToken) {
+          accessToken.value = data.accessToken;
+          refreshToken.value = data.refreshToken;
+          await checkAuth('accessToken', auth.csrfToken);
           isAuth.value = false;
           return;
         }
 
         isAuth.value = true;
-
-        return auth;
       } catch (error) {
         console.log('Error checking authentication:', error);
-        return false;
       }
     };
 
