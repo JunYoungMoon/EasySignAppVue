@@ -21,11 +21,7 @@ export default async function fetchRequest<T>(
   try {
     globalStore.setLoading(true);
 
-    const headers: Record<string, string> = {
-      'Content-Type': contentType,
-    };
-
-    debugger;
+    const headers: Record<string, string> = {};
 
     const storage: any = sessionStorage.getItem('auth');
 
