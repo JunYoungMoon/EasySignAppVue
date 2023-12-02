@@ -9,12 +9,23 @@ import { createApp } from 'vue';
 import App from '@/App.vue';
 import vuetify from '@/plugins/vuetify';
 import router from '@/router';
+//i18
+import { createI18n } from 'vue-i18n';
+import messages from '@/utils/locales/messages';
+
+const i18n = createI18n({
+  locale: 'en',
+  messages: messages,
+  silentTranslationWarn: true,
+  silentFallbackWarn: true,
+});
 
 /** Register Vue */
 const vue = createApp(App);
 vue.use(router);
 vue.use(store);
 vue.use(vuetify);
+vue.use(i18n);
 
 // Run!
 router
