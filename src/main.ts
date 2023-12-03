@@ -5,17 +5,18 @@
 // Load vue core
 import store from '@/store';
 import { createApp } from 'vue';
+import { createI18n } from 'vue-i18n';
 
 import App from '@/App.vue';
 import vuetify from '@/plugins/vuetify';
 import router from '@/router';
-//i18
-import { createI18n } from 'vue-i18n';
+
+// i18
 import messages from '@/utils/locales/messages';
 
 const i18n = createI18n({
   locale: 'en',
-  messages: messages,
+  messages,
   silentTranslationWarn: true,
   silentFallbackWarn: true,
 });

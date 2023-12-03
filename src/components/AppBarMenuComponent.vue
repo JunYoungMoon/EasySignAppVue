@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import LanguageDD from './LanguageDD.vue';
 import { useConfig, useAuth, useUser } from '@/store';
 import { computed, onMounted, ref } from 'vue';
 
@@ -48,6 +49,7 @@ onMounted(async () => {
 </script>
 
 <template>
+  <LanguageDD />
   <v-btn v-if="isAuth" id="menu-activator" icon @click="toggleDropdown">
     <div class="rounded-image">
       <img

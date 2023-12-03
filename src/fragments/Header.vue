@@ -70,7 +70,7 @@ onMounted(() => {
 
   <v-app-bar>
     <v-app-bar-nav-icon @click="drawer = !drawer" />
-    <v-app-bar-title tag="h1">{{ title }}</v-app-bar-title>
+    <v-app-bar-title tag="h1">{{ $t('vuetify3Application') }}</v-app-bar-title>
     <v-spacer />
     <app-bar-menu-component v-if="!isLoginPage" />
     <v-progress-linear

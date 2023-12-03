@@ -30,7 +30,7 @@ defineProps({
         class="logo mx-auto"
       />
       <h1 class="text-h2 font-weight-bold mb-3">
-        Welcome to the Vuetify
+        {{ $t('welcomeToVuetify') }}
         <v-code tag="code">{{ 'v' + version }}</v-code>
       </h1>
       <p>{{ msg }}</p>
