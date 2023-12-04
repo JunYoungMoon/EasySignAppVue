@@ -10,6 +10,7 @@ import { createI18n } from 'vue-i18n';
 import App from '@/App.vue';
 import vuetify from '@/plugins/vuetify';
 import router from '@/router';
+import '@/scss/settings.scss';
 
 // i18
 import messages from '@/utils/locales/messages';

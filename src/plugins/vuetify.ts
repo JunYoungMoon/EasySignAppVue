@@ -4,20 +4,20 @@
 import { createVuetify, type VuetifyOptions } from 'vuetify';
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
-import { aliases, mdi } from 'vuetify/iconsets/mdi';
+// import { aliases, mdi } from 'vuetify/iconsets/mdi';
 import * as labsComponents from 'vuetify/labs/components';
 // Translations provided by Vuetify
 import { en } from 'vuetify/locale';
 
 // Misc
-import { customSVGs } from '@/plugins/customSvgs';
-import { loadFonts } from '@/plugins/webfontloader';
+// import { customSVGs } from '@/plugins/customSvgs';
+// import { loadFonts } from '@/plugins/webfontloader';
 
 // Styles
-import 'vuetify/styles';
+// import 'vuetify/scss';
 import '@mdi/font/css/materialdesignicons.css';
 
-await loadFonts();
+// await loadFonts();
 
 /**
  * Vuetify Components
@@ -39,14 +39,14 @@ let vuetifyConfig: VuetifyOptions = {
   */
   // Icon Fonts
   // https://vuetifyjs.com/en/features/icon-fonts/
-  icons: {
-    defaultSet: 'mdi',
-    aliases,
-    sets: {
-      mdi,
-      custom: customSVGs,
-    },
-  },
+  /*  icons: {
+      defaultSet: 'mdi',
+      aliases,
+      sets: {
+        mdi,
+        custom: customSVGs,
+      },
+    }, */
   // Internationalization (i18n)
   // https://vuetifyjs.com/en/features/internationalization/#internationalization-i18n
   locale: {

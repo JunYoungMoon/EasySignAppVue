@@ -33,7 +33,7 @@ export default defineConfig(({ command, mode }): UserConfig => {
       // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin
       vuetify({
         autoImport: true,
-        styles: { configFile: 'src/styles/settings.scss' },
+        styles: { configFile: 'src/scss/variables.scss' },
       }),
       // vite-plugin-checker
       // https://github.com/fi3ework/vite-plugin-checker

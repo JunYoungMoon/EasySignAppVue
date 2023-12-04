@@ -1,13 +1,13 @@
 <script setup lang="ts">
+import flag1 from '@/assets/images/flag/icon-flag-en.svg';
+import flag2 from '@/assets/images/flag/icon-flag-kr.svg';
+
 interface languageType {
   avatar: string;
   title: string;
   subtext: string;
   value: string;
 }
-
-import flag1 from '@/assets/images/flag/icon-flag-en.svg';
-import flag2 from '@/assets/images/flag/icon-flag-kr.svg';
 
 const languageDD: languageType[] = [
   { title: 'English', subtext: 'US', value: 'en', avatar: flag1 },
@@ -32,7 +32,7 @@ const languageDD: languageType[] = [
         <v-list-item
           v-for="(item, index) in languageDD"
           :key="index"
-          active-color="primary"
+          color="primary"
           :active="$i18n.locale == item.value"
           class="d-flex align-center"
           @click="() => ($i18n.locale = item.value)"

@@ -47,8 +47,9 @@
     "vue": "^3.3.4",
     "vue-i18n": "^9.8.0",
     "vue-router": "^4.2.5",
-    "vuetify": "^3.3.20",
-    "webfontloader": "^1.6.28"
+    "vuetify": "3.3.3",
+    "webfontloader": "^1.6.28",
+    "vue3-perfect-scrollbar" : "^1.6.1"
   },
   "devDependencies": {
     "@babel/types": "^7.23.0",
