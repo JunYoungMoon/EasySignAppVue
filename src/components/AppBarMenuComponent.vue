@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import LanguageDD from './LanguageDD.vue';
 import { useConfig, useAuth, useUser } from '@/store';
 import { computed, onMounted, ref } from 'vue';
+
+import LanguageDD from './LanguageDD.vue';
 
 import type UserInterface from '@/interfaces/UserInterface.ts';
 
 import defaultImage from '@/assets/images/empty_avatar.png';
-import router from '@/router';
+import router from '@/rotuer';
 
 /** Store */
 const configStore = useConfig();

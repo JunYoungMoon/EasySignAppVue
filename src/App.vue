@@ -59,22 +59,24 @@ const jsonLd = JSON.stringify(
 </script>
 
 <template>
-  <v-app :theme="isDark">
-    <v-main>
-      <!-- Multiple layouts https://analogcode.tistory.com/40 -->
-      <component :is="$route.meta.layout || 'div'">
-        <router-view />
-      </component>
+  <v-locale-provider>
+    <v-app :theme="isDark">
+      <v-main>
+        <!-- Multiple layouts https://analogcode.tistory.com/40 -->
+        <component :is="$route.meta.layout || 'div'">
+          <router-view />
+        </component>
 
-      <!-- Single layout-->
-      <!--   <router-view v-slot="{ Component, route }">-->
-      <!--     <component-->
-      <!--       :is="Component"-->
-      <!--       :key="route.name"-->
-      <!--     />-->
-      <!--   </router-view>-->
-    </v-main>
-  </v-app>
+        <!-- Single layout-->
+        <!--   <router-view v-slot="{ Component, route }">-->
+        <!--     <component-->
+        <!--       :is="Component"-->
+        <!--       :key="route.name"-->
+        <!--     />-->
+        <!--   </router-view>-->
+      </v-main>
+    </v-app>
+  </v-locale-provider>
   <teleport to="head">
     <meta
       name="theme-color"

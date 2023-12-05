@@ -2,7 +2,7 @@
 import { useAuth } from '@/store';
 import { onMounted } from 'vue';
 
-import router from '@/router';
+import router from '@/rotuer';
 
 onMounted(() => {
   // URL 파라미터 문자열 가져오기

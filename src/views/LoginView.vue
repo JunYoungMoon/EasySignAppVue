@@ -72,6 +72,7 @@ const loginData = {
             size="large"
             @click="googleLogin"
           >
+            <v-img src="@/assets/logo.svg" />
             Continue with Google
           </v-btn>
         </v-col>

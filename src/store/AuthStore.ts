@@ -1,7 +1,10 @@
 import { defineStore } from 'pinia';
 import { ref, type Ref } from 'vue';
 
-import type { AuthInterface , AuthDataInterface }from '@/interfaces/AuthInterface';
+import type {
+  AuthInterface,
+  AuthDataInterface,
+} from '@/interfaces/AuthInterface';
 
 /** Auth Store */
 export default defineStore(

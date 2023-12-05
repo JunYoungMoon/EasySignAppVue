@@ -22,8 +22,22 @@ const languageDD: languageType[] = [
     <template v-slot:activator="{ props }">
       <v-btn icon variant="text" color="primary" v-bind="props">
         <v-avatar size="22">
-          <img v-if="$i18n.locale === 'en'" :src="flag1" :alt="$i18n.locale" width="22" height="22" class="obj-cover" />
-          <img v-if="$i18n.locale === 'kr'" :src="flag2" :alt="$i18n.locale" width="22" height="22" class="obj-cover" />
+          <img
+            v-if="$i18n.locale === 'en'"
+            :src="flag1"
+            :alt="$i18n.locale"
+            width="22"
+            height="22"
+            class="obj-cover"
+          />
+          <img
+            v-if="$i18n.locale === 'kr'"
+            :src="flag2"
+            :alt="$i18n.locale"
+            width="22"
+            height="22"
+            class="obj-cover"
+          />
         </v-avatar>
       </v-btn>
     </template>
@@ -39,12 +53,20 @@ const languageDD: languageType[] = [
         >
           <template v-slot:prepend>
             <v-avatar size="22">
-              <img :src="item.avatar" :alt="item.avatar" width="22" height="22" class="obj-cover" />
+              <img
+                :src="item.avatar"
+                :alt="item.avatar"
+                width="22"
+                height="22"
+                class="obj-cover"
+              />
             </v-avatar>
           </template>
           <v-list-item-title class="text-subtitle-1 font-weight-regular">
             {{ item.title }}
-            <span class="text-disabled text-subtitle-1 pl-2">({{ item.subtext }})</span>
+            <span class="text-disabled text-subtitle-1 pl-2">
+              ({{ item.subtext }})
+            </span>
           </v-list-item-title>
         </v-list-item>
       </v-list>
