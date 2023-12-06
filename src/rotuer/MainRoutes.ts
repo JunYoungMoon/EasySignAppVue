@@ -1,11 +1,19 @@
 const MainRoutes = {
-  path: '/main',
+  path: '/',
   meta: {
-    requiresAuth: true,
+    requiresAuth: false,
   },
-  redirect: '/main',
-  // component: () => import('@/layouts/full/FullLayout.vue'),
-  children: [],
+  component: async () => await import('@/layouts/full/FullLayout.vue'),
+  children: [
+    {
+      path: '/',
+      component: async () => await import('@/views/AboutView.vue'),
+    },
+    {
+      path: '/about',
+      component: async () => await import('@/views/AboutView.vue'),
+    },
+  ],
 };
 
 export default MainRoutes;

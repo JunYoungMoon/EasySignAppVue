@@ -8,6 +8,7 @@ import {
   type ComputedRef,
   type Ref,
 } from 'vue';
+import { RouterView } from 'vue-router';
 
 import { useTheme } from 'vuetify';
 
@@ -59,24 +60,25 @@ const jsonLd = JSON.stringify(
 </script>
 
 <template>
-  <v-locale-provider>
-    <v-app :theme="isDark">
-      <v-main>
-        <!-- Multiple layouts https://analogcode.tistory.com/40 -->
-        <component :is="$route.meta.layout || 'div'">
-          <router-view />
-        </component>
+  <RouterView/>
+<!--  <v-locale-provider>-->
+<!--    <v-app :theme="isDark">-->
+<!--      <v-main>-->
+<!--        &lt;!&ndash; Multiple layouts https://analogcode.tistory.com/40 &ndash;&gt;-->
+<!--        <component :is="$route.meta.layout || 'div'">-->
+<!--          <router-view />-->
+<!--        </component>-->
 
-        <!-- Single layout-->
-        <!--   <router-view v-slot="{ Component, route }">-->
-        <!--     <component-->
-        <!--       :is="Component"-->
-        <!--       :key="route.name"-->
-        <!--     />-->
-        <!--   </router-view>-->
-      </v-main>
-    </v-app>
-  </v-locale-provider>
+<!--        &lt;!&ndash; Single layout&ndash;&gt;-->
+<!--        &lt;!&ndash;   <router-view v-slot="{ Component, route }">&ndash;&gt;-->
+<!--        &lt;!&ndash;     <component&ndash;&gt;-->
+<!--        &lt;!&ndash;       :is="Component"&ndash;&gt;-->
+<!--        &lt;!&ndash;       :key="route.name"&ndash;&gt;-->
+<!--        &lt;!&ndash;     />&ndash;&gt;-->
+<!--        &lt;!&ndash;   </router-view>&ndash;&gt;-->
+<!--      </v-main>-->
+<!--    </v-app>-->
+<!--  </v-locale-provider>-->
   <teleport to="head">
     <meta
       name="theme-color"

@@ -8,9 +8,10 @@ import {
   type RouteRecordRaw,
 } from 'vue-router';
 
+import MainRoutes from './MainRoutes';
+
 // Components
 import Default from '@/layouts/Default.vue';
-import HomeView from '@/views/HomeView.vue';
 
 // Pinia Store
 
@@ -19,37 +20,7 @@ import HomeView from '@/views/HomeView.vue';
 
 /** Router Rules */
 const routes: RouteRecordRaw[] = [
-  {
-    path: '/',
-    name: 'Home',
-    component: HomeView,
-    meta: { layout: Default },
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (About.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: async () => await import('@/views/AboutView.vue'),
-    meta: { layout: Default },
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    // route level code-splitting
-    // this generates a separate chunk (Login.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: async () => await import('@/views/LoginView.vue'),
-  },
-  {
-    path: '/loginCallback',
-    name: 'LoginCallback',
-    // route level code-splitting
-    // this generates a separate chunk (LoginCallback.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: async () => await import('@/views/LoginCallback.vue'),
-  },
+  MainRoutes,
   {
     path: '/myinfo',
     name: 'MyInfo',
