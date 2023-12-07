@@ -60,7 +60,7 @@ const jsonLd = JSON.stringify(
 </script>
 
 <template>
-  <RouterView/>
+  <RouterView />
 <!--  <v-locale-provider>-->
 <!--    <v-app :theme="isDark">-->
 <!--      <v-main>-->

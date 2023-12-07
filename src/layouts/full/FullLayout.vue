@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
-import VerticalSidebarVue from './vertical-sidebar/VerticalSidebar.vue';
+
 import VerticalHeaderVue from './vertical-header/VerticalHeader.vue';
+import VerticalSidebarVue from './vertical-sidebar/VerticalSidebar.vue';
 </script>
 
 <template>
   <v-locale-provider>
     <v-app>
-      <VerticalSidebarVue/>
-      <VerticalHeaderVue/>
+      <VerticalSidebarVue />
+      <VerticalHeaderVue />
       <v-main>
         <v-container fluid class="page-wrapper pb-sm-15 pb-10">
           <div class="maxWidth">

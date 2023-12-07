@@ -5,6 +5,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 // Pinia Stores
 import useAuth from '@/store/AuthStore';
 import useConfig from '@/store/ConfigStore';
+import useCustomizer from '@/store/Customizer';
 import useErrMsg from '@/store/ErrorMsgStore';
 import useGlobal from '@/store/GlobalStore';
 import useRule from '@/store/RuleStore';
@@ -16,4 +17,12 @@ pinia.use(piniaPluginPersistedstate);
 
 export default pinia;
 
-export { useConfig, useGlobal, useAuth, useUser, useRule, useErrMsg };
+export {
+  useConfig,
+  useGlobal,
+  useAuth,
+  useUser,
+  useRule,
+  useErrMsg,
+  useCustomizer,
+};
