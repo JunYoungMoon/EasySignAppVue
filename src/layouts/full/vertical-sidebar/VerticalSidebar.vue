@@ -3,7 +3,6 @@ import { useCustomizer } from '@/store';
 import { shallowRef } from 'vue';
 
 import Logo from '../logo/Logo.vue';
-import RtlLogo from '../logo/RtlLogo.vue';
 
 import NavCollapse from './NavCollapse/NavCollapse.vue';
 import NavGroup from './NavGroup/index.vue';
