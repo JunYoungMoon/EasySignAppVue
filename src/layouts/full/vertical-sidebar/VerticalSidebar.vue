@@ -40,7 +40,7 @@ const sidebarMenu = shallowRef(sidebarItems);
     <perfect-scrollbar class="scrollnavbar">
       <v-list class="pa-6">
         <!---Menu Loop -->
-        <template v-for="(item, i) in sidebarMenu">
+        <template v-for="item in sidebarMenu">
           <!---Item Sub Header -->
           <NavGroup v-if="item.header" :key="item.title" :item="item" />
           <!---If Has Child -->
