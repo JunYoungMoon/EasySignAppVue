@@ -55,5 +55,7 @@ export default defineStore('customizer', () => {
     setHorizontalLayout,
     actTheme,
     setBorderCard,
+    setMiniSidebar,
+    setSidebarDrawer,
   };
 });

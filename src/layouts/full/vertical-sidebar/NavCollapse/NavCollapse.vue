@@ -2,22 +2,22 @@
 import Icon from '../Icon.vue';
 import NavItem from '../NavItem/index.vue';
 
-defineProps({ item: Object, level: Number });
+defineProps(['item', 'level' , 'subCaption']);
 </script>
 
 <template>
   <!-- ---------------------------------------------- -->
   <!---Item Childern -->
   <!-- ---------------------------------------------- -->
-  <v-list-group no-action>
+  <v-list-group>
     <!-- ---------------------------------------------- -->
     <!---Dropdown  -->
     <!-- ---------------------------------------------- -->
-    <template v-slot:activator="{ props }">
-      <v-list-item v-bind="props" :value="item?.title" rounded class="mb-1">
+    <template #activator="{ props }">
+      <v-list-item v-bind="props" :value="item.title" rounded class="mb-1">
         <!---Icon  -->
-        <template v-slot:prepend>
-          <Icon :item="item?.icon" :level="level" />
+        <template #prepend>
+          <Icon :item="item.icon" :level="level" />
         </template>
         <!---Title  -->
         <v-list-item-title class="mr-auto">
