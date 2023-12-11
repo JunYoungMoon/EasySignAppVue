@@ -1,22 +1,15 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
 import { useCustomizer } from '@/store';
+import { ref, watch } from 'vue';
 
-import {
-  GridDotsIcon,
-  LanguageIcon,
-  SearchIcon,
-  Menu2Icon,
-  BellRingingIcon,
-  ShoppingCartIcon,
-} from 'vue-tabler-icons';
+import { GridDotsIcon, Menu2Icon } from 'vue-tabler-icons';
 
 import LanguageDD from './LanguageDD.vue';
+import Navigations from './Navigations.vue';
 import NotificationDD from './NotificationDD.vue';
 import ProfileDD from './ProfileDD.vue';
-import Searchbar from './Searchbar.vue';
 import RightMobileSidebar from './RightMobileSidebar.vue';
-import Navigations from './Navigations.vue';
+import Searchbar from './Searchbar.vue';
 
 const customizer = useCustomizer();
 const showSearch = ref(false);
@@ -47,8 +40,8 @@ watch(priority, newPriority => {
       class="hidden-lg-and-up"
       icon
       variant="flat"
-      @click.stop="customizer.setSidebarDrawer"
       size="small"
+      @click.stop="customizer.setSidebarDrawer"
     >
       <Menu2Icon size="20" stroke-width="1.5" />
     </v-btn>

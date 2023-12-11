@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { SearchIcon } from 'vue-tabler-icons';
 
 import { searchSugg } from '@/_mockApis/headerData';
