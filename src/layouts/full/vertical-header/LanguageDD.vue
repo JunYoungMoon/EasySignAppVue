@@ -1,18 +1,5 @@
 <script setup lang="ts">
-import flag1 from '@/assets/images/flag/icon-flag-en.svg';
-import flag2 from '@/assets/images/flag/icon-flag-kr.svg';
-
-interface languageType {
-  avatar: string;
-  title: string;
-  subtext: string;
-  value: string;
-}
-
-const languageDD: languageType[] = [
-  { title: 'English', subtext: 'US', value: 'en', avatar: flag1 },
-  { title: 'Korean', subtext: 'KR', value: 'kr', avatar: flag2 },
-];
+import { languageDD } from '@/_mockApis/headerData';
 </script>
 <template>
   <!-- ---------------------------------------------- -->
@@ -24,7 +11,7 @@ const languageDD: languageType[] = [
         <v-avatar size="22">
           <img
             v-if="$i18n.locale === 'en'"
-            :src="flag1"
+            :src="languageDD[0].avatar"
             :alt="$i18n.locale"
             width="22"
             height="22"
@@ -32,7 +19,7 @@ const languageDD: languageType[] = [
           />
           <img
             v-if="$i18n.locale === 'kr'"
-            :src="flag2"
+            :src="languageDD[1].avatar"
             :alt="$i18n.locale"
             width="22"
             height="22"
