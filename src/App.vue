@@ -1,25 +1,16 @@
 <script setup lang="ts">
-import { useGlobal, useConfig } from '@/store';
-import {
-  computed,
-  onMounted,
-  ref,
-  watch,
-  type ComputedRef,
-  type Ref,
-} from 'vue';
+import { useConfig } from '@/store';
+import { computed, onMounted, type ComputedRef } from 'vue';
 import { RouterView } from 'vue-router';
 
 import { useTheme } from 'vuetify';
 
-// Components
 import logo from '@/assets/logo.svg';
+// Components
+import Indication from '@/components/ui/Indication/Indication.vue';
 
 /** Vuetify Theme */
 const theme = useTheme();
-
-/** Global Store */
-const globalStore = useGlobal();
 
 /** Config Store */
 const configStore = useConfig();
@@ -27,18 +18,9 @@ const configStore = useConfig();
 /** Title */
 const title = import.meta.env.VITE_APP_TITLE ?? 'Vuetify3 Application';
 
-/** Snackbar visibility */
-const snackbarVisibility: Ref<boolean> = ref(false);
-
 /** Toggle Dark mode */
 const isDark: ComputedRef<string> = computed(() =>
   configStore.theme ? 'dark' : 'light'
-);
-
-// When snackbar text has been set, show snackbar.
-watch(
-  () => globalStore.message,
-  message => (snackbarVisibility.value = message !== '')
 );
 
 onMounted(() => {
@@ -50,9 +32,9 @@ const jsonLd = JSON.stringify(
     '@schema': 'https://json.schemastore.org/jsonld.json',
     '@context': 'http://schema.org',
     '@type': 'WebSite',
-    name: 'Vite Vue3 Vuetify3 Beta TypeScript Startar',
-    url: 'https://github.com/logue/vite-vuetify-ts-starter',
-    description: 'Vite Vue3 Vuetify3 Beta TypeScript Demo',
+    name: 'Vite Vue3 Vuetify3 Easy Sign up',
+    url: 'https://github.com/JunYoungMoon/EasySignAppVue',
+    description: 'Vite Vue3 Vuetify3 Easy Sign up Demo',
   },
   null,
   2
@@ -61,24 +43,24 @@ const jsonLd = JSON.stringify(
 
 <template>
   <RouterView />
-<!--  <v-locale-provider>-->
-<!--    <v-app :theme="isDark">-->
-<!--      <v-main>-->
-<!--        &lt;!&ndash; Multiple layouts https://analogcode.tistory.com/40 &ndash;&gt;-->
-<!--        <component :is="$route.meta.layout || 'div'">-->
-<!--          <router-view />-->
-<!--        </component>-->
+  <!--  <v-locale-provider>-->
+  <!--    <v-app :theme="isDark">-->
+  <!--      <v-main>-->
+  <!--        &lt;!&ndash; Multiple layouts https://analogcode.tistory.com/40 &ndash;&gt;-->
+  <!--        <component :is="$route.meta.layout || 'div'">-->
+  <!--          <router-view />-->
+  <!--        </component>-->
 
-<!--        &lt;!&ndash; Single layout&ndash;&gt;-->
-<!--        &lt;!&ndash;   <router-view v-slot="{ Component, route }">&ndash;&gt;-->
-<!--        &lt;!&ndash;     <component&ndash;&gt;-->
-<!--        &lt;!&ndash;       :is="Component"&ndash;&gt;-->
-<!--        &lt;!&ndash;       :key="route.name"&ndash;&gt;-->
-<!--        &lt;!&ndash;     />&ndash;&gt;-->
-<!--        &lt;!&ndash;   </router-view>&ndash;&gt;-->
-<!--      </v-main>-->
-<!--    </v-app>-->
-<!--  </v-locale-provider>-->
+  <!--        &lt;!&ndash; Single layout&ndash;&gt;-->
+  <!--        &lt;!&ndash;   <router-view v-slot="{ Component, route }">&ndash;&gt;-->
+  <!--        &lt;!&ndash;     <component&ndash;&gt;-->
+  <!--        &lt;!&ndash;       :is="Component"&ndash;&gt;-->
+  <!--        &lt;!&ndash;       :key="route.name"&ndash;&gt;-->
+  <!--        &lt;!&ndash;     />&ndash;&gt;-->
+  <!--        &lt;!&ndash;   </router-view>&ndash;&gt;-->
+  <!--      </v-main>-->
+  <!--    </v-app>-->
+  <!--  </v-locale-provider>-->
   <teleport to="head">
     <meta
       name="theme-color"
@@ -88,12 +70,14 @@ const jsonLd = JSON.stringify(
       name="keyword"
       content="template,typescript,vue3,vuetify,vite,vite-template,volar"
     />
-    <meta name="description" content="Vite Vue3 Vuetify TypeScript Demo" />
+    <meta name="description" content="Vite Vue3 Vuetify3 Easy Sign up Demo" />
     <component :is="'script'" type="application/ld+json">
       {{ jsonLd }}
     </component>
     <link rel="icon" :href="logo" type="image/svg+xml" />
   </teleport>
+  <!-- Loading, Progress, Snackbar -->
+  <Indication />
 </template>
 
 <style lang="scss">

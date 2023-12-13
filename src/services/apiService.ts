@@ -16,10 +16,10 @@ export default async function fetchRequest<T>(
   data?: T,
   contentType: string = 'application/json'
 ) {
-  const globalStore = useGlobal();
+  const { setLoading } = useGlobal();
 
   try {
-    globalStore.setLoading(true);
+    setLoading(true);
 
     const headers: Record<string, string> = {};
 
@@ -63,11 +63,11 @@ export default async function fetchRequest<T>(
     const authStore = useAuth();
     authStore.setCsrfToken(result.csrfToken);
 
-    globalStore.setLoading(false);
+    setLoading(false);
 
     return result.data;
   } catch (error: any) {
-    globalStore.setLoading(false);
+    setLoading(false);
     console.log('Request error: ' + error.message);
     throw error;
   }

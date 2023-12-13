@@ -18,8 +18,7 @@ export default defineStore(
     const toggleTheme = () => (theme.value = !theme.value);
     /**
      * Set Locale.
-     *
-     * @param locale - Locale
+     * @param l
      */
     const setLocale = (l: string) => (locale.value = l);
 

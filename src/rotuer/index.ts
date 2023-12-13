@@ -111,9 +111,10 @@ router.beforeEach(
 // Global After Hooks
 // https://router.vuejs.org/guide/advanced/navigation-guards.html#global-after-hooks}
 router.afterEach(() => {
-  const globalStore = useGlobal();
+  const { setLoading } = useGlobal();
+
   // Hide Loading
-  globalStore.setLoading(false);
+  setLoading(false);
 });
 
 export default router;

@@ -10,6 +10,7 @@ import NotificationDD from './NotificationDD.vue';
 import ProfileDD from './ProfileDD.vue';
 import RightMobileSidebar from './RightMobileSidebar.vue';
 import Searchbar from './Searchbar.vue';
+import ThemeChange from './ThemeChange.vue';
 
 const customizer = useCustomizer();
 const showSearch = ref(false);
@@ -83,6 +84,11 @@ watch(priority, newPriority => {
     <!-- Notification -->
     <!-- ---------------------------------------------- -->
     <NotificationDD />
+
+    <!-- ---------------------------------------------- -->
+    <!-- ThemeChange -->
+    <!-- ---------------------------------------------- -->
+    <ThemeChange />
 
     <!-- right sidebar -->
     <v-btn
