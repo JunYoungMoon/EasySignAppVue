@@ -13,6 +13,23 @@ import { en } from 'vuetify/locale';
 import { customSVGs } from '@/plugins/customSvgs';
 // import { loadFonts } from '@/plugins/webfontloader';
 
+import {
+  DARK_BLUE_THEME,
+  DARK_AQUA_THEME,
+  DARK_ORANGE_THEME,
+  DARK_PURPLE_THEME,
+  DARK_GREEN_THEME,
+  DARK_CYAN_THEME,
+} from '@/theme/DarkTheme';
+import {
+  BLUE_THEME,
+  AQUA_THEME,
+  PURPLE_THEME,
+  GREEN_THEME,
+  CYAN_THEME,
+  ORANGE_THEME,
+} from '@/theme/LightTheme';
+
 // Styles
 // import 'vuetify/scss';
 import '@mdi/font/css/materialdesignicons.css';
@@ -56,7 +73,21 @@ let vuetifyConfig: VuetifyOptions = {
   // Theme
   // https://vuetifyjs.com/en/features/theme/
   theme: {
-    defaultTheme: 'light',
+    defaultTheme: 'BLUE_THEME',
+    themes: {
+      BLUE_THEME,
+      AQUA_THEME,
+      PURPLE_THEME,
+      GREEN_THEME,
+      CYAN_THEME,
+      ORANGE_THEME,
+      DARK_BLUE_THEME,
+      DARK_AQUA_THEME,
+      DARK_ORANGE_THEME,
+      DARK_PURPLE_THEME,
+      DARK_GREEN_THEME,
+      DARK_CYAN_THEME,
+    },
   },
 };
 

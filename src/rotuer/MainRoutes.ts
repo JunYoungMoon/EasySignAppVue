@@ -7,7 +7,7 @@ const MainRoutes = {
   children: [
     {
       path: '/',
-      component: async () => await import('@/views/AboutView.vue'),
+      component: async () => await import('@/views/index.vue'),
     },
     {
       path: '/about',
