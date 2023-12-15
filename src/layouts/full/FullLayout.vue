@@ -7,7 +7,8 @@ import VerticalSidebarVue from './vertical-sidebar/VerticalSidebar.vue';
 
 <template>
   <v-locale-provider>
-    <v-app>
+    <v-app
+      :theme="'DARK_BLUE_THEME'">
       <VerticalSidebarVue />
       <VerticalHeaderVue />
       <v-main>

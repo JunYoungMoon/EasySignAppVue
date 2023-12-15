@@ -42,7 +42,6 @@ const jsonLd = JSON.stringify(
 </script>
 
 <template>
-  <RouterView />
   <!--  <v-locale-provider>-->
   <!--    <v-app :theme="isDark">-->
   <!--      <v-main>-->
@@ -76,6 +75,7 @@ const jsonLd = JSON.stringify(
     </component>
     <link rel="icon" :href="logo" type="image/svg+xml" />
   </teleport>
+  <RouterView />
   <!-- Loading, Progress, Snackbar -->
   <Indication />
 </template>
