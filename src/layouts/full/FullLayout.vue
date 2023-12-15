@@ -1,14 +1,23 @@
 <script setup lang="ts">
+import { useConfig } from '@/store';
+import { computed, type ComputedRef } from 'vue';
 import { RouterView } from 'vue-router';
 
 import VerticalHeaderVue from './vertical-header/VerticalHeader.vue';
 import VerticalSidebarVue from './vertical-sidebar/VerticalSidebar.vue';
+
+
+/** Config Store */
+const configStore = useConfig();
+/** Toggle Dark mode */
+const isDark: ComputedRef<string> = computed(() =>
+  configStore.theme ? 'DARK_BLUE_THEME' : 'BLUE_THEME'
+);
 </script>
 
 <template>
   <v-locale-provider>
-    <v-app
-      :theme="'DARK_BLUE_THEME'">
+    <v-app :theme="isDark">
       <VerticalSidebarVue />
       <VerticalHeaderVue />
       <v-main>
