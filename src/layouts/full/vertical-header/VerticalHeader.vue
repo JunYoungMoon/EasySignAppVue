@@ -6,7 +6,6 @@ import { GridDotsIcon, Menu2Icon } from 'vue-tabler-icons';
 
 import LanguageDD from './LanguageDD.vue';
 import Navigations from './Navigations.vue';
-import NotificationDD from './NotificationDD.vue';
 import ProfileDD from './ProfileDD.vue';
 import RightMobileSidebar from './RightMobileSidebar.vue';
 import Searchbar from './Searchbar.vue';

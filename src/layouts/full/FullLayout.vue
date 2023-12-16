@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useConfig } from '@/store';
+import { useConfig, useCustomizer } from '@/store';
 import { computed, type ComputedRef } from 'vue';
 import { RouterView } from 'vue-router';
 
 import VerticalHeaderVue from './vertical-header/VerticalHeader.vue';
 import VerticalSidebarVue from './vertical-sidebar/VerticalSidebar.vue';
 
-
+const customizer = useCustomizer();
 /** Config Store */
 const configStore = useConfig();
 /** Toggle Dark mode */
@@ -17,7 +17,10 @@ const isDark: ComputedRef<string> = computed(() =>
 
 <template>
   <v-locale-provider>
-    <v-app :theme="isDark">
+    <v-app
+      :theme="isDark"
+      :class="[customizer.miniSidebar ? 'mini-sidebar' : '']"
+    >
       <VerticalSidebarVue />
       <VerticalHeaderVue />
       <v-main>

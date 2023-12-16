@@ -9,7 +9,7 @@ import { searchSugg } from '@/_mockApis/headerData';
   <!-- search1 -->
   <!-- ------------------------------------------------>
   <v-menu :close-on-content-click="false">
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <v-btn
         icon
         class="custom-hover-primary"
@@ -29,16 +29,16 @@ import { searchSugg } from '@/_mockApis/headerData';
           density="compact"
           variant="outlined"
           hide-details
-        ></v-text-field>
+        />
       </div>
-      <v-divider></v-divider>
+      <v-divider />
       <h5 class="text-h5 mt-4 px-5 pb-4">Quick Page Links</h5>
       <perfect-scrollbar style="height: 380px">
         <v-list class="pt-0 pb-5" lines="two">
           <v-list-item
-            :value="item"
             v-for="(item, index) in searchSugg"
             :key="index"
+            :value="item"
             :to="item.href"
             active-color="primary"
             class="px-5 py-2"
