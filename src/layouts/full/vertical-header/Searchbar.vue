@@ -1,14 +1,31 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 import { SearchIcon } from 'vue-tabler-icons';
 
 import { searchSugg } from '@/_mockApis/headerData';
+
+const scrollDisabled = ref(false);
+const handleMenuInput = (value: boolean) => {
+  // 메뉴가 열릴 때 스크롤 비활성화
+  if (value) {
+    document.documentElement.style.overflow = 'hidden';
+  } else {
+    // 메뉴가 닫힐 때 스크롤 활성화
+    document.documentElement.style.overflow = 'auto';
+  }
+};
 </script>
 
 <template>
   <!-- ---------------------------------------------- -->
   <!-- search1 -->
   <!-- ------------------------------------------------>
-  <v-menu :close-on-content-click="false">
+  <v-menu
+    v-model="scrollDisabled"
+    :close-on-content-click="false"
+    @update:model-value="handleMenuInput"
+  >
     <template #activator="{ props }">
       <v-btn
         icon

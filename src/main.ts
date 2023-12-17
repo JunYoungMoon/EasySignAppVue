@@ -7,9 +7,14 @@ import store from '@/store';
 import { createApp } from 'vue';
 import { createI18n } from 'vue-i18n';
 
+// eslint-disable-next-line import/no-named-as-default
+import PerfectScrollbar from 'vue3-perfect-scrollbar';
+
 import App from '@/App.vue';
 import vuetify from '@/plugins/vuetify';
+// eslint-disable-next-line import/order
 import router from '@/rotuer';
+
 import '@/scss/settings.scss';
 
 // i18
@@ -28,6 +33,7 @@ vue.use(router);
 vue.use(store);
 vue.use(vuetify);
 vue.use(i18n);
+vue.use(PerfectScrollbar);
 
 // Run!
 router

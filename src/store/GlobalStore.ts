@@ -13,10 +13,8 @@ const useGlobalStore = defineStore('global', () => {
   const message: Ref<string> = ref('');
 
   // Actions
-
   /**
    * Show loading Overlay
-   *
    * @param display - visibility
    */
   function setLoading(display: boolean): void {
@@ -29,7 +27,6 @@ const useGlobalStore = defineStore('global', () => {
 
   /**
    * Update progress value
-   *
    * @param v - progress value
    */
   function setProgress(v: number | null = null): void {
@@ -41,7 +38,6 @@ const useGlobalStore = defineStore('global', () => {
 
   /**
    * Show snackbar message
-   *
    * @param msg - snackbar message
    */
   function setMessage(msg: string = ''): void {
@@ -49,7 +45,14 @@ const useGlobalStore = defineStore('global', () => {
     message.value = msg;
   }
 
-  return { loading, progress, message, setLoading, setProgress, setMessage };
+  return {
+    loading,
+    progress,
+    message,
+    setLoading,
+    setProgress,
+    setMessage,
+  };
 });
 
 export default useGlobalStore;

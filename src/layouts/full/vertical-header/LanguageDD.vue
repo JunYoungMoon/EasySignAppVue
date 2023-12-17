@@ -1,12 +1,30 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 import { languageDD } from '@/_mockApis/headerData';
+
+const scrollDisabled = ref(false);
+const handleMenuInput = (value: boolean) => {
+  // 메뉴가 열릴 때 스크롤 비활성화
+  if (value) {
+    document.documentElement.style.overflow = 'hidden';
+  } else {
+    // 메뉴가 닫힐 때 스크롤 활성화
+    document.documentElement.style.overflow = 'auto';
+  }
+};
 </script>
 <template>
   <!-- ---------------------------------------------- -->
   <!-- language DD -->
   <!-- ---------------------------------------------- -->
-  <v-menu :close-on-content-click="false" location="bottom">
-    <template v-slot:activator="{ props }">
+  <v-menu
+    v-model="scrollDisabled"
+    :close-on-content-click="false"
+    location="bottom"
+    @update:model-value="handleMenuInput"
+  >
+    <template #activator="{ props }">
       <v-btn icon variant="text" color="primary" v-bind="props">
         <v-avatar size="22">
           <img
@@ -38,7 +56,7 @@ import { languageDD } from '@/_mockApis/headerData';
           class="d-flex align-center"
           @click="() => ($i18n.locale = item.value)"
         >
-          <template v-slot:prepend>
+          <template #prepend>
             <v-avatar size="22">
               <img
                 :src="item.avatar"
