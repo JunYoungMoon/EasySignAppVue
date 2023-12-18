@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { MailIcon } from 'vue-tabler-icons';
+
 import { profileDD } from '@/_mockApis/headerData';
 
 // import { useAuthStore } from '@/stores/auth';
@@ -9,10 +10,10 @@ import { profileDD } from '@/_mockApis/headerData';
 
 <template>
   <!-- ---------------------------------------------- -->
-  <!-- notifications DD -->
+  <!-- Profile DD -->
   <!-- ---------------------------------------------- -->
   <v-menu :close-on-content-click="false">
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <v-btn class="custom-hover-primary" variant="text" v-bind="props" icon>
         <v-avatar size="35">
           <img

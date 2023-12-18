@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useCustomizer } from '@/store';
-import { shallowRef } from 'vue';
+import { ref, watch, type Ref, shallowRef } from 'vue';
 
 import Logo from '../logo/Logo.vue';
 
@@ -12,6 +12,27 @@ import sidebarItems from './sidebarItem';
 
 const customizer = useCustomizer();
 const sidebarMenu = shallowRef(sidebarItems);
+
+// const sidebarDrawer: Ref<boolean> = ref(false);
+//
+// watch(
+//   () => customizer.sidebarDrawer,
+//   newVal => {
+//     sidebarDrawer.value = newVal;
+//     console.log('customizer.sidebarDrawer가 변경되었습니다:', newVal);
+//   }
+// );
+
+const handleScrollDisabled = (v: boolean): void => {
+  console.log(v);
+  // Disable scrolling when the menu opens
+  if (v) {
+    document.documentElement.style.overflow = 'hidden';
+  } else {
+    // Enable scrolling when the menu is closed
+    document.documentElement.style.overflow = 'auto';
+  }
+};
 </script>
 
 <template>
@@ -21,11 +42,11 @@ const sidebarMenu = shallowRef(sidebarItems);
     elevation="0"
     rail-width="75"
     mobile-breakpoint="960"
-    app
     class="leftSidebar"
     :rail="customizer.miniSidebar"
     expand-on-hover
     width="270"
+    @update:model-value="handleScrollDisabled"
   >
     <!---Logo part -->
     <v-locale-provider>

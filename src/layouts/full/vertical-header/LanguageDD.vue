@@ -1,15 +1,22 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, type Ref } from 'vue';
 
 import { languageDD } from '@/_mockApis/headerData';
 
-const scrollDisabled = ref(false);
-const handleMenuInput = (value: boolean) => {
-  // 메뉴가 열릴 때 스크롤 비활성화
-  if (value) {
+/** State property to control scrolling */
+const scrollDisabled: Ref<boolean> = ref(false);
+
+/**
+ * Function to handle scrolling behavior based on the provided boolean value.
+ * @param v - A boolean value indicating whether scrolling should be disabled or enabled.
+ *            When true, scrolling is disabled; when false, scrolling is enabled.
+ */
+const handleScrollDisabled = (v: boolean): void => {
+  // Disable scrolling when the menu opens
+  if (v) {
     document.documentElement.style.overflow = 'hidden';
   } else {
-    // 메뉴가 닫힐 때 스크롤 활성화
+    // Enable scrolling when the menu is closed
     document.documentElement.style.overflow = 'auto';
   }
 };
@@ -21,8 +28,7 @@ const handleMenuInput = (value: boolean) => {
   <v-menu
     v-model="scrollDisabled"
     :close-on-content-click="false"
-    location="bottom"
-    @update:model-value="handleMenuInput"
+    @update:model-value="handleScrollDisabled"
   >
     <template #activator="{ props }">
       <v-btn icon variant="text" color="primary" v-bind="props">

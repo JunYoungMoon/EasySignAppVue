@@ -5,20 +5,14 @@ import { ref, watch } from 'vue';
 import { GridDotsIcon, Menu2Icon } from 'vue-tabler-icons';
 
 import LanguageDD from './LanguageDD.vue';
-import Navigations from './Navigations.vue';
 import ProfileDD from './ProfileDD.vue';
 import RightMobileSidebar from './RightMobileSidebar.vue';
 import Searchbar from './Searchbar.vue';
 import ThemeChange from './ThemeChange.vue';
 
 const customizer = useCustomizer();
-const showSearch = ref(false);
 const appsdrawer = ref(false);
 const priority = ref(customizer.setHorizontalLayout ? 0 : 0);
-
-function searchbox() {
-  showSearch.value = !showSearch.value;
-}
 
 watch(priority, newPriority => {
   priority.value = newPriority;
@@ -46,30 +40,12 @@ watch(priority, newPriority => {
       <Menu2Icon size="20" stroke-width="1.5" />
     </v-btn>
 
-    <!-- search mobile -->
-    <!-- <v-btn class="hidden-lg-and-up ml-3" icon variant="text" color="primary" @click="searchbox">
-        <SearchIcon size="17" stroke-width="1.5" />
-    </v-btn> -->
-
-    <!-- <v-sheet v-if="showSearch" class="search-sheet v-col-12">
-        <Searchbar :closesearch="searchbox" />
-    </v-sheet> -->
-
     <!-- ---------------------------------------------- -->
     <!-- Search part -->
     <!-- ---------------------------------------------- -->
     <v-sheet>
       <Searchbar />
     </v-sheet>
-
-    <!---/Search part -->
-
-    <!-- ---------------------------------------------- -->
-    <!-- Mega menu -->
-    <!-- ---------------------------------------------- -->
-    <div class="hidden-md-and-down">
-      <Navigations />
-    </div>
     <v-spacer />
     <!-- ---------------------------------------------- -->
     <!---right part -->

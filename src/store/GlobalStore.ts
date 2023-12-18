@@ -4,7 +4,6 @@ import { ref, type Ref } from 'vue';
 /** Global Store */
 const useGlobalStore = defineStore('global', () => {
   // State
-
   /** Loading overlay */
   const loading: Ref<boolean> = ref(true);
   /** ProgressBar Percentage */

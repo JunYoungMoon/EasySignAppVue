@@ -19,7 +19,7 @@ const languageDD: languageType[] = [
   <!-- language DD -->
   <!-- ---------------------------------------------- -->
   <v-menu :close-on-content-click="false" location="bottom">
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <v-btn icon variant="text" color="primary" v-bind="props">
         <v-avatar size="22">
           <img

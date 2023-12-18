@@ -25,6 +25,7 @@ export default defineStore('customizer', () => {
   );
 
   function setSidebarDrawer() {
+    console.log(sidebarDrawer.value);
     sidebarDrawer.value = !sidebarDrawer.value;
   }
 
