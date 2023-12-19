@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useCustomizer } from '@/store';
-import { ref, watch, type Ref, shallowRef } from 'vue';
+import { shallowRef } from 'vue';
 
 import Logo from '../logo/Logo.vue';
 
@@ -13,22 +13,9 @@ import sidebarItems from './sidebarItem';
 const customizer = useCustomizer();
 const sidebarMenu = shallowRef(sidebarItems);
 
-// const sidebarDrawer: Ref<boolean> = ref(false);
-//
-// watch(
-//   () => customizer.sidebarDrawer,
-//   newVal => {
-//     sidebarDrawer.value = newVal;
-//     console.log('customizer.sidebarDrawer가 변경되었습니다:', newVal);
-//   }
-// );
-
 const handleScrollDisabled = (v: boolean): void => {
   console.log(v);
-  // Disable scrolling when the menu opens
-  if (v) {
-    document.documentElement.style.overflow = 'hidden';
-  } else {
+  if (!v) {
     // Enable scrolling when the menu is closed
     document.documentElement.style.overflow = 'auto';
   }

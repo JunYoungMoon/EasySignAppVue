@@ -26,6 +26,9 @@ export default defineStore('customizer', () => {
 
   function setSidebarDrawer() {
     console.log(sidebarDrawer.value);
+    // Disable scrolling when the menu opens
+    document.documentElement.style.overflow = 'hidden';
+
     sidebarDrawer.value = !sidebarDrawer.value;
   }
 
