@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useCustomizer } from '@/store';
-import { ref, watch } from 'vue';
+import { useCustomizer, useAuth } from '@/store';
+
+import { onMounted, ref, watch } from 'vue';
 
 import { GridDotsIcon, Menu2Icon } from 'vue-tabler-icons';
 
@@ -10,12 +11,25 @@ import RightMobileSidebar from './RightMobileSidebar.vue';
 import Searchbar from './Searchbar.vue';
 import ThemeChange from './ThemeChange.vue';
 
+import router from '@/rotuer';
+
 const customizer = useCustomizer();
 const appsdrawer = ref(false);
 const priority = ref(customizer.setHorizontalLayout ? 0 : 0);
 
 watch(priority, newPriority => {
   priority.value = newPriority;
+});
+
+const authStore = useAuth();
+const login = () => {
+  void router.push({ name: 'Login' });
+};
+
+const isAuth = ref(false);
+
+onMounted(async () => {
+  isAuth.value = authStore.isAuth;
 });
 </script>
 
@@ -75,7 +89,10 @@ watch(priority, newPriority => {
     <!-- User Profile -->
     <!-- ---------------------------------------------- -->
     <div class="ml-2">
-      <ProfileDD />
+      <ProfileDD v-if="isAuth" />
+      <v-btn v-else icon class="custom-hover-primary" @click="login">
+        <i class="mdi mdi-login" style="font-size: 28px" />
+      </v-btn>
     </div>
   </v-app-bar>
 
