@@ -88,12 +88,12 @@ onMounted(async () => {
     <!-- ---------------------------------------------- -->
     <!-- User Profile -->
     <!-- ---------------------------------------------- -->
-    <div class="ml-2">
+<!--    <div class="ml-2">-->
       <ProfileDD v-if="isAuth" />
       <v-btn v-else icon class="custom-hover-primary" @click="login">
         <i class="mdi mdi-login" style="font-size: 28px" />
       </v-btn>
-    </div>
+<!--    </div>-->
   </v-app-bar>
 
   <!-- ---------------------------------------------- -->

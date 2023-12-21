@@ -3,8 +3,14 @@ const AuthRoutes = {
   meta: {
     requiresAuth: false,
   },
-  // component: async () => await import('@/views/AboutView.vue'),
-  children: [],
+    component: () => import('@/layouts/blank/BlankLayout.vue'),
+  children: [
+    {
+      name: 'Boxed Login',
+      path: '/auth/login',
+            component: () => import('@/views/authentication/BoxedLogin.vue')
+    },
+  ],
 };
 
 export default AuthRoutes;
