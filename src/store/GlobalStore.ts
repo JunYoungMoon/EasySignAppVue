@@ -2,10 +2,10 @@ import { defineStore } from 'pinia';
 import { ref, type Ref } from 'vue';
 
 /** Global Store */
-const useGlobalStore = defineStore('global', () => {
+export default defineStore('global', () => {
   // State
   /** Loading overlay */
-  const loading: Ref<boolean> = ref(true);
+  const loading: Ref<boolean> = ref(false);
   /** ProgressBar Percentage */
   const progress: Ref<number | null> = ref(null);
   /** SnackBar Text */
@@ -53,5 +53,3 @@ const useGlobalStore = defineStore('global', () => {
     setMessage,
   };
 });
-
-export default useGlobalStore;

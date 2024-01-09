@@ -8,6 +8,7 @@ import {
   type RouteRecordRaw,
 } from 'vue-router';
 
+import AuthRoutes from './AuthRoutes';
 import MainRoutes from './MainRoutes';
 
 // Components
@@ -21,6 +22,7 @@ import Default from '@/layouts/Default.vue';
 /** Router Rules */
 const routes: RouteRecordRaw[] = [
   MainRoutes,
+  AuthRoutes,
   {
     path: '/myinfo',
     name: 'MyInfo',

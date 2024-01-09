@@ -5,6 +5,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 // Pinia Stores
 import useAuth from '@/store/AuthStore';
 import useConfig from '@/store/ConfigStore';
+import useCsrf from '@/store/CsrfStore';
 import useCustomizer from '@/store/Customizer';
 import useErrMsg from '@/store/ErrorMsgStore';
 import useGlobal from '@/store/GlobalStore';
@@ -20,6 +21,7 @@ export default pinia;
 export {
   useConfig,
   useGlobal,
+  useCsrf,
   useAuth,
   useUser,
   useRule,

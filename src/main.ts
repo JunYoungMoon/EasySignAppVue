@@ -13,7 +13,7 @@ import PerfectScrollbar from 'vue3-perfect-scrollbar';
 import App from '@/App.vue';
 import vuetify from '@/plugins/vuetify';
 // eslint-disable-next-line import/order
-import router from '@/rotuer';
+import router from 'src/router';
 
 import '@/scss/settings.scss';
 

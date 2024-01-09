@@ -11,7 +11,7 @@ import RightMobileSidebar from './RightMobileSidebar.vue';
 import Searchbar from './Searchbar.vue';
 import ThemeChange from './ThemeChange.vue';
 
-import router from '@/rotuer';
+import router from 'src/router';
 
 const customizer = useCustomizer();
 const appsdrawer = ref(false);
