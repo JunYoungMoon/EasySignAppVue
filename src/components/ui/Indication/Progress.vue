@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 
 interface Props {
   loading: boolean;
@@ -9,6 +9,13 @@ interface Props {
 const props = defineProps<Props>();
 const loading = ref(props.loading);
 const progress = ref(props.progress);
+
+watchEffect(() => {
+  // props.loading 값이 변경될 때마다 실행되는 로직
+  console.log('props.loading changed:', props.loading);
+  loading.value = props.loading;
+  progress.value = props.progress;
+});
 </script>
 
 <template>

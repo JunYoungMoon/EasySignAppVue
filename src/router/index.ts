@@ -1,4 +1,4 @@
-import { useGlobal, useAuth, useUser } from '@/store';
+import { useGlobal, useUser } from '@/store';
 import {
   createRouter,
   createWebHistory,
@@ -11,30 +11,12 @@ import {
 import AuthRoutes from './AuthRoutes';
 import MainRoutes from './MainRoutes';
 
-// Components
-import Default from '@/layouts/Default.vue';
-
-// Pinia Store
-
-// Unimplemented in Vuetify 3.3.1
-// import { goTo } from 'vuetify/lib/services/goto/index.mjs';
+import axios from '@/utils/axios';
 
 /** Router Rules */
 const routes: RouteRecordRaw[] = [
   MainRoutes,
   AuthRoutes,
-  {
-    path: '/myinfo',
-    name: 'MyInfo',
-    // route level code-splitting
-    // this generates a separate chunk (MyInfo.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: async () => await import('@/views/MyInfo.vue'),
-    meta: {
-      layout: Default,
-      requiresAuth: true,
-    },
-  },
   {
     path: '/:pathMatch(.*)*',
     component: async () => await import('@/views/ErrorView.vue'),
@@ -72,40 +54,39 @@ router.beforeEach(
     _from: RouteLocationNormalized,
     next: NavigationGuardNext
   ) => {
-    const globalStore = useGlobal();
-    // Set CsrfToken
-    const authStore = useAuth();
-    const userStore = useUser();
-    await authStore.getCsrfToken();
-    // Check Auth
-    await authStore.checkAuth('accessToken', authStore.csrfToken);
+    const { setLoading, setMessage } = useGlobal();
+
+    // Show Loading
+    // comment out for https://github.com/logue/vite-vuetify-ts-starter/issues/16
+    setLoading(true);
+
     // Set User Info
     // Check if current route requires authentication
     const requiresAuth = _to.matched.some(record => record.meta.requiresAuth);
 
     // If the user is not authenticated and the current route requires authentication, redirect to login
-    if (requiresAuth && !authStore.isAuth) {
-      next('/login');
-      return;
-    }
+    if (requiresAuth) {
+      // Making a POST request using axios
+      const userInfo = await axios.post('/user-info');
 
-    // User information settings
-    if (authStore.isAuth) {
-      try {
-        await userStore.setUserInfo();
-      } catch (error) {
-        // If user information cannot be retrieved, redirect to login
-        next('/login');
-        return;
+      // User information settings
+      if (
+        userInfo &&
+        userInfo.data !== 'Authentication failed or insufficient permissions.'
+      ) {
+        try {
+          const userStore = useUser();
+          await userStore.setUserInfo(userInfo);
+        } catch (error) {
+          // If user information cannot be retrieved, redirect to login
+          // next('/auth/404');
+          // return;
+        }
       }
     }
 
-    // Show Loading
-    // comment out for https://github.com/logue/vite-vuetify-ts-starter/issues/16
-    // globalStore.setLoading(true);
-
     // Hide snack bar
-    globalStore.setMessage('');
+    setMessage('');
     next();
   }
 );
@@ -114,7 +95,6 @@ router.beforeEach(
 // https://router.vuejs.org/guide/advanced/navigation-guards.html#global-after-hooks}
 router.afterEach(() => {
   const { setLoading } = useGlobal();
-
   // Hide Loading
   setLoading(false);
 });

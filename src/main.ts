@@ -3,7 +3,7 @@
  */
 
 // Load vue core
-import store from '@/store';
+import store, { useCsrf } from '@/store';
 import { createApp } from 'vue';
 import { createI18n } from 'vue-i18n';
 
@@ -13,7 +13,7 @@ import PerfectScrollbar from 'vue3-perfect-scrollbar';
 import App from '@/App.vue';
 import vuetify from '@/plugins/vuetify';
 // eslint-disable-next-line import/order
-import router from 'src/router';
+import router from '@/router';
 
 import '@/scss/settings.scss';
 
@@ -29,11 +29,15 @@ const i18n = createI18n({
 
 /** Register Vue */
 const vue = createApp(App);
-vue.use(router);
 vue.use(store);
+vue.use(router);
 vue.use(vuetify);
 vue.use(i18n);
 vue.use(PerfectScrollbar);
+
+// csrf token initial settings
+const csrfStore = useCsrf();
+void csrfStore.getCsrfToken();
 
 // Run!
 router

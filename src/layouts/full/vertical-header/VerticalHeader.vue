@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useCustomizer, useAuth } from '@/store';
-
 import { onMounted, ref, watch } from 'vue';
 
 import { GridDotsIcon, Menu2Icon } from 'vue-tabler-icons';
@@ -11,7 +10,7 @@ import RightMobileSidebar from './RightMobileSidebar.vue';
 import Searchbar from './Searchbar.vue';
 import ThemeChange from './ThemeChange.vue';
 
-import router from 'src/router';
+import router from '@/router';
 
 const customizer = useCustomizer();
 const appsdrawer = ref(false);
@@ -88,12 +87,12 @@ onMounted(async () => {
     <!-- ---------------------------------------------- -->
     <!-- User Profile -->
     <!-- ---------------------------------------------- -->
-<!--    <div class="ml-2">-->
-      <ProfileDD v-if="isAuth" />
-      <v-btn v-else icon class="custom-hover-primary" @click="login">
-        <i class="mdi mdi-login" style="font-size: 28px" />
-      </v-btn>
-<!--    </div>-->
+    <!--    <div class="ml-2">-->
+    <ProfileDD v-if="isAuth" />
+    <v-btn v-else icon class="custom-hover-primary" @click="login">
+      <i class="mdi mdi-login" style="font-size: 28px" />
+    </v-btn>
+    <!--    </div>-->
   </v-app-bar>
 
   <!-- ---------------------------------------------- -->

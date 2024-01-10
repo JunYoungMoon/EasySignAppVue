@@ -1,6 +1,6 @@
 import { useAuth, useCsrf, useGlobal } from '@/store';
 
-import axios from 'axios';
+import axios, { type AxiosProgressEvent, type AxiosResponse } from 'axios';
 
 import router from '@/router';
 
@@ -10,11 +10,35 @@ const axiosServices = axios.create({
   baseURL: baseUrl,
 });
 
+axios.defaults.headers.common.Accept = 'application/json';
+axios.defaults.onUploadProgress = (progressEvent: AxiosProgressEvent): void => {
+  const globalStore = useGlobal();
+  if (progressEvent.progress && progressEvent.total) {
+    globalStore.setProgress(
+      Math.round((progressEvent.loaded * 100) / progressEvent.total)
+    );
+  } else {
+    globalStore.setProgress(null);
+  }
+};
+axios.defaults.onDownloadProgress = (
+  progressEvent: AxiosProgressEvent
+): void => {
+  const globalStore = useGlobal();
+  if (progressEvent.progress && progressEvent.total) {
+    globalStore.setProgress(
+      Math.round((progressEvent.loaded * 100) / progressEvent.total)
+    );
+  } else {
+    globalStore.setProgress(null);
+  }
+};
+
 // interceptor for http
 axiosServices.interceptors.request.use(
   async config => {
-    // const { setLoading } = useGlobal();
-    // setLoading(true);
+    const { setLoading } = useGlobal();
+    setLoading(true);
 
     config.withCredentials = true;
 
@@ -39,9 +63,9 @@ axiosServices.interceptors.request.use(
   }
 );
 axiosServices.interceptors.response.use(
-  async response => {
-    // const { setLoading } = useGlobal();
-    // setLoading(false);
+  async (response: AxiosResponse<any, any>) => {
+    const { setLoading } = useGlobal();
+    setLoading(false);
 
     const authStore = useAuth();
     const csrfStore = useCsrf();
@@ -60,14 +84,21 @@ axiosServices.interceptors.response.use(
     if (
       response.data === 'Authentication failed or insufficient permissions.'
     ) {
-      void router.push('/auth/login');
+      await router.push({ name: 'Login' });
     }
 
     // refreshTokenRequired가 없는 경우 그냥 응답 반환
     return response;
   },
   async error => {
-    await Promise.reject(error.response?.data.msg || 'Wrong Services');
+    const { setMessage, setLoading } = useGlobal();
+
+    setMessage('An unknown error has occurred.');
+    setLoading(false);
+    // location.reload();
+    // throw new Error(error);
+    console.log(error.response.data);
+    return await Promise.reject(error);
   }
 );
 

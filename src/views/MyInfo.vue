@@ -5,11 +5,11 @@ import { onMounted, ref } from 'vue';
 import type UserInterface from '@/interfaces/UserInterface.ts';
 
 import defaultImage from '@/assets/images/empty_avatar.png';
-import fetchRequest from '@/services/apiService';
+import axios from '@/utils/axios';
 
 /** Store */
 const userStore = useUser();
-const globalStore = useGlobal();
+const { setMessage } = useGlobal();
 const { ruleRequired, ruleNickname } = useRule();
 const errMsgStore = useErrMsg();
 
@@ -18,18 +18,6 @@ const fileInput = ref<HTMLInputElement | null>(null);
 const nickName = ref<string | undefined>(
   userStore.user.nickName ?? userStore.user.name
 );
-
-// const submit = () => {
-//   //apiResponse를 전달 받았다고 가정
-//   // Object.keys(apiResponse.errors).forEach(fieldName => {
-//   //   errMsgStore.setErrorMessage(fieldName, );
-//   // });
-//
-//   errMsgStore.setErrorMessage('nickName', 'test');
-//
-//   // API가 성공적으로 처리되면 사용자 업데이트
-//   // await updateUser({ nickname: nickName.value });
-// };
 
 const submit = async () => {
   // Check if the profile image or nickname has changed
@@ -50,12 +38,12 @@ const submit = async () => {
       }
 
       // Send API request to update user information
-      const res = await fetchRequest(
-        `${import.meta.env.VITE_API_URL}/api/set-user-info`,
-        'POST',
-        formData,
-        'multipart/form-data'
-      );
+
+      const res = await axios.post('/api/set-user-info', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
       // If the API request is successful, update the local user information
       if (res) {
@@ -64,14 +52,14 @@ const submit = async () => {
       }
 
       // Optionally show a success message to the user
-      globalStore.setMessage('User information updated successfully');
+      setMessage('User information updated successfully');
     } catch (error) {
       // Handle API request error, show an error message, etc.
-      globalStore.setMessage('Failed to update user information');
+      setMessage('Failed to update user information');
     }
   } else {
     // No changes, you can optionally show a message to the user
-    globalStore.setMessage('No changes to save');
+    setMessage('No changes to save');
   }
 };
 
@@ -95,7 +83,7 @@ const handleFileUpload = (event: Event) => {
       };
       reader.readAsDataURL(file);
     } else {
-      globalStore.setMessage('파일 크기는 5MB 이하여야 합니다.');
+      setMessage('파일 크기는 5MB 이하여야 합니다.');
     }
   }
 };
