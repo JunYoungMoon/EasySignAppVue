@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import LoginForm from '@/components/auth/LoginForm.vue';
+import SocialList from '@/components/auth/SocialList.vue';
 import Logo from '@/layouts/full/logo/Logo.vue';
 /* Login form */
-import LoginForm from '@/components/auth/LoginForm.vue';
 </script>
 <template>
   <div class="authentication">
@@ -18,8 +19,20 @@ import LoginForm from '@/components/auth/LoginForm.vue';
               <div class="d-flex justify-center py-4 mb-5">
                 <Logo />
               </div>
-              <!-- <div class="text-h6 text-medium-emphasis text-center mb-6">Your Social Campaigns</div> -->
-<!--              <LoginForm />-->
+              <div class="text-h6 text-medium-emphasis text-center mb-6">
+                Your Social Campaigns
+              </div>
+              <SocialList />
+              <div class="d-flex align-center text-center mb-6">
+                <div
+                  class="text-h6 w-100 px-5 font-weight-regular auth-divider position-relative"
+                >
+                  <span class="bg-surface px-5 py-3 position-relative">
+                    or sign in with
+                  </span>
+                </div>
+              </div>
+              <LoginForm />
               <h6
                 class="text-h6 text-medium-emphasis d-flex justify-center align-center mt-3"
               >
@@ -27,7 +40,7 @@ import LoginForm from '@/components/auth/LoginForm.vue';
                 <v-btn
                   class="pl-0 text-primary text-body-1 opacity-1 pl-2"
                   height="auto"
-                  to="/auth/register2"
+                  to="/auth/register"
                   variant="plain"
                 >
                   Create an account

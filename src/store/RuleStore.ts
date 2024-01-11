@@ -10,7 +10,7 @@ export default defineStore('rule', () => {
       return pattern.test(value) || 'Enter a valid email';
     },
     rulePassLen: (v: string) =>
-      (!!v && v.length >= 6) || 'Password must be 6 chars or more',
+      (!!v && v.length >= 10) || 'Password must be 10 chars or more',
     ruleNickname: (v: string) => {
       const isValid = /^[a-zA-Z가-힣]{2,10}$/.test(v);
       return (

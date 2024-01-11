@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { useAuth } from '@/store';
+import { useAuth, useCsrf } from '@/store';
 import { onMounted } from 'vue';
 
-import router from 'src/router';
+import router from '@/router';
+
+const { setCsrfToken } = useCsrf();
+const { setAccessToken, setRefreshToken } = useAuth();
 
 onMounted(() => {
   // URL 파라미터 문자열 가져오기
@@ -16,11 +19,11 @@ onMounted(() => {
   const refreshToken: string | null = urlParams.get('refreshToken');
   const csrfToken: string | null = urlParams.get('csrfToken');
 
-  useAuth().setAccessToken(accessToken);
-  useAuth().setRefreshToken(refreshToken);
-  useAuth().setCsrfToken(csrfToken);
+  setAccessToken(accessToken);
+  setRefreshToken(refreshToken);
+  setCsrfToken(csrfToken);
 
-  void router.push({ name: 'Home' });
+  void router.push({ name: 'Main' });
 });
 </script>
 

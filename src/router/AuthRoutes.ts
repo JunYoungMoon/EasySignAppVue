@@ -34,6 +34,12 @@ const AuthRoutes = {
       component: async () =>
         await import('@/views/authentication/Maintenance.vue'),
     },
+    {
+      name: 'callback',
+      path: '/auth/callback',
+      component: async () =>
+        await import('@/components/auth/LoginCallback.vue'),
+    },
   ],
 };
 

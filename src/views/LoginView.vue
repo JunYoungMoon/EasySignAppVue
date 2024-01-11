@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useUser, useGlobal, useRule } from '@/store';
+import { useRule } from '@/store';
 
 const { ruleEmail, rulePassLen, ruleRequired } = useRule();
 
@@ -56,7 +56,7 @@ const loginData = {
         <v-col>
           <div class="text-body-2">
             Don't have an account?
-            <a href="#">Sign Up</a>
+            <router-link to="/auth/register">Sign Up</router-link>
           </div>
         </v-col>
       </v-row>
@@ -76,6 +76,7 @@ const loginData = {
             Continue with Google
           </v-btn>
         </v-col>
+
         <v-col class="pa-1">
           <v-btn
             style="text-transform: none"
