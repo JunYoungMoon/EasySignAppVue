@@ -18,5 +18,9 @@ export default defineStore('rule', () => {
         'Nickname should be 2 to 10 characters long and consist of English letters or Korean characters.'
       );
     },
+    ruleCode: (v: string) => {
+      const isValid = /^[a-zA-Z0-9]{6}$/.test(v);
+      return isValid || 'The authentication code format is incorrect.';
+    },
   };
 });
