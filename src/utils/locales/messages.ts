@@ -2,8 +2,7 @@ import en from './en.json';
 import kr from './kr.json';
 
 const messages = {
-  en: en,
-  kr: kr,
+  en,
+  kr,
 };
-
 export default messages;

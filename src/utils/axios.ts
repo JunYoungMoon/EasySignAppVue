@@ -3,6 +3,7 @@ import { useAuth, useCsrf, useGlobal } from '@/store';
 import axios, { type AxiosProgressEvent, type AxiosResponse } from 'axios';
 
 import router from '@/router';
+import i18n from '@/utils/locales/i18n';
 
 const baseUrl = `${import.meta.env.VITE_API_URL}`;
 
@@ -54,6 +55,8 @@ axiosServices.interceptors.request.use(
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
+
+    config.headers['Accept-Language'] = i18n.global.locale;
 
     return config;
   },
