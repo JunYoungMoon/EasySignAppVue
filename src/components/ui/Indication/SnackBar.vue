@@ -21,7 +21,8 @@ const snackbarText: ComputedRef<string> = computed(() => message);
 // When snackbar text has been set, show snackbar.
 watch(
   () => message,
-  message => (snackbarVisibility.value = message !== '')
+  message => (snackbarVisibility.value = message !== ''),
+  { immediate: true }
 );
 
 /** Clear store when snackbar hide */
