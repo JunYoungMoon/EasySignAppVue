@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { useGlobal } from '@/store';
-import {
-  computed,
-  nextTick,
-  ref,
-  watch,
-  type ComputedRef,
-  type Ref,
-} from 'vue';
+import { nextTick, ref, type Ref, watchEffect } from 'vue';
+
+interface Props {
+  loading: boolean;
+  progress: number | null;
+  snackbarText: string;
+}
 
 /** Global Store */
 const { message, setMessage } = useGlobal();
@@ -15,15 +14,12 @@ const { message, setMessage } = useGlobal();
 /** Snackbar visibility */
 const snackbarVisibility: Ref<boolean> = ref(false);
 
-/** Snackbar text */
-const snackbarText: ComputedRef<string> = computed(() => message);
+const props = defineProps<Props>();
+const snackbarText = ref(props.snackbarText);
 
-// When snackbar text has been set, show snackbar.
-watch(
-  () => message,
-  message => (snackbarVisibility.value = message !== ''),
-  { immediate: true }
-);
+watchEffect(() => {
+  snackbarVisibility.value = message !== '';
+});
 
 /** Clear store when snackbar hide */
 const onSnackbarChanged = async () => {

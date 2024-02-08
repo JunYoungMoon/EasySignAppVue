@@ -19,12 +19,15 @@ const loading: WritableComputedRef<boolean> = computed({
 const progress: ComputedRef<number | null> = computed(
   () => globalStore.progress
 );
+
+/** Snackbar text */
+const snackbarText: ComputedRef<string> = computed(() => globalStore.message);
 </script>
 
 <template>
   <Loading :loading="loading" />
   <Progress :loading="loading" :progress="progress" />
-  <SnackBar />
+  <SnackBar :snackbar-text="snackbarText" />
 </template>
 
 <style scoped></style>
