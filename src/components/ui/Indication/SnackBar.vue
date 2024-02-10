@@ -9,7 +9,11 @@ interface Props {
 }
 
 /** Global Store */
-const { message, setMessage } = useGlobal();
+const { setMessage } = useGlobal();
+
+interface Props {
+  snackbarText: string;
+}
 
 /** Snackbar visibility */
 const snackbarVisibility: Ref<boolean> = ref(false);
@@ -18,7 +22,11 @@ const props = defineProps<Props>();
 const snackbarText = ref(props.snackbarText);
 
 watchEffect(() => {
-  snackbarVisibility.value = message !== '';
+  console.log('props.snackbarText changed:', props.snackbarText);
+  snackbarText.value = props.snackbarText;
+
+  // snackbarVisibility.value = message !== '';
+  snackbarVisibility.value = props.snackbarText !== '';
 });
 
 /** Clear store when snackbar hide */
