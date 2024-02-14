@@ -31,7 +31,7 @@ watchEffect(() => {
 
 /** Clear store when snackbar hide */
 const onSnackbarChanged = async () => {
-  setMessage();
+  setMessage('');
   await nextTick();
 };
 </script>

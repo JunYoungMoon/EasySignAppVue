@@ -32,6 +32,8 @@ const emailVerification = async () => {
 
   setMessage(res.data.msg);
 
+  valid.value = true; // 검증 버튼 비활성화
+
   console.log(res);
 };
 
@@ -41,6 +43,8 @@ const submit = async () => {
     name: name.value,
     password: password.value,
   });
+
+  setMessage(res.data.msg);
 
   console.log(res);
 };
