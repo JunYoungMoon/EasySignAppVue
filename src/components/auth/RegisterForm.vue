@@ -13,6 +13,10 @@ const password = ref('');
 const email = ref('');
 const code = ref('');
 const name = ref('');
+const sendCodeDisabled = ref(false); // Send Code 버튼 활성화 여부
+const sendCodeCountdownMinutes = ref(0); // Send Code 카운트 다운 분
+const sendCodeCountdownSeconds = ref(0); // Send Code 카운트 다운 초
+let countdownInterval: ReturnType<typeof setInterval>;
 
 const sendEmail = async () => {
   const res = await axios.post('/api/send-email-code', {
@@ -20,6 +24,32 @@ const sendEmail = async () => {
   });
 
   setMessage(res.data.msg);
+
+  if (res.data.status === 'success') {
+    // Send Code 버튼을 비활성화하고 카운트 다운 시작
+    sendCodeDisabled.value = true;
+    sendCodeCountdownMinutes.value = 3; // 3분
+    sendCodeCountdownSeconds.value = 0;
+
+    // 1초마다 카운트 다운
+    countdownInterval = setInterval(() => {
+      if (sendCodeCountdownSeconds.value > 0) {
+        sendCodeCountdownSeconds.value--;
+      } else {
+        sendCodeCountdownMinutes.value--;
+        sendCodeCountdownSeconds.value = 59;
+      }
+
+      if (
+        sendCodeCountdownMinutes.value === 0 &&
+        sendCodeCountdownSeconds.value === 0
+      ) {
+        // 타이머가 종료되면 Send Code 버튼을 다시 활성화하고 타이머를 정리
+        clearInterval(countdownInterval);
+        sendCodeDisabled.value = false;
+      }
+    }, 1000);
+  }
 
   console.log(res);
 };
@@ -32,7 +62,12 @@ const emailVerification = async () => {
 
   setMessage(res.data.msg);
 
-  valid.value = true; // 검증 버튼 비활성화
+  if (res.data.status === 'success') {
+    clearInterval(countdownInterval); // 인터벌 멈춤
+    sendCodeDisabled.value = false; // Send Code 버튼 활성화
+    sendCodeCountdownMinutes.value = 0; // 카운트 초기화
+    sendCodeCountdownSeconds.value = 0; // 카운트 초기화
+  }
 
   console.log(res);
 };
@@ -74,11 +109,22 @@ const submit = async () => {
           :disabled="
             !(ruleEmail(email) === true && ruleRequired(email) === true)
           "
-          style="height: 56px"
+          style="height: 56px; width: 120px"
           class="mt-2"
           @click="sendEmail"
         >
-          Send Code
+          <template
+            v-if="sendCodeCountdownMinutes > 0 || sendCodeCountdownSeconds > 0"
+          >
+            {{
+              `${sendCodeCountdownMinutes}:${
+                sendCodeCountdownSeconds < 10
+                  ? '0' + sendCodeCountdownSeconds
+                  : sendCodeCountdownSeconds
+              }`
+            }}
+          </template>
+          <template v-else>Send Code</template>
         </v-btn>
       </v-col>
     </v-row>
