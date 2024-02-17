@@ -2,6 +2,7 @@
 import { useGlobal, useRule } from '@/store';
 import { ref } from 'vue';
 
+import router from '@/router';
 import axios from '@/utils/axios';
 
 const { ruleRequired, ruleNickname, rulePassLen, ruleEmail, ruleCode } =
@@ -80,6 +81,11 @@ const submit = async () => {
   });
 
   setMessage(res.data.msg);
+
+  if (res.data.status === 'success') {
+    // 회원가입 성공 시 로그인 페이지로 이동
+    await router.push('/auth/login');
+  }
 
   console.log(res);
 };
