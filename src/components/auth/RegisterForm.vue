@@ -17,6 +17,7 @@ const name = ref('');
 const sendCodeDisabled = ref(false); // Send Code 버튼 활성화 여부
 const sendCodeCountdownMinutes = ref(0); // Send Code 카운트 다운 분
 const sendCodeCountdownSeconds = ref(0); // Send Code 카운트 다운 초
+const verifyDisabled = ref(false); // Verify 버튼 활성화 여부
 let countdownInterval: ReturnType<typeof setInterval>;
 
 const sendEmail = async () => {
@@ -27,10 +28,13 @@ const sendEmail = async () => {
   setMessage(res.data.msg);
 
   if (res.data.status === 'success') {
+    clearInterval(countdownInterval); // 인터벌 멈춤
+
     // Send Code 버튼을 비활성화하고 카운트 다운 시작
     sendCodeDisabled.value = true;
     sendCodeCountdownMinutes.value = 3; // 3분
     sendCodeCountdownSeconds.value = 0;
+    verifyDisabled.value = false; // Verify 버튼 활성화
 
     // 1초마다 카운트 다운
     countdownInterval = setInterval(() => {
@@ -68,6 +72,8 @@ const emailVerification = async () => {
     sendCodeDisabled.value = false; // Send Code 버튼 활성화
     sendCodeCountdownMinutes.value = 0; // 카운트 초기화
     sendCodeCountdownSeconds.value = 0; // 카운트 초기화
+
+    verifyDisabled.value = true; // Verify 버튼 비활성화
   }
 
   console.log(res);
@@ -96,7 +102,7 @@ const submit = async () => {
     v-model="valid"
     lazy-validation
     class="mt-5"
-    @submit="submit"
+    @submit.prevent="submit"
   >
     <v-row align="center" class="d-flex justify-center">
       <!-- 이메일 입력 -->
@@ -149,7 +155,10 @@ const submit = async () => {
         <v-btn
           size="large"
           color="primary"
-          :disabled="!(ruleCode(code) === true && ruleCode(code) === true)"
+          :disabled="
+            !(ruleCode(code) === true && ruleCode(code) === true) ||
+            verifyDisabled === true
+          "
           style="height: 56px; width: 100%"
           class="mt-2"
           @click="emailVerification"
@@ -188,9 +197,10 @@ const submit = async () => {
       class="mt-2"
       color="primary"
       block
-      type="submit"
+      type="button"
       variant="flat"
       :disabled="!valid"
+      @click="submit"
     >
       Sign Up
     </v-btn>
