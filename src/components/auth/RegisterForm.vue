@@ -5,11 +5,11 @@ import { ref } from 'vue';
 import router from '@/router';
 import axios from '@/utils/axios';
 
-const { ruleRequired, ruleNickname, rulePassLen, ruleEmail, ruleCode } =
-  useRule();
+const { ruleRequired, ruleNickname, rulePass, ruleEmail, ruleCode } = useRule();
 const { setMessage } = useGlobal();
 
 const valid = ref(false);
+const passwordShow = ref(false);
 const password = ref('');
 const email = ref('');
 const code = ref('');
@@ -86,11 +86,12 @@ const submit = async () => {
     password: password.value,
   });
 
-  setMessage(res.data.msg);
-
   if (res.data.status === 'success') {
+    setMessage(res.data.msg);
     // 회원가입 성공 시 로그인 페이지로 이동
     await router.push('/auth/login');
+  } else {
+    setMessage(res.msg);
   }
 
   console.log(res);
@@ -186,11 +187,13 @@ const submit = async () => {
     <v-label class="text-subtitle-1 font-weight-medium pb-2">Password</v-label>
     <VTextField
       v-model="password"
-      :counter="10"
-      :rules="[ruleRequired, rulePassLen]"
+      :append-inner-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
+      :counter="30"
+      :rules="[ruleRequired, rulePass]"
       variant="outlined"
-      type="password"
+      :type="passwordShow ? 'text' : 'password'"
       color="primary"
+      @click:append-inner="passwordShow = !passwordShow"
     />
     <v-btn
       size="large"
