@@ -1,58 +1,54 @@
 <script setup lang="ts">
+import { useGlobal, useRule } from '@/store';
 import { ref } from 'vue';
-
-import { Form } from 'vee-validate';
 
 /* Social icons */
 import facebook from '@/assets/images/svgs/facebook-icon.svg';
 import google from '@/assets/images/svgs/google-icon.svg';
-import { useAuthStore } from '@/store/auth';
+import router from '@/router';
+import axios from '@/utils/axios';
 
-const checkbox = ref(false);
+const { ruleRequired, rulePass, ruleEmail } = useRule();
+const { setMessage } = useGlobal();
+
 const valid = ref(false);
-const show1 = ref(false);
-const password = ref('admin123');
-const username = ref('info@wrappixel.com');
-const passwordRules = ref([
-  (v: string) => !!v || 'Password is required',
-  (v: string) =>
-    (v && v.length <= 10) || 'Password must be less than 10 characters',
-]);
-const emailRules = ref([
-  (v: string) => !!v || 'E-mail is required',
-  (v: string) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-]);
+const checkbox = ref(false);
+const passwordShow = ref(false);
+const password = ref('');
+const email = ref('');
 
-async function validate(values: any, { setErrors }: any) {
-  const authStore = useAuthStore();
-  return await authStore
-    .login(username.value, password.value)
-    .catch(error => setErrors({ apiError: error }));
-}
+const submit = async () => {
+  const res = await axios.post('/api/login', {
+    email: email.value,
+    password: password.value,
+  });
+
+  // if (res.data.status === 'success') {
+  // } else {
+  // }
+
+  console.log(res);
+};
 </script>
 
 <template>
-  <Form v-slot="{ errors, isSubmitting }" class="mt-5" @submit="validate">
+  <Form v-model="valid" class="mt-5" @submit="submit">
     <v-label class="text-subtitle-1 font-weight-semibold pb-2 text-lightText">
       Username
     </v-label>
-    <VTextField
-      v-model="username"
-      :rules="emailRules"
-      class="mb-8"
-      required
-      hide-details="auto"
-    />
+    <VTextField v-model="email" :rules="[ruleRequired, ruleEmail]" />
     <v-label class="text-subtitle-1 font-weight-semibold pb-2 text-lightText">
       Password
     </v-label>
     <VTextField
       v-model="password"
-      :rules="passwordRules"
-      required
-      hide-details="auto"
-      type="password"
-      class="pwdInput"
+      :append-inner-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
+      :counter="30"
+      :rules="[ruleRequired, rulePass]"
+      variant="outlined"
+      :type="passwordShow ? 'text' : 'password'"
+      color="primary"
+      @click:append-inner="passwordShow = !passwordShow"
     />
     <div class="d-flex flex-wrap align-center my-3 ml-n2">
       <v-checkbox
@@ -62,7 +58,7 @@ async function validate(values: any, { setErrors }: any) {
         hide-details
         color="primary"
       >
-        <template #label class="">Remeber this Device</template>
+        <template #label>Remeber this Device</template>
       </v-checkbox>
       <div class="ml-sm-auto">
         <RouterLink
@@ -75,17 +71,13 @@ async function validate(values: any, { setErrors }: any) {
     </div>
     <v-btn
       size="large"
-      :loading="isSubmitting"
       color="primary"
-      :disabled="valid"
+      :disabled="!valid"
       block
       type="submit"
       variant="flat"
     >
       Sign In
     </v-btn>
-    <div v-if="errors.apiError" class="mt-2">
-      <v-alert color="error">{{ errors.apiError }}</v-alert>
-    </div>
   </Form>
 </template>
