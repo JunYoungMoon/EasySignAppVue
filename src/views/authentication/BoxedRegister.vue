@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import RegisterForm from '@/components/auth/RegisterForm.vue';
 import Logo from '@/layouts/full/logo/Logo.vue';
 /* Register form */
-import RegisterForm from '@/components/auth/RegisterForm.vue';
 </script>
 <template>
   <div class="authentication">
@@ -26,7 +26,7 @@ import RegisterForm from '@/components/auth/RegisterForm.vue';
                 Already have an Account?
                 <v-btn
                   variant="plain"
-                  to="/auth/login2"
+                  to="/auth/login"
                   class="text-primary text-body-1 opacity-1 pl-2"
                 >
                   Sign In

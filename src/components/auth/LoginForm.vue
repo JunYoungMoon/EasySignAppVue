@@ -23,18 +23,25 @@ const submit = async () => {
     password: password.value,
   });
 
-  // if (res.data.status === 'success') {
-  // } else {
-  // }
+  setMessage(res.data.msg);
+
+  if (res.data.status === 'success') {
+  }
 
   console.log(res);
 };
 </script>
 
 <template>
-  <Form v-model="valid" class="mt-5" @submit="submit">
+  <v-form
+    ref="form"
+    v-model="valid"
+    lazy-validation
+    class="mt-5"
+    @submit.prevent="submit"
+  >
     <v-label class="text-subtitle-1 font-weight-semibold pb-2 text-lightText">
-      Username
+      Email
     </v-label>
     <VTextField v-model="email" :rules="[ruleRequired, ruleEmail]" />
     <v-label class="text-subtitle-1 font-weight-semibold pb-2 text-lightText">
@@ -43,7 +50,6 @@ const submit = async () => {
     <VTextField
       v-model="password"
       :append-inner-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
-      :counter="30"
       :rules="[ruleRequired, rulePass]"
       variant="outlined"
       :type="passwordShow ? 'text' : 'password'"
@@ -51,13 +57,7 @@ const submit = async () => {
       @click:append-inner="passwordShow = !passwordShow"
     />
     <div class="d-flex flex-wrap align-center my-3 ml-n2">
-      <v-checkbox
-        v-model="checkbox"
-        :rules="[(v: any) => !!v || 'You must agree to continue!']"
-        required
-        hide-details
-        color="primary"
-      >
+      <v-checkbox v-model="checkbox" required hide-details color="primary">
         <template #label>Remeber this Device</template>
       </v-checkbox>
       <div class="ml-sm-auto">
@@ -74,10 +74,10 @@ const submit = async () => {
       color="primary"
       :disabled="!valid"
       block
-      type="submit"
       variant="flat"
+      @click="submit"
     >
       Sign In
     </v-btn>
-  </Form>
+  </v-form>
 </template>

@@ -86,15 +86,14 @@ const submit = async () => {
     password: password.value,
   });
 
+  setMessage(res.data.msg);
+
   if (res.data.status === 'success') {
-    setMessage(res.data.msg);
     // 회원가입 성공 시 로그인 페이지로 이동
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     setTimeout(async () => {
       await router.push('/auth/login');
     }, 3000);
-  } else {
-    setMessage(res.msg);
   }
 
   console.log(res);
