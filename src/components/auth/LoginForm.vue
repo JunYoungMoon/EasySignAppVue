@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useGlobal, useRule } from '@/store';
+import { useAuth, useGlobal, useRule } from '@/store';
 import { ref } from 'vue';
 
 /* Social icons */
@@ -10,6 +10,7 @@ import axios from '@/utils/axios';
 
 const { ruleRequired, rulePass, ruleEmail } = useRule();
 const { setMessage } = useGlobal();
+const { setAccessToken, setRefreshToken } = useAuth();
 
 const valid = ref(false);
 const checkbox = ref(false);
@@ -23,9 +24,13 @@ const submit = async () => {
     password: password.value,
   });
 
-  setMessage(res.data.msg);
-
   if (res.data.status === 'success') {
+    setAccessToken(res.data.data.accessToken);
+    setRefreshToken(res.data.data.refreshToken);
+
+    await router.push('/');
+  } else {
+    setMessage(res.data.msg);
   }
 
   console.log(res);
@@ -39,6 +44,7 @@ const submit = async () => {
     lazy-validation
     class="mt-5"
     @submit.prevent="submit"
+    @keyup.enter="submit"
   >
     <v-label class="text-subtitle-1 font-weight-semibold pb-2 text-lightText">
       Email

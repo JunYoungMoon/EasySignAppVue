@@ -41,7 +41,6 @@ export default defineStore('global', () => {
    */
   function setMessage(msg: string = ''): void {
     // put snackbar text
-    console.log(msg);
     message.value = msg;
   }
 
