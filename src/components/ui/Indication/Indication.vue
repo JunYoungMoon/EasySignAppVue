@@ -25,9 +25,9 @@ const snackbarText: ComputedRef<string> = computed(() => globalStore.message);
 </script>
 
 <template>
-  <Loading :loading="loading" />
-  <Progress :loading="loading" :progress="progress" />
-  <SnackBar :snackbar-text="snackbarText" />
+  <!--  <Loading :loading="loading" />-->
+  <!--  <Progress :loading="loading" :progress="progress" />-->
+  <!--  <SnackBar :snackbar-text="snackbarText" />-->
 </template>
 
 <style scoped></style>
