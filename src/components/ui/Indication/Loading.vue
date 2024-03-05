@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { useGlobal } from '@/store';
-import { computed, ref, toRefs, watchEffect } from 'vue';
+import { ref } from 'vue';
 
 interface Props {
   loading: boolean;
@@ -8,13 +7,6 @@ interface Props {
 
 const props = defineProps<Props>();
 const loading = ref(props.loading);
-console.log(loading);
-//
-// watchEffect(() => {
-//   // props.loading 값이 변경될 때마다 실행되는 로직
-//   console.log('props.loading changed:', props.loading);
-//   loading.value = props.loading;
-// });
 </script>
 
 <template>

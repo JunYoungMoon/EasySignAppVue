@@ -14,7 +14,6 @@ const customizer = useCustomizer();
 const sidebarMenu = shallowRef(sidebarItems);
 
 const handleScrollDisabled = (v: boolean): void => {
-  console.log(v);
   if (!v) {
     // Enable scrolling when the menu is closed
     document.documentElement.style.overflow = 'auto';

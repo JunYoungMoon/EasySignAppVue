@@ -1,4 +1,9 @@
-import { ShoppingCartIcon, ApertureIcon } from 'vue-tabler-icons';
+import {
+  ShoppingCartIcon,
+  ApertureIcon,
+  Error404Icon,
+  UserIcon,
+} from 'vue-tabler-icons';
 
 export interface menu {
   header?: string;
@@ -24,12 +29,29 @@ const sidebarItem: menu[] = [
     chip: 'New',
     chipColor: 'surface',
     chipBgColor: 'secondary',
-    to: '/',
+    to: '/modern',
   },
   {
     title: 'eCommerce',
     icon: ShoppingCartIcon,
     to: '/about',
+  },
+  { header: 'Apps' },
+  {
+    title: 'Myinfo',
+    icon: UserIcon,
+    to: '/myinfo',
+    chip: '2',
+    chipColor: 'surface',
+    chipBgColor: 'secondary',
+  },
+  {
+    title: 'Error404',
+    icon: Error404Icon,
+    to: '/auth/404',
+    chip: '2',
+    chipColor: 'surface',
+    chipBgColor: 'secondary',
   },
 ];
 

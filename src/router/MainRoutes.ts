@@ -11,6 +11,11 @@ const MainRoutes = {
       component: async () => await import('@/views/index.vue'),
     },
     {
+      name: 'Modern',
+      path: '/modern',
+      component: async () => await import('@/views/index.vue'),
+    },
+    {
       name: 'About',
       path: '/about',
       component: async () => await import('@/views/AboutView.vue'),
