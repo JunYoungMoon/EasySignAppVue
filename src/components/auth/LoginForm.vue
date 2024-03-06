@@ -32,8 +32,6 @@ const submit = async () => {
   } else {
     setMessage(res.data.msg);
   }
-
-  console.log(res);
 };
 </script>
 

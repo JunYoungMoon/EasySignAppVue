@@ -98,9 +98,6 @@ axiosServices.interceptors.response.use(
 
     setMessage('An unknown error has occurred.');
     setLoading(false);
-    // location.reload();
-    // throw new Error(error);
-    console.log(error.response.data);
     return await Promise.reject(error);
   }
 );

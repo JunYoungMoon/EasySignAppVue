@@ -7,7 +7,7 @@ import { useTheme } from 'vuetify';
 
 import logo from '@/assets/logo.svg';
 // Components
-import Indication from '@/components/ui/Indication/Indication.vue';
+import Indication from '@/components/Indication.vue';
 
 /** Vuetify Theme */
 const theme = useTheme();
@@ -58,6 +58,4 @@ const jsonLd = JSON.stringify(
     <link rel="icon" :href="logo" type="image/svg+xml" />
   </teleport>
   <RouterView />
-  <!-- Loading, Progress, Snackbar -->
-  <Indication />
 </template>

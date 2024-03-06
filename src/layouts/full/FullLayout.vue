@@ -6,6 +6,8 @@ import { RouterView } from 'vue-router';
 import VerticalHeaderVue from './vertical-header/VerticalHeader.vue';
 import VerticalSidebarVue from './vertical-sidebar/VerticalSidebar.vue';
 
+import Indication from '@/components/Indication.vue';
+
 const customizer = useCustomizer();
 /** Config Store */
 const configStore = useConfig();
@@ -30,6 +32,8 @@ const isDark: ComputedRef<string> = computed(() =>
           </div>
         </v-container>
       </v-main>
+      <!-- Loading, Progress, Snackbar -->
+      <Indication />
     </v-app>
   </v-locale-provider>
 </template>

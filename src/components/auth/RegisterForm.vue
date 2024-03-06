@@ -55,8 +55,6 @@ const sendEmail = async () => {
       }
     }, 1000);
   }
-
-  console.log(res);
 };
 
 const emailVerification = async () => {
@@ -75,8 +73,6 @@ const emailVerification = async () => {
 
     verifyDisabled.value = true; // Verify 버튼 비활성화
   }
-
-  console.log(res);
 };
 
 const submit = async () => {
@@ -95,8 +91,6 @@ const submit = async () => {
       await router.push('/auth/login');
     }, 3000);
   }
-
-  console.log(res);
 };
 </script>
 <template>

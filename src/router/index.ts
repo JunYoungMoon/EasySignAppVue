@@ -66,7 +66,6 @@ router.beforeEach(
 
     // If the user is not authenticated and the current route requires authentication, redirect to login
     if (requiresAuth) {
-      console.log('test');
       // Making a POST request using axios
       const userInfo = await axios.post('/user-info');
 
