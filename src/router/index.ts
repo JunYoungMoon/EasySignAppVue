@@ -1,4 +1,4 @@
-import { useGlobal, useUser } from '@/store';
+import { useAuth, useGlobal, useUser } from '@/store';
 import {
   createRouter,
   createWebHistory,
@@ -64,8 +64,9 @@ router.beforeEach(
     // Check if current route requires authentication
     const requiresAuth = _to.matched.some(record => record.meta.requiresAuth);
 
-    // If the user is not authenticated and the current route requires authentication, redirect to login
-    if (requiresAuth) {
+    const authStore = useAuth();
+
+    if (authStore.accessToken && authStore.refreshToken) {
       // Making a POST request using axios
       const userInfo = await axios.post('/user-info');
 
@@ -84,6 +85,27 @@ router.beforeEach(
         }
       }
     }
+
+    // If the user is not authenticated and the current route requires authentication, redirect to login
+    // if (requiresAuth) {
+    //   // Making a POST request using axios
+    //   const userInfo = await axios.post('/user-info');
+    //
+    //   // User information settings
+    //   if (
+    //     userInfo &&
+    //     userInfo.data !== 'Authentication failed or insufficient permissions.'
+    //   ) {
+    //     try {
+    //       const userStore = useUser();
+    //       await userStore.setUserInfo(userInfo);
+    //     } catch (error) {
+    //       // If user information cannot be retrieved, redirect to login
+    //       // next('/auth/404');
+    //       // return;
+    //     }
+    //   }
+    // }
 
     // Hide snack bar
     setMessage('');

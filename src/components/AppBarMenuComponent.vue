@@ -7,7 +7,7 @@ import LanguageDD from './LanguageDD.vue';
 import type UserInterface from '@/interfaces/UserInterface.ts';
 
 import defaultImage from '@/assets/images/empty_avatar.png';
-import router from 'src/router';
+import router from '@/router';
 
 /** Store */
 const configStore = useConfig();
