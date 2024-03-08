@@ -1,11 +1,19 @@
 <script setup lang="ts">
+import { useAuth, useUser } from '@/store';
+
 import { MailIcon } from 'vue-tabler-icons';
 
 import { profileDD } from '@/_mockApis/headerData';
+const authStore = useAuth();
+const userStore = useUser();
 
-// import { useAuthStore } from '@/stores/auth';
-//
-// const authStore = useAuthStore();
+const logout = () => {
+  authStore.accessToken = '';
+  authStore.refreshToken = '';
+  userStore.setUserInfo({});
+
+  location.reload();
+};
 </script>
 
 <template>
@@ -46,7 +54,7 @@ import { profileDD } from '@/_mockApis/headerData';
             </div>
           </div>
         </div>
-        <v-divider></v-divider>
+        <v-divider />
       </div>
       <perfect-scrollbar style="height: calc(100vh - 240px); max-height: 240px">
         <v-list class="py-0 theme-list" lines="two">
@@ -56,7 +64,7 @@ import { profileDD } from '@/_mockApis/headerData';
             class="py-4 px-8 custom-text-primary"
             :to="item.href"
           >
-            <template v-slot:prepend>
+            <template #prepend>
               <v-avatar
                 size="48"
                 color="lightprimary"
@@ -83,7 +91,9 @@ import { profileDD } from '@/_mockApis/headerData';
         </v-list>
       </perfect-scrollbar>
       <div class="pt-4 pb-6 px-8 text-center">
-        <v-btn color="primary" variant="outlined" block>Logout</v-btn>
+        <v-btn color="primary" variant="outlined" block @click="logout">
+          Logout
+        </v-btn>
       </div>
     </v-sheet>
   </v-menu>

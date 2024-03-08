@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useCustomizer, useAuth } from '@/store';
-import { onMounted, ref, watch } from 'vue';
+import { useCustomizer, useUser } from '@/store';
+import { onMounted, type Ref, ref, watch } from 'vue';
 
 import { GridDotsIcon, Menu2Icon } from 'vue-tabler-icons';
 
@@ -9,6 +9,8 @@ import ProfileDD from './ProfileDD.vue';
 import RightMobileSidebar from './RightMobileSidebar.vue';
 import Searchbar from './Searchbar.vue';
 import ThemeChange from './ThemeChange.vue';
+
+import type UserInterface from '@/interfaces/UserInterface';
 
 import router from '@/router';
 
@@ -20,15 +22,15 @@ watch(priority, newPriority => {
   priority.value = newPriority;
 });
 
-const authStore = useAuth();
 const login = () => {
   void router.push({ name: 'Login' });
 };
 
-const isAuth = ref(false);
+const user: Ref<UserInterface> = ref({});
 
 onMounted(async () => {
-  isAuth.value = authStore.isAuth;
+  const userStore = useUser();
+  user.value = userStore.user;
 });
 </script>
 
@@ -88,7 +90,7 @@ onMounted(async () => {
     <!-- User Profile -->
     <!-- ---------------------------------------------- -->
     <!--    <div class="ml-2">-->
-    <ProfileDD v-if="isAuth" />
+    <ProfileDD v-if="user && Object.keys(user).length !== 0" />
     <v-btn v-else icon class="custom-hover-primary" @click="login">
       <i class="mdi mdi-login" style="font-size: 28px" />
     </v-btn>
