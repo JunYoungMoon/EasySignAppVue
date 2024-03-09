@@ -3,14 +3,25 @@ import { useAuth, useUser } from '@/store';
 
 import { MailIcon } from 'vue-tabler-icons';
 
+import type UserInterface from '@/interfaces/UserInterface';
+
 import { profileDD } from '@/_mockApis/headerData';
+import defaultImage from '@/assets/images/empty_avatar.png';
+
+defineProps({
+  user: {
+    type: Object as () => UserInterface,
+    required: true,
+  },
+});
+
 const authStore = useAuth();
 const userStore = useUser();
 
 const logout = () => {
   authStore.accessToken = '';
   authStore.refreshToken = '';
-  userStore.setUserInfo({});
+  void userStore.setUserInfo({});
 
   location.reload();
 };
@@ -25,7 +36,7 @@ const logout = () => {
       <v-btn class="custom-hover-primary" variant="text" v-bind="props" icon>
         <v-avatar size="35">
           <img
-            src="@/assets/images/profile/user-1.jpg"
+            :src="user?.profileImage || defaultImage"
             width="35"
             alt="Julia"
           />

@@ -90,7 +90,7 @@ onMounted(async () => {
     <!-- User Profile -->
     <!-- ---------------------------------------------- -->
     <!--    <div class="ml-2">-->
-    <ProfileDD v-if="user && Object.keys(user).length !== 0" />
+    <ProfileDD v-if="user && Object.keys(user).length !== 0" :user="user" />
     <v-btn v-else icon class="custom-hover-primary" @click="login">
       <i class="mdi mdi-login" style="font-size: 28px" />
     </v-btn>
