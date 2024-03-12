@@ -35,11 +35,7 @@ const logout = () => {
     <template #activator="{ props }">
       <v-btn class="custom-hover-primary" variant="text" v-bind="props" icon>
         <v-avatar size="35">
-          <img
-            :src="user?.profileImage || defaultImage"
-            width="35"
-            alt="Julia"
-          />
+          <v-img :src="user?.profileImage || defaultImage" width="35" />
         </v-avatar>
       </v-btn>
     </template>
@@ -48,19 +44,21 @@ const logout = () => {
         <h6 class="text-h5 font-weight-medium">User Profile</h6>
         <div class="d-flex align-center mt-4 pb-6">
           <v-avatar size="80">
-            <img src="@/assets/images/profile/user-1.jpg" width="80" />
+            <v-img :src="user?.profileImage || defaultImage" width="80" />
           </v-avatar>
           <div class="ml-3">
-            <h6 class="text-h6 mb-n1">Mathew Anderson</h6>
-            <span class="text-subtitle-1 font-weight-regular textSecondary">
-              Designer
-            </span>
-            <div class="d-flex align-center mt-1">
+            <h6 class="text-h6 mb-n1">
+              {{ user?.nickName || user?.name }}
+            </h6>
+            <!--            <span class="text-subtitle-1 font-weight-regular textSecondary">-->
+            <!--              Designer-->
+            <!--            </span>-->
+            <div class="d-flex align-center mt-2">
               <MailIcon size="18" stroke-width="1.5" />
               <span
                 class="text-subtitle-1 font-weight-regular textSecondary ml-2"
               >
-                info@modernize.com
+                {{ user?.email }}
               </span>
             </div>
           </div>

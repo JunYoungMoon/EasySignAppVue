@@ -51,7 +51,7 @@ const onSnackbarChanged = async () => {
   <!--Progress-->
   <v-progress-linear
     v-show="loading"
-    :active="loading"
+    :active="progress !== null"
     :indeterminate="progress === null"
     :model-value="progress !== null ? progress : 0"
     color="blue-accent-3"
