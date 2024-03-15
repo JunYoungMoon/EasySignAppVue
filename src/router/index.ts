@@ -74,7 +74,7 @@ router.beforeEach(
       ) {
         try {
           const userStore = useUser();
-          userStore.setUserInfo(userInfo);
+          await userStore.setUserInfo(userInfo);
         } catch (error) {
           // If user information cannot be retrieved, redirect to login
           // next('/auth/404');
