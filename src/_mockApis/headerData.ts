@@ -10,11 +10,36 @@ import type {
 //
 // Notification
 //
+import flag1 from '@/assets/images/flag/icon-flag-en.svg';
+import flag2 from '@/assets/images/flag/icon-flag-kr.svg';
 import user1 from '@/assets/images/profile/user-1.jpg';
 import user2 from '@/assets/images/profile/user-2.jpg';
 import user3 from '@/assets/images/profile/user-3.jpg';
 import user4 from '@/assets/images/profile/user-4.jpg';
 import user5 from '@/assets/images/profile/user-5.jpg';
+
+//
+// Profile
+//
+import proUser1 from '@/assets/images/svgs/icon-account.svg';
+import img8 from '@/assets/images/svgs/icon-dd-application.svg';
+import img2 from '@/assets/images/svgs/icon-dd-cart.svg';
+import img1 from '@/assets/images/svgs/icon-dd-chat.svg';
+
+//
+// Language
+//
+
+//
+// AppsLink
+//
+import img4 from '@/assets/images/svgs/icon-dd-date.svg';
+import img3 from '@/assets/images/svgs/icon-dd-invoice.svg';
+import img6 from '@/assets/images/svgs/icon-dd-lifebuoy.svg';
+import img7 from '@/assets/images/svgs/icon-dd-message-box.svg';
+import img5 from '@/assets/images/svgs/icon-dd-mobile.svg';
+import proUser2 from '@/assets/images/svgs/icon-inbox.svg';
+import proUser3 from '@/assets/images/svgs/icon-tasks.svg';
 
 const notifications: notificationType[] = [
   {
@@ -49,19 +74,12 @@ const notifications: notificationType[] = [
   },
 ];
 
-//
-// Profile
-//
-import proUser1 from '@/assets/images/svgs/icon-account.svg';
-import proUser2 from '@/assets/images/svgs/icon-inbox.svg';
-import proUser3 from '@/assets/images/svgs/icon-tasks.svg';
-
 const profileDD: profileType[] = [
   {
     avatar: proUser1,
     title: 'My Profile',
     subtitle: 'Account settings',
-    href: '/apps/user/profile',
+    href: '/myProfile',
   },
   {
     avatar: proUser2,
@@ -77,29 +95,10 @@ const profileDD: profileType[] = [
   },
 ];
 
-//
-// Language
-//
-import flag1 from '@/assets/images/flag/icon-flag-en.svg';
-import flag2 from '@/assets/images/flag/icon-flag-kr.svg';
-
-
 const languageDD: languageType[] = [
   { title: 'English', subtext: 'US', value: 'en', avatar: flag1 },
   { title: 'Korean', subtext: 'KR', value: 'kr', avatar: flag2 },
 ];
-
-//
-// AppsLink
-//
-import img1 from '@/assets/images/svgs/icon-dd-chat.svg';
-import img2 from '@/assets/images/svgs/icon-dd-cart.svg';
-import img3 from '@/assets/images/svgs/icon-dd-invoice.svg';
-import img4 from '@/assets/images/svgs/icon-dd-date.svg';
-import img5 from '@/assets/images/svgs/icon-dd-mobile.svg';
-import img6 from '@/assets/images/svgs/icon-dd-lifebuoy.svg';
-import img7 from '@/assets/images/svgs/icon-dd-message-box.svg';
-import img8 from '@/assets/images/svgs/icon-dd-application.svg';
 
 const appsLink: appsLinkType[] = [
   {
