@@ -2,7 +2,7 @@ import { writeFileSync } from 'node:fs';
 import { fileURLToPath, URL } from 'node:url';
 
 import vue from '@vitejs/plugin-vue';
-import { defineConfig, type UserConfig } from 'vite';
+import { defineConfig, type UserConfig, type PluginOption } from 'vite';
 
 import { visualizer } from 'rollup-plugin-visualizer';
 import { checker } from 'vite-plugin-checker';
@@ -90,10 +90,10 @@ export default defineConfig(({ command, mode }): UserConfig => {
             mode === 'analyze'
               ? // rollup-plugin-visualizer
                 // https://github.com/btd/rollup-plugin-visualizer
-                visualizer({
+                (visualizer({
                   open: true,
                   filename: 'dist/stats.html',
-                })
+                }) as PluginOption)
               : undefined,
           ],
         },
