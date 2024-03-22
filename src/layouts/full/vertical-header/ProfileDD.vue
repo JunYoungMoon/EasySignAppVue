@@ -14,7 +14,6 @@ defineProps({
     required: true,
   },
 });
-
 const authStore = useAuth();
 const userStore = useUser();
 
@@ -35,7 +34,7 @@ const logout = () => {
     <template #activator="{ props }">
       <v-btn class="custom-hover-primary" variant="text" v-bind="props" icon>
         <v-avatar size="35">
-          <v-img :src="user?.profileImage || defaultImage" width="35" />
+          <v-img :src="user.profileImage ?? defaultImage" width="35" />
         </v-avatar>
       </v-btn>
     </template>
@@ -44,7 +43,7 @@ const logout = () => {
         <h6 class="text-h5 font-weight-medium">User Profile</h6>
         <div class="d-flex align-center mt-4 pb-6">
           <v-avatar size="80">
-            <v-img :src="user?.profileImage || defaultImage" width="80" />
+            <v-img :src="user.profileImage ?? defaultImage" width="80" />
           </v-avatar>
           <div class="ml-3">
             <h6 class="text-h6 mb-n1">

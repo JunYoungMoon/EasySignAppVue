@@ -24,7 +24,11 @@ const submit = async () => {
     password: password.value,
   });
 
-  if (res.data.status === 'success') {
+  if (
+    res.data.status === 'success' &&
+    res.data.data?.accessToken &&
+    res.data.data?.refreshToken
+  ) {
     setAccessToken(res.data.data.accessToken);
     setRefreshToken(res.data.data.refreshToken);
 

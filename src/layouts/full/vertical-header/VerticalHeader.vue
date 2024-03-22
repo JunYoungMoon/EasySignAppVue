@@ -25,11 +25,19 @@ watch(priority, newPriority => {
 const login = () => {
   void router.push({ name: 'Login' });
 };
+const userStore = useUser();
 
 const user: Ref<UserInterface> = ref({});
 
+// 부모컴포넌트의 user가 변경되어도 props를 전달받는 자식컴포넌트는 감지를 못하기 때문에 알려줘야한다.
+watch(
+  () => userStore.user,
+  newUser => {
+    user.value = newUser;
+  }
+);
+
 onMounted(async () => {
-  const userStore = useUser();
   user.value = userStore.user;
 });
 </script>
@@ -90,10 +98,7 @@ onMounted(async () => {
     <!-- User Profile -->
     <!-- ---------------------------------------------- -->
     <!--    <div class="ml-2">-->
-    <ProfileDD
-      v-if="user && Object.keys(user).length !== 0"
-      :user="user.data.data"
-    />
+    <ProfileDD v-if="user && Object.keys(user).length !== 0" :user="user" />
     <v-btn v-else icon class="custom-hover-primary" @click="login">
       <i class="mdi mdi-login" style="font-size: 28px" />
     </v-btn>

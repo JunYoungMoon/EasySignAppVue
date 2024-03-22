@@ -60,52 +60,42 @@ router.beforeEach(
     // comment out for https://github.com/logue/vite-vuetify-ts-starter/issues/16
     setLoading(true);
 
-    // Set User Info
+    // Get user information
     const authStore = useAuth();
+    const userStore = useUser();
 
     if (authStore.accessToken && authStore.refreshToken) {
       // Making a POST request using axios
       const userInfo = await axios.post('/api/user-info');
 
-      // User information settings
-      if (
-        userInfo &&
-        userInfo.data !== 'Authentication failed or insufficient permissions.'
-      ) {
+      // User information check
+      if (userInfo.data.data) {
+        // User information settings
         try {
-          const userStore = useUser();
-          await userStore.setUserInfo(userInfo);
+          await userStore.setUserInfo(userInfo.data.data);
         } catch (error) {
           // If user information cannot be retrieved, redirect to login
-          // next('/auth/404');
-          // return;
+          next('/auth/404');
+          return;
         }
+      } else {
+        const { setAccessToken, setRefreshToken } = authStore;
+
+        setAccessToken(null);
+        setRefreshToken(null);
+
+        next('/auth/login');
+        return;
+      }
+    } else {
+      // Check page permissions
+      const requiresAuth = _to.matched.some(record => record.meta.requiresAuth);
+
+      if (requiresAuth) {
+        next('/auth/login');
+        return;
       }
     }
-
-    // Check if current route requires authentication
-    // const requiresAuth = _to.matched.some(record => record.meta.requiresAuth);
-    //
-    // // If the user is not authenticated and the current route requires authentication, redirect to login
-    // if (requiresAuth) {
-    //   // Making a POST request using axios
-    //   const userInfo = await axios.post('/api/user-info');
-    //
-    //   // User information settings
-    //   if (
-    //     userInfo &&
-    //     userInfo.data !== 'Authentication failed or insufficient permissions.'
-    //   ) {
-    //     try {
-    //       const userStore = useUser();
-    //       await userStore.setUserInfo(userInfo);
-    //     } catch (error) {
-    //       // If user information cannot be retrieved, redirect to login
-    //       // next('/auth/404');
-    //       // return;
-    //     }
-    //   }
-    // }
 
     // Hide snack bar
     setMessage('');

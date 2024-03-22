@@ -52,8 +52,12 @@ axiosServices.interceptors.request.use(
       config.headers['X-XSRF-TOKEN'] = csrfToken;
     }
 
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+    if (config.headers.X_Refresh_Token_Required) {
+      /* empty */
+    } else {
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+      }
     }
 
     config.headers['Accept-Language'] = i18n.global.locale;
@@ -72,14 +76,16 @@ axiosServices.interceptors.response.use(
 
     const authStore = useAuth();
     const csrfStore = useCsrf();
-    const { refreshToken } = authStore;
+    const { refreshToken, setAccessToken, setRefreshToken } = authStore;
 
     csrfStore.setCsrfToken(response.data.csrfToken);
 
     // 응답이 refreshTokenRequired를 가지고 있다면 토큰을 갱신
-    if (refreshToken && response.data?.refreshTokenRequired) {
+    if (refreshToken && response.data.data === 'refreshTokenRequired') {
       const originalRequest = response.config;
       originalRequest.headers.Authorization = `Bearer ${refreshToken}`;
+      originalRequest.headers.X_Refresh_Token_Required = true;
+
       return await axiosServices(originalRequest);
     }
 
@@ -87,6 +93,8 @@ axiosServices.interceptors.response.use(
     if (
       response.data === 'Authentication failed or insufficient permissions.'
     ) {
+      setAccessToken(null);
+      setRefreshToken(null);
       await router.push({ name: 'Login' });
     }
 
