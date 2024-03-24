@@ -2,6 +2,8 @@
 import { useGlobal, useRule } from '@/store';
 import { ref } from 'vue';
 
+import CryptoJS from 'crypto-js';
+
 import router from '@/router';
 import axios from '@/utils/axios';
 
@@ -21,8 +23,11 @@ const verifyDisabled = ref(false); // Verify 버튼 활성화 여부
 let countdownInterval: ReturnType<typeof setInterval>;
 
 const sendEmail = async () => {
+  const checksum = CryptoJS.SHA256(`${email.value}${code.value}`).toString();
+
   const res = await axios.post('/api/send-email-code', {
     email: email.value,
+    checksum, // 생성한 체크섬을 서버로 전송
   });
 
   setMessage(res.data.msg);
