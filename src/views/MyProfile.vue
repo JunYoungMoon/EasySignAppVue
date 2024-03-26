@@ -102,9 +102,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <v-container class="w-50">
+  <v-container>
     <h1 class="text-center pb-3">My info</h1>
-
     <v-form @submit.prevent="submit">
       <v-row justify="center">
         <!-- 상단에 프로필 이미지 표시 -->
@@ -122,17 +121,25 @@ onMounted(() => {
         </div>
       </v-row>
       <br />
-      <v-text-field
-        v-model="nickName"
-        variant="outlined"
-        label="nickName"
-        :rules="[ruleRequired, ruleNickname]"
-        :error-messages="errMsgStore.getErrorMessages('nickName')"
-        @update:model-value="errMsgStore.clearErrorMessage('nickName')"
-      />
-      <v-btn type="submit" color="primary" :block="true" class="mt-2">
-        EDIT
-      </v-btn>
+      <v-row justify="center">
+        <v-col cols="12" md="6" sm="8">
+          <v-text-field
+            v-model="nickName"
+            variant="outlined"
+            label="nickName"
+            :rules="[ruleRequired, ruleNickname]"
+            :error-messages="errMsgStore.getErrorMessages('nickName')"
+            @update:model-value="errMsgStore.clearErrorMessage('nickName')"
+          />
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col cols="12" md="6" sm="8">
+          <v-btn type="submit" color="primary" :block="true" class="mt-2">
+            EDIT
+          </v-btn>
+        </v-col>
+      </v-row>
     </v-form>
     <label for="fileInput">
       <input

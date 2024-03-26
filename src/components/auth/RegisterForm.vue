@@ -27,7 +27,7 @@ const sendEmail = async () => {
 
   const res = await axios.post('/api/send-email-code', {
     email: email.value,
-    checksum, // 생성한 체크섬을 서버로 전송
+    checkSum: checksum, // 생성한 체크섬을 서버로 전송
   });
 
   setMessage(res.data.msg);

@@ -80,8 +80,11 @@ axiosServices.interceptors.response.use(
 
     csrfStore.setCsrfToken(response.data.csrfToken);
 
-    // 응답이 refreshTokenRequired를 가지고 있다면 토큰을 갱신
-    if (refreshToken && response.data.data === 'refreshTokenRequired') {
+    // 백엔드에서 refresh 토큰을 요청
+    if (
+      refreshToken &&
+      response.data.msg === 'Please provide a refresh token.'
+    ) {
       const originalRequest = response.config;
       originalRequest.headers.Authorization = `Bearer ${refreshToken}`;
       originalRequest.headers.X_Refresh_Token_Required = true;
@@ -91,14 +94,13 @@ axiosServices.interceptors.response.use(
 
     // 백엔드에서 인증 권한이 없을때, 프론트엔드 로그인 페이지로 이동
     if (
-      response.data === 'Authentication failed or insufficient permissions.'
+      response.data.msg === 'Authentication failed or insufficient permissions.'
     ) {
       setAccessToken(null);
       setRefreshToken(null);
       await router.push({ name: 'Login' });
     }
 
-    // refreshTokenRequired가 없는 경우 그냥 응답 반환
     return response;
   },
   async error => {
