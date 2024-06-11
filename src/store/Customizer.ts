@@ -5,7 +5,7 @@ import type { ConfigProps } from '@/config';
 
 import config from '@/config';
 
-/** User Store */
+/** Customizer Store */
 export default defineStore('customizer', () => {
   const sidebarDrawer: Ref<ConfigProps['Sidebar_drawer']> = ref(
     config.Sidebar_drawer

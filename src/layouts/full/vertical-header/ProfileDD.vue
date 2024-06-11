@@ -14,6 +14,7 @@ defineProps({
     required: true,
   },
 });
+
 const authStore = useAuth();
 const userStore = useUser();
 

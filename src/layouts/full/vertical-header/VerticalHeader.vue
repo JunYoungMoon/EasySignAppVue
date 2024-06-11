@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useCustomizer, useUser, useGlobal } from '@/store';
-import { onMounted, type Ref, ref, watch } from 'vue';
+import { useCustomizer, useUser } from '@/store';
+import { storeToRefs } from 'pinia';
+import { onMounted, ref } from 'vue';
 
 import { GridDotsIcon, Menu2Icon } from 'vue-tabler-icons';
 
@@ -10,32 +11,19 @@ import RightMobileSidebar from './RightMobileSidebar.vue';
 import Searchbar from './Searchbar.vue';
 import ThemeChange from './ThemeChange.vue';
 
-import type UserInterface from '@/interfaces/UserInterface';
-
 import router from '@/router';
 
 const customizer = useCustomizer();
 const appsdrawer = ref(false);
-const priority = ref(customizer.setHorizontalLayout ? 0 : 0);
-
-watch(priority, newPriority => {
-  priority.value = newPriority;
-});
+const { setHorizontalLayout } = storeToRefs(customizer);
+const priority = ref(setHorizontalLayout ? 0 : 0);
 
 const login = () => {
   void router.push({ name: 'Login' });
 };
 const userStore = useUser();
 
-const user: Ref<UserInterface> = ref({});
-
-// 부모컴포넌트의 user가 변경되어도 props를 전달받는 자식컴포넌트는 감지를 못하기 때문에 알려줘야한다.
-watch(
-  () => userStore.user,
-  newUser => {
-    user.value = newUser;
-  }
-);
+const { user } = storeToRefs(userStore);
 
 onMounted(async () => {
   user.value = userStore.user;
@@ -43,7 +31,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <v-app-bar elevation="0" :priority="priority" height="70" class="">
+  <v-app-bar elevation="0" :priority="priority" height="70">
     <v-btn
       class="hidden-md-and-down"
       icon
