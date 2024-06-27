@@ -19,8 +19,8 @@ const authStore = useAuth();
 const userStore = useUser();
 
 const logout = () => {
-  authStore.accessToken = '';
-  authStore.refreshToken = '';
+  authStore.accessToken = null;
+  authStore.refreshToken = null;
   void userStore.setUserInfo({});
 
   location.reload();

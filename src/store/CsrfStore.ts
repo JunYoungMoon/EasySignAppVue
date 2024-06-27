@@ -8,7 +8,7 @@ export default defineStore(
   'csrf',
   () => {
     /** Csrf Token */
-    const csrfToken: Ref<string> = ref('');
+    const csrfToken: Ref<string | null> = ref('');
 
     /**
      * Set Csrf
@@ -24,8 +24,7 @@ export default defineStore(
      */
     const getCsrfToken = async () => {
       try {
-        const response = await axios.get('/api/getcsrf');
-        setCsrfToken(response.data.csrfToken);
+        await axios.get('/api/csrf');
       } catch (error) {
         console.error('Error fetching CSRF token:', error);
         throw error;

@@ -66,7 +66,7 @@ router.beforeEach(
 
     if (authStore.accessToken && authStore.refreshToken) {
       // Making a POST request using axios
-      const userInfo = await axios.post('/api/user-info');
+      const userInfo = await axios.get('/api/users/me');
 
       // User information check
       if (userInfo.data.data) {

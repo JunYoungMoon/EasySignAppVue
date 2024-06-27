@@ -38,7 +38,7 @@ const submit = async () => {
       }
 
       // Send API request to update user information
-      const res = await axios.post('/api/set-user-info', formData, {
+      const res = await axios.put('/api/users/me', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

@@ -25,7 +25,7 @@ let countdownInterval: ReturnType<typeof setInterval>;
 const sendEmail = async () => {
   const checksum = CryptoJS.SHA256(`${email.value}${code.value}`).toString();
 
-  const res = await axios.post('/api/send-email-code', {
+  const res = await axios.post('/api/mail/send', {
     email: email.value,
     checkSum: checksum, // 생성한 체크섬을 서버로 전송
   });
@@ -63,7 +63,7 @@ const sendEmail = async () => {
 };
 
 const emailVerification = async () => {
-  const res = await axios.post('/api/email-verification', {
+  const res = await axios.post('/api/mail/verify', {
     email: email.value,
     authCode: code.value,
   });
@@ -81,7 +81,7 @@ const emailVerification = async () => {
 };
 
 const submit = async () => {
-  const res = await axios.post('/api/signup', {
+  const res = await axios.post('/api/users', {
     email: email.value,
     name: name.value,
     password: password.value,

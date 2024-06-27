@@ -101,6 +101,18 @@ axiosServices.interceptors.response.use(
       await router.push({ name: 'Login' });
     }
 
+    // refresh로 새로운 토큰을 얻었을때 저장
+    if (response.data.msg === 'A new token has been created.') {
+      console.log(response.data);
+      setAccessToken(response.data.data.accessToken);
+      setRefreshToken(response.data.data.refreshToken);
+
+      const originalRequest = response.config;
+      originalRequest.headers.X_Refresh_Token_Required = false;
+
+      return await axiosServices(originalRequest);
+    }
+
     return response;
   },
   async error => {

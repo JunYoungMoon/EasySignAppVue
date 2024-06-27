@@ -6,21 +6,19 @@ export default defineStore(
   'auth',
   () => {
     /** Access Token */
-    const accessToken: Ref<string> = ref('');
+    const accessToken: Ref<string | null> = ref(null);
 
     /** Refresh Token */
-    const refreshToken: Ref<string> = ref('');
+    const refreshToken: Ref<string | null> = ref(null);
 
     const setAccessToken = (token: string | null) => {
-      if (token != null) {
-        accessToken.value = token;
-      }
+      console.log(token, 'accessToken');
+      accessToken.value = token;
     };
 
     const setRefreshToken = (token: string | null) => {
-      if (token != null) {
-        refreshToken.value = token;
-      }
+      console.log(token, 'refreshToken');
+      refreshToken.value = token;
     };
 
     return {

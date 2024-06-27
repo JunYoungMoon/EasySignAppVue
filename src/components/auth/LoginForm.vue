@@ -19,7 +19,7 @@ const password = ref('');
 const email = ref('');
 
 const submit = async () => {
-  const res = await axios.post('/api/login', {
+  const res = await axios.post('/api/users/login', {
     email: email.value,
     password: password.value,
   });
