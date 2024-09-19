@@ -25,25 +25,12 @@
 ---
 
 ## 화면
-
 다음은 화면 이미지입니다.
 
-<div style="display: flex; flex-wrap: wrap; gap: 10px;">
-  <div style="flex: 1; min-width: 45%;">
-    <img src="images/readme/main.gif" alt="메인 화면" style="width: 100%;">
-    <p>메인 화면</p>
-  </div>
-  <div style="flex: 1; min-width: 45%;">
-    <img src="images/readme/signup.gif" alt="회원가입 화면" style="width: 100%;">
-    <p>회원가입 화면</p>
-  </div>
-  <div style="flex: 1; min-width: 45%;">
-    <img src="images/readme/changeProfile.gif" alt="프로필 수정 화면" style="width: 100%;">
-    <p>프로필 수정 화면</p>
-  </div>
-  <div style="flex: 1; min-width: 45%;">
-    <img src="images/readme/oauth.gif" alt="OAuth 로그인 화면" style="width: 100%;">
-    <p>OAuth 로그인 화면</p>
-  </div>
-</div>
----
+| 메인 화면 | 회원가입 화면 |
+| --- | --- |
+| ![메인 화면](images/readme/main.gif) | ![회원가입 화면](images/readme/signup.gif) |
+
+| 프로필 수정 화면 | OAuth 로그인 화면 |
+| --- | --- |
+| ![프로필 수정 화면](images/readme/changeProfile.gif) | ![OAuth 로그인 화면](images/readme/oauth.gif) |
