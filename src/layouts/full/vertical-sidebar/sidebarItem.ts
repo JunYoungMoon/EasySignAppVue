@@ -38,9 +38,9 @@ const sidebarItem: menu[] = [
   },
   { header: 'Apps' },
   {
-    title: 'Myinfo',
+    title: 'My Profile',
     icon: UserIcon,
-    to: '/myinfo',
+    to: '/myProfile',
     chip: '2',
     chipColor: 'surface',
     chipBgColor: 'secondary',

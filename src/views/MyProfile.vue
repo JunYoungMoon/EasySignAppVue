@@ -103,7 +103,7 @@ onMounted(() => {
 
 <template>
   <v-container>
-    <h1 class="text-center pb-3">My info</h1>
+    <h1 class="text-center pb-3">My Profile</h1>
     <v-form @submit.prevent="submit">
       <v-row justify="center">
         <!-- 상단에 프로필 이미지 표시 -->

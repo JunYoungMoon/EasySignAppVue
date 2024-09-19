@@ -36,10 +36,10 @@ defineProps({
       <p>{{ msg }}</p>
       <p class="text-medium-emphasis">
         <a
-          href="https://github.com/logue/vite-vuetify-ts-starter"
+          href="https://github.com/JunYoungMoon/EasySignAppVue"
           target="_blank"
         >
-          vite-vuetify-ts-starter
+          EasySignAppVue
         </a>
         &nbsp;/&nbsp;Build:
         <time

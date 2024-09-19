@@ -1,26 +1,25 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "vite-vuetify-ts-starter",
-  "description": "Vue3 Vuetify TypeScript Startar project for Vite.",
+  "name": "EasySignAppVue",
+  "description": "A simple user registration project using Vue 3, Vuetify, and TypeScript.",
   "version": "1.5.17",
   "license": "MIT",
   "type": "module",
   "private": true,
   "author": {
-    "name": "Logue",
-    "email": "logue@hotmail.co.jp",
-    "url": "https://logue.dev/"
+    "name": "JunYoungMoon",
+    "email": "ko5642027@naver.com"
   },
-  "homepage": "https://github.com/logue/vite-vuetify-ts-starter",
+  "homepage": "https://github.com/JunYoungMoon/EasySignAppVue",
   "repository": {
     "type": "git",
-    "url": "git@github.com:logue/vite-vuetify-ts-starter.git"
+    "url": "git@github.com:JunYoungMoon/EasySignAppVue.git"
   },
   "bugs": {
-    "url": "https://github.com/logue/vite-vuetify-ts-starter/issues"
+    "url": "https://github.com/JunYoungMoon/EasySignAppVue/issues"
   },
   "engines": {
-    "node": ">=18.12.5",
+    "node": ">=18.12.5 <=20.8",
     "yarn": ">=1.22.19"
   },
   "packageManager": "yarn@3.6.4",

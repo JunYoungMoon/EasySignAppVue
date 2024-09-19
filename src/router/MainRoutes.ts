@@ -21,7 +21,7 @@ const MainRoutes = {
       component: async () => await import('@/views/AboutView.vue'),
     },
     {
-      name: 'MyProfile',
+      name: 'My Profile',
       path: '/myProfile',
       component: async () => await import('@/views/MyProfile.vue'),
       meta: {
